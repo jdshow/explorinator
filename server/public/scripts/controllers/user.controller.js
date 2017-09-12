@@ -1,4 +1,4 @@
-myApp.controller('UserController', ['UserService', function(UserService)  {
+myApp.controller('UserController', ['UserService', function(UserService, ngMap)  {
  // console.log('UserController created');
   var self = this;
   self.userService = UserService;
@@ -20,6 +20,7 @@ myApp.controller('UserController', ['UserService', function(UserService)  {
  // console.log('placesArray', placesArray)
 
  console.log('marker array in controller', self.markerArray)
+
 
 }]);
 

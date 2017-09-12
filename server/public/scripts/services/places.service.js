@@ -1,6 +1,5 @@
 myApp.service('PlacesService', ['$http', function($http){
-    var self = this;
-    self.returnedPlaces = { list: [] };
+ npm
 
 
     self.getPlaces = function() {

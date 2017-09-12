@@ -20,7 +20,7 @@ myApp.factory('UserService', function ($http, $location) {
    // console.log('passed array', array)
     for (i = 0; i < array.length; i++) {
       marker = {
-        map: map,
+       // map: map,
         position: {lat: array[i].lat, lng: array[i].long},
         title: array[i].name,
       }
