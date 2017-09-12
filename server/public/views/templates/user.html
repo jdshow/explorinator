@@ -4,9 +4,11 @@
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>
 
-    <p>Your saved places are:</p>
-    <ul>
-       <!-- <li ng-repeat("place in uc.places")>{{place}}</li> -->
-    </ul>
+        <div id="map">
+            <ng-map center="-25.363882,131.044922" zoom="4">
+                <marker position="-25.363882,131.044922" title="Cats are great!"></marker>
+            </ng-map>
+
+        </div>
     
 </div>
