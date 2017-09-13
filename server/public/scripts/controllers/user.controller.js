@@ -1,24 +1,19 @@
-myApp.controller('UserController', ['UserService', function (UserService, NgMap) {
+myApp.controller('UserController', ['UserService', 'PlacesService', function (UserService, PlacesService, ngMap) {
   // console.log('UserController created');
   var self = this;
   self.userService = UserService;
   self.userObject = UserService.userObject;
   self.placesArray = UserService.placesArray;
   var placesArray = self.placesArray
-  // self.placesArray = self.returnedPlaces.placesArray;
-  self.markerArray = UserService.markerArray
+  self.markerArray = PlacesService.markerArray
   self.infoWindow = false;
-
-
-  // NgMap.getMap().then(function (map) {
-  //   console.log('map', map);
-  //   self.map = map;
-  // });
+  var markerDrop = [];
 
 
 
+  //get data from server
   self.updatePlaces = function () {
-    UserService.getPlaces();
+    PlacesService.getPlaces();
   }
 
   self.updatePlaces();
@@ -29,6 +24,56 @@ myApp.controller('UserController', ['UserService', function (UserService, NgMap)
   console.log('marker array in controller', self.markerArray)
 
 
+
+//GOOGLE MAPS API - NO NGMAP BELOW 
+//    //initialize map
+//    var mapOptions = {
+//     center: new google.maps.LatLng(44.978031, -93.263501),
+//     zoom: 12,
+//     mapTypeId: google.maps.MapTypeId.ROADMAP
+//   };
+
+//   //function initMap() {
+//     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+//  // }
+
+//   //initMap();
+
+//   //build markers from array
+//   self.buildMarkers = function () {
+//     markerDrop = self.markerArray;
+//     console.log('in buildMarkers function, markerDrop:', markerDrop.length)
+//     for (i = 0; i < self.markerArray.length; i++) {
+      
+//       var latLng = new google.maps.LatLng(markerDrop.lat,markerDrop.lng)
+//       var marker = new google.maps.Marker({
+//         position:latLng,
+//         title: markerDrop.title
+//       });
+//       console.log('marker', marker);
+//       // To add the marker to the map, call setMap();
+//       marker.setMap(map);
+//     }
+//   }
+
+//   self.buildMarkers();
+
+//   var latLng = new google.maps.LatLng(44.956321, -93.147685)
+//   var marker = new google.maps.Marker({
+//     position:latLng,
+//     title: "Hoa Bien"
+//     }); 
+
+//     marker.setMap(map);
+//   // self.showDetail = function (e, place) {
+//   //   console.log('marker clicked, place:', place)
+//   //   self.currentPlace = place;
+//   //   self.place = place;
+//   //   self.map.showInfoWindow('infoWindow', place.id);
+//   // };
+//   // self.hideDetail = function () {
+//   //   self.map.hideInfoWindow('finfoWindow');
+//   // };
 
 }]);
 
