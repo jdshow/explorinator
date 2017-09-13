@@ -2,42 +2,10 @@ myApp.factory('UserService', function ($http, $location) {
   //console.log('UserService Loaded');
  // self.returnedPlaces = { list: [] };
   var userObject = {};
-  var placesArray = {list: []};
-  var markerArray = [];
 
-  function getPlaces() {
-    $http.get('/places').then(function (response) {
-      placesArray.list = response.data
-      console.log('places returned:', placesArray.list)
-    }).then(function( ){
-      console.log('in .then function of getPlaces, placesArray.list is', placesArray.list)
-      buildMarkers(placesArray.list)
-    })
-  }
-
-  function buildMarkers(array) {
-    //builds an array of lat/long pairs and place name to create markers
-   // console.log('passed array', array)
-    for (i = 0; i < array.length; i++) {
-      marker = {
-       // map: map,
-        lat: array[i].lat, 
-        lng: array[i].long,
-        title: array[i].name,
-        notes: array[i].notes
-      }
-       
-      //marker.addListener('click', toggleBounce)
-      markerArray.push(marker)
-    }
-   // console.log('markerArray:', markerArray)
-  }
 
   return {
-    userObject: userObject,
-    getPlaces: getPlaces,
-    placesArray: placesArray,
-    markerArray: markerArray, 
+    userObject: userObject, 
 
     getuser: function () {
      // console.log('UserService -- getuser');
