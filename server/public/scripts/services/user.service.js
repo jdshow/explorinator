@@ -21,8 +21,10 @@ myApp.factory('UserService', function ($http, $location) {
     for (i = 0; i < array.length; i++) {
       marker = {
        // map: map,
-        position: {lat: array[i].lat, lng: array[i].long},
+        lat: array[i].lat, 
+        lng: array[i].long,
         title: array[i].name,
+        notes: array[i].notes
       }
        
       //marker.addListener('click', toggleBounce)
