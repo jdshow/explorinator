@@ -3,11 +3,10 @@ myApp.controller('UserController', ['UserService', 'PlacesService', function (Us
   var self = this;
   self.userService = UserService;
   self.userObject = UserService.userObject;
-  self.placesArray = UserService.placesArray;
-  var placesArray = self.placesArray
+  self.placesArray = PlacesService.placesArray;
   self.markerArray = PlacesService.markerArray
   self.infoWindow = false;
-  var markerDrop = [];
+ 
 
 
 
@@ -23,7 +22,17 @@ myApp.controller('UserController', ['UserService', 'PlacesService', function (Us
 
   console.log('marker array in controller', self.markerArray)
 
+  self.showDetail = function (e, place) {
+    console.log('marker clicked, place:', place)
+    self.place = place;
+    self.infowindow = !self.infowindow;
 
+    //self.map.showInfoWindow('infoWindow', place.id);
+  };
+
+  // self.hideDetail = function () {
+  //   self.map.hideInfoWindow('infoWindow');
+  // };
 
 //GOOGLE MAPS API - NO NGMAP BELOW 
 //    //initialize map
@@ -65,15 +74,7 @@ myApp.controller('UserController', ['UserService', 'PlacesService', function (Us
 //     }); 
 
 //     marker.setMap(map);
-//   // self.showDetail = function (e, place) {
-//   //   console.log('marker clicked, place:', place)
-//   //   self.currentPlace = place;
-//   //   self.place = place;
-//   //   self.map.showInfoWindow('infoWindow', place.id);
-//   // };
-//   // self.hideDetail = function () {
-//   //   self.map.hideInfoWindow('finfoWindow');
-//   // };
+
 
 }]);
 
