@@ -1,13 +1,43 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-  <p>
-    In Info
-  </p>
+  <h2>
+    Step 1: Find the Place
+  </h2>
+</div>
+
+<!-- Auto Complete Type:
+<select ng-model="pc.types">
+  <option value="['geocode']">Geodode</option>
+  <option value="['establishment']">Establishment</option>
+  <option value="['address']">Address</option>
+</select><br/> -->
+
+<!-- Enter an address: <br/>
+<input places-auto-complete size=80
+  ng-model="pc.address"
+  component-restrictions="{country:'us'}"
+  types="address"
+  on-place-changed="vm.placeChanged()" /> <br/>
+<div ng-show="pc.place">
+  Address = {{pc.place.formatted_address}} <br/>
+  Location: {{pc.place.geometry.location}}<br/>
+</div>
+address : {{pc.address}} -->
+<form>
+  <input type="text" size=60 ng-map-autocomplete ng-model="pc.findPlace" />
+  <button ng-click="pc.findGeocode(); pc.updateMarker()" type="submit">Next</button>
+  <button ng-click="pc.updateMarker()" type="submit">Use Current Location</button>
+</form>
+
+
+<!-- <ng-map zoom="11" center="[40.74, -74.18]">
+
+</ng-map> -->
+<div id="newPlaceMap">
+  <ng-map zoom="11" center="[40.74, -74.18]" map-type-id="MapTypeId.ROADMAP">
+    <marker position="{{pc.placeToAdd}}" animation="Animation.BOUNCE" centered="true"></marker>
+  </ng-map>
 </div>
 
 
-
-    <ng-map zoom="11" center="[40.74, -74.18]" map-type-id="MapTypeId.SATELLITE">
-      <marker position="current" animation="Animation.BOUNCE" centered="true"></marker>
-    </ng-map>
-  
+{{pc}}
