@@ -86,3 +86,8 @@ li a:hover {
   width: 100%;
 }
 
+#newPlaceMap {
+  max-height: 300px;
+  max-width: 400px;
+}
+

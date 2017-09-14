@@ -22,4 +22,40 @@ router.get('/', function (req, res) {
     });
 });
 
+router.post('/', function(req, res) {
+    // console.log('new place to store from client: ', req.body);
+    var placeToAdd = {
+        lat: req.body.geometry.location.lat,
+        long: req.body.geometry.location.lng,
+        address: req.body.formatted_address,
+        placeType: req.body.type,
+        name: req.body.name,
+        private: req.body.private,
+        notes: req.body.notes,
+        category: req.body.category,
+        priceRange: req.body.priceRange
+    }
+
+    console.log('placeToAdd object', placeToAdd)
+    console.log('req.user', req.user)
+    var userId = req.user._id;
+    var placeToSaveToTheCollection = new Place(placeToAdd)
+
+    User.findByIdAndUpdate(
+        userId,
+        {$push: {"places": placeToSaveToTheCollection}},
+        {safe: true, upsert: true, new: true},
+        function(err, data) {
+            if (err) {
+                console.log('update error: ', err);
+
+                res.sendStatus(500);
+            } else {
+                res.sendStatus(200);
+            }
+        }
+    );
+
+});
+
 module.exports = router;
