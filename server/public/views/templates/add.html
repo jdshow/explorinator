@@ -12,32 +12,28 @@
   <option value="['address']">Address</option>
 </select><br/> -->
 
-<!-- Enter an address: <br/>
-<input places-auto-complete size=80
-  ng-model="pc.address"
-  component-restrictions="{country:'us'}"
-  types="address"
-  on-place-changed="vm.placeChanged()" /> <br/>
-<div ng-show="pc.place">
-  Address = {{pc.place.formatted_address}} <br/>
-  Location: {{pc.place.geometry.location}}<br/>
+Enter an address: <br/>
+<input places-auto-complete size=80 ng-model="pc.address" component-restrictions="{country:'us'}" on-place-changed="pc.placeChanged()"/> <br/>
+<div>
+  <!-- <div ng-show="pc.place"> -->
+  Address = {{pc.place.formatted_address}} <br/> Location: {{pc.place.geometry.location}}<br/>
 </div>
-address : {{pc.address}} -->
-<form>
-  <input type="text" size=60 ng-map-autocomplete ng-model="pc.findPlace" />
-  <button ng-click="pc.findGeocode(); pc.updateMarker()" type="submit">Next</button>
-  <button ng-click="pc.updateMarker()" type="submit">Use Current Location</button>
-</form>
+address : {{pc.address}}
 
 
-<!-- <ng-map zoom="11" center="[40.74, -74.18]">
-
-</ng-map> -->
+</ng-map>
 <div id="newPlaceMap">
-  <ng-map zoom="11" center="[40.74, -74.18]" map-type-id="MapTypeId.ROADMAP">
-    <marker position="{{pc.placeToAdd}}" animation="Animation.BOUNCE" centered="true"></marker>
+  <ng-map zoom="11" center="current" map-type-id="MapTypeId.ROADMAP">
+    <!-- <marker position="{{pc.place.geometry.location}}" centered="true"></marker> -->
   </ng-map>
+
 </div>
 
 
 {{pc}}
+
+<div ng-show="pc.partTwo">
+  <form>
+
+  </form>
+</div>

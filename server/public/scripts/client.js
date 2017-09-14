@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngMap', 'ngMapAutocomplete']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMap']);
 
 /// Routes ///
 myApp.config(function($routeProvider, $locationProvider) {
