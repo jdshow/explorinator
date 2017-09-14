@@ -12,14 +12,16 @@
   <option value="['address']">Address</option>
 </select><br/> -->
 
-Enter an address: <br/>
-<input places-auto-complete size=80 ng-model="pc.address" component-restrictions="{country:'us'}" on-place-changed="pc.placeChanged()"/> <br/>
-<div>
-  <!-- <div ng-show="pc.place"> -->
-  Address = {{pc.place.formatted_address}} <br/> Location: {{pc.place.geometry.location}}<br/>
-</div>
-address : {{pc.address}}
-
+<form>
+  Enter an address: <br/>
+  <input places-auto-complete size=80 ng-model="pc.address" component-restrictions="{country:'us'}" on-place-changed="pc.placeChanged()"
+  /> <button type="submit" ng-click="pc.showInputs()">Next</button><br/>
+  <div>
+    <!-- <div ng-show="pc.place"> -->
+    Address = {{pc.place.formatted_address}} <br/> Location: {{pc.place.geometry.location}}<br/>
+  </div>
+  address : {{pc.address}}
+</form>
 
 </ng-map>
 <div id="newPlaceMap">
@@ -30,10 +32,34 @@ address : {{pc.address}}
 </div>
 
 
-{{pc}}
+<!-- {{pc.place}} -->
 
 <div ng-show="pc.partTwo">
+    <h2>
+        Step 2: Info
+      </h2>
   <form>
+    <h3>Basic Info (required)</h3>
+    <label for="type">Place to Explore or Favorite Place</label>
+    <select ng-model="pc.placeToAdd.type">
+        <option value="explore">Place to Explore</option>
+        <option value="favorite">Favorite Place</option>
+    </select> 
+    <label for="name">Name:</label>
+    <input type="text" ng-model="pc.placeToAdd.name">
+    <label for="private">Display on your public map?</label>
+    <select ng-model="pc.placeToAdd.private">
+        <option value="no">Yes</option>
+        <option value="yes">No</option>
+    </select>
+    <h3>More Info (optional)</h3>
+    <label for="notes">Notes:</label>
+    <input type="text" ng-model="pc.placeToAdd.notes">
 
+    <!--add fields for category, price range, and photo upload-->
+    <button type="submit" ng-click="pc.addPlace()">Add it!</button>
   </form>
 </div>
+
+
+

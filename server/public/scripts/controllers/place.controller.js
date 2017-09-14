@@ -2,23 +2,33 @@ myApp.controller('PlaceController',  ['UserService', 'PlacesService', function (
   console.log('InfoController created');
   var self = this;
   self.userService = UserService;
-  self.placeToAdd = "current";
+  self.placeToAdd = {};
 
   self.placeChanged = function() {
-    self.place = this.getPlace();
-    console.log('location', self.place.geometry.location);
-    self.map.setCenter(self.place.geometry.location);
+     self.place = this.getPlace();
+     self.placeToAdd = this.getPlace();
+     console.log('self.place', self.place)
+
+     console.log(self.place.geometry.location.lat(), self.place.geometry.location.lng());
+     self.placeToAdd.lat = self.place.geometry.location.lat();
+     self.placeToAdd.lng = self.place.geometry.location.lng();
+    //console.log('location', self.place.geometry.location);
+    // self.map.setCenter(self.place.geometry.location);
   }
 
-  // self.updateMarker = function() {
-  //   self.placeToAdd = self.findPlace;
-  //   console.log(self.findPlace)
-  // }
+  self.showInputs = function() {
+    console.log('location in showInputs', self.placeToAdd.lat, self.placeToAdd.lng);
+    self.partTwo = true;
+  }
 
 
-  // self.findGeocode = function(address) {
 
-  // }
+  self.addPlace = function() {
+    //console.log('new place!', self.placeToAdd)
+    PlacesService.addPlace(self.placeToAdd);
+  }
+
+
 
 }]);
 

@@ -32,5 +32,12 @@ myApp.service('PlacesService', ['$http', function($http){
      // console.log('markerArray:', markerArray)
     }
 
+
+    self.addPlace = function(newPlace) {
+        console.log('adding place', newPlace)
+    }
+
+
+
     
 }]);
