@@ -2,7 +2,10 @@ myApp.controller('PlaceController',  ['UserService', 'PlacesService', function (
   console.log('InfoController created');
   var self = this;
   self.userService = UserService;
-  self.placeToAdd = {};
+  //
+  self.placeToAdd = {category: "",
+                    notes: "",
+                    priceRange: ""}
 
   self.placeChanged = function() {
      self.place = this.getPlace();

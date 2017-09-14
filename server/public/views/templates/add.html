@@ -49,15 +49,30 @@
     <input type="text" ng-model="pc.placeToAdd.name">
     <label for="private">Display on your public map?</label>
     <select ng-model="pc.placeToAdd.private">
-        <option value="no">Yes</option>
-        <option value="yes">No</option>
+        <option value="false">Yes</option>
+        <option value="true">No</option>
     </select>
     <h3>More Info (optional)</h3>
     <label for="notes">Notes:</label>
     <input type="text" ng-model="pc.placeToAdd.notes">
+    <label for="category">Category</label>
+    <select ng-model="pc.placeToAdd.category">
+        <option value="food">Food</option>
+        <option value="drink">Drink</option>
+        <option value="museum">Museum</option>
+    </select>
+    <label for="priceRange">Price Range</label>
+    <select ng-model="pc.placeToAdd.priceRange">
+        <option value="0">Free</option>
+        <option value="<10">Under $10</option>
+        <option value="<25">Under $25</option>
+    </select>
+
+
 
     <!--add fields for category, price range, and photo upload-->
     <button type="submit" ng-click="pc.addPlace()">Add it!</button>
+
   </form>
 </div>
 
