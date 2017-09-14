@@ -91,3 +91,6 @@ li a:hover {
   max-width: 400px;
 }
 
+.favoritePlace {
+  color: green;
+}

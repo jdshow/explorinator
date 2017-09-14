@@ -23,14 +23,23 @@ myApp.service('PlacesService', ['$http', function ($http) {
                 lat: array[i].lat,
                 lng: array[i].long,
                 title: array[i].name,
-                notes: array[i].notes
+                notes: array[i].notes,
             }
+            //if type = set icon
+            if (array[i].placeType == "favorite") {
+                marker.icon = "{ url:'/assets/FavePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
+            } else {
+                marker.icon = "{ url:'/assets/ExplorePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
+            }
+            
+
 
             //marker.addListener('click', toggleBounce)
             self.markerArray.push(marker)
         }
         // console.log('markerArray:', markerArray)
     }
+
 
 
     self.addPlace = function (newPlace) {
