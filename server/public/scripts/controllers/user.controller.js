@@ -1,4 +1,4 @@
-myApp.controller('UserController', ['UserService', 'PlacesService', function (UserService, PlacesService, ngMap) {
+myApp.controller('UserController', ['UserService', 'PlacesService', '$mdDialog', function (UserService, PlacesService, $mdDialog) {
   // console.log('UserController created');
   var self = this;
   self.userService = UserService;
@@ -34,6 +34,17 @@ myApp.controller('UserController', ['UserService', 'PlacesService', function (Us
 
   };
 
+  self.showAlert = function(ev) {
+    $mdDialog.show(
+        $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .title('This is an alert')
+        .textContent("text")
+        .ariaLabel('Alert Dialog Demo')
+        .ok('Got it!')
+        .targetEvent(ev)
+    );
+};
 
 }]);
 
