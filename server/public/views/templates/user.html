@@ -16,15 +16,15 @@
         <marker position="[40.77, -74.15]" title="from"></marker>
         <marker position="[40.78, -74.14]" title="allen"></marker> -->
         <marker ng-repeat="place in uc.markerArray" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
-            title="{{place.title}}" animation="Animation.DROP" on-click="uc.showAlert($event)"></marker>
-        <marker icon="{{place.icon}}" position="current"
-            title="current location" </marker>
-        <info-window id="infoWindow">
-            <div ng-non-bindable="">
-                info window placeholder!!! {{uc.currentPlace}}
-                <a href="#" ng-click="uc.clicked()">Click Here</a>
-            </div>
-        </info-window>
+            title="{{place.title}}" animation="Animation.DROP" on-click="uc.showDetail(place)"></marker>
+            <!--use on-click="uc.showAlert($event)" -->
+        <marker icon="{{place.icon}}" position="current" title="current location" </marker>
+            <info-window id="infoWindow">
+                <div ng-non-bindable="">
+                    info window placeholder!!! {{uc.currentPlace}}
+                    <a href="#" ng-click="uc.clicked()">Click Here</a>
+                </div>
+            </info-window>
 
     </ng-map>
 
@@ -36,7 +36,7 @@
         <p><span class="detailsTitle">Notes:</span> {{uc.place.notes}} </p>
         <p ng-show="uc.place.category"><span class="detailsTitle">Category:</span> {{uc.place.category}}</p>
         <p ng-show="uc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{uc.place.priceRange}}</p>
-        <button ng-if="uc.place.explore">Make a Favorite Place</button>
+        <button ng-if="uc.place.explore" ng-click="uc.makeFave(uc.place)">Make a Favorite Place</button>
 
     </div>
 </div>

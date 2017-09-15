@@ -22,6 +22,12 @@ myApp.controller('UserController', ['UserService', 'PlacesService', '$mdDialog',
 
   console.log('marker array in controller', self.markerArray)
 
+
+  self.makeFave = function(place) {
+    //call service method to PUT type change
+    // console.log('type change requested for', place);
+    PlacesService.makeFave(place);
+  }
   self.showDetail = function (e, place) {
     console.log('marker clicked, place:', place)
     self.place = place;
