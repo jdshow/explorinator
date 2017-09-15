@@ -83,7 +83,7 @@ li a:hover {
 
 #map{
   height: 400px;
-  width: 100%;
+  width: 600px;
 }
 
 #newPlaceMap {
@@ -93,4 +93,15 @@ li a:hover {
 
 .favoritePlace {
   color: green;
+}
+
+#detailsPane {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: lightgray;
+}
+
+.detailsTitle {
+  font-weight: 800;
 }

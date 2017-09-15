@@ -1,11 +1,11 @@
-myApp.controller('PlaceController',  ['UserService', 'PlacesService', function (UserService, PlacesService, ngMap) {
+myApp.controller('PlaceController',  ['UserService', 'PlacesService', function (UserService, PlacesService, ngMap, $mdDialog, $mdToast) {
   console.log('InfoController created');
   var self = this;
   self.userService = UserService;
   //
-  self.placeToAdd = {category: "",
-                    notes: "",
-                    priceRange: ""}
+
+  
+  self.placeToAdd = {}
 
   self.placeChanged = function() {
      self.place = this.getPlace();

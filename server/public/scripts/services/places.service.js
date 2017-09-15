@@ -24,6 +24,12 @@ myApp.service('PlacesService', ['$http', function ($http) {
                 lng: array[i].long,
                 title: array[i].name,
                 notes: array[i].notes,
+                id: array[i]._id,
+                address: array[i].address, 
+                private: array[i].private,
+                category: array[i].category,
+                priceRange: array[i].priceRange,
+                type: array[i].type
             }
             //if type = set icon
             if (array[i].placeType == "favorite") {
@@ -31,9 +37,6 @@ myApp.service('PlacesService', ['$http', function ($http) {
             } else {
                 marker.icon = "{ url:'/assets/ExplorePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
             }
-            
-
-
             //marker.addListener('click', toggleBounce)
             self.markerArray.push(marker)
         }
