@@ -34,8 +34,10 @@ myApp.service('PlacesService', ['$http', function ($http) {
             //if type = set icon
             if (array[i].placeType == "favorite") {
                 marker.icon = "{ url:'/assets/FavePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
+                marker.typeName= "Favorite Place"
             } else {
                 marker.icon = "{ url:'/assets/ExplorePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
+                marker.typeName = "Place to Explore"
             }
             //marker.addListener('click', toggleBounce)
             self.markerArray.push(marker)

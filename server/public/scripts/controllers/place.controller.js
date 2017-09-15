@@ -29,6 +29,9 @@ myApp.controller('PlaceController',  ['UserService', 'PlacesService', function (
   self.addPlace = function() {
     //console.log('new place!', self.placeToAdd)
     PlacesService.addPlace(self.placeToAdd);
+    self.placeToAdd = {};
+    self.place = {};
+    self.address = "";
   }
 
 

@@ -6,7 +6,7 @@
 </div>
 
 <div>
-    <ng-map id="map" zoom="11" center="[44.978031, -93.263501]">
+    <ng-map id="map" zoom="11" center="current">
         <!--   <marker position="[40.71, -74.21]" title="hello"></marker>
         <marker position="[40.72, -74.20]" title="marker" animation="Animation.DROP"></marker>
         <marker position="[40.73, -74.19]" title="drag me" draggable="true"></marker>
@@ -29,7 +29,9 @@
     </ng-map>
 
     <div id="detailsPane" ng-show="uc.infowindow">
+        <h3>{{uc.place.typeName}}:</h3>
         <h2>{{uc.place.title}}</h2>
+        
         <p><span class="detailsTitle">Address:</span> {{uc.place.address}}</p>
         <p><span class="detailsTitle">Notes:</span> {{uc.place.notes}} </p>
         <p ng-show="uc.place.category"><span class="detailsTitle">Category:</span> {{uc.place.category}}</p>
@@ -40,8 +42,8 @@
 
 
 
-
+<!-- 
 <div layout="row" layout-wrap layout-margin layout-align="center">
     <md-button class="md-primary md-raised" ng-click="uc.showAlert($event)">Alert Dialog</md-button>
     <md-button class="md-raised" ng-click="uc.showToast($event)">Show me the Toast!</md-button>
-</div>
+</div> -->
