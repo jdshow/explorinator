@@ -7,7 +7,11 @@ myApp.controller('UserController', ['UserService', 'PlacesService', '$mdDialog',
   self.markerArray = PlacesService.markerArray
   self.infoWindow = false;
  
-
+  self.logout = function () {
+    UserService.logout();
+    PlacesService.markerArray = [];
+    PlacesService.placesArray = { list: [] };
+  }
 
 
   //get data from server
@@ -22,6 +26,12 @@ myApp.controller('UserController', ['UserService', 'PlacesService', '$mdDialog',
 
   console.log('marker array in controller', self.markerArray)
 
+
+  self.makeFave = function(place) {
+    //call service method to PUT type change
+    // console.log('type change requested for', place);
+    PlacesService.makeFave(place);
+  }
   self.showDetail = function (e, place) {
     console.log('marker clicked, place:', place)
     self.place = place;

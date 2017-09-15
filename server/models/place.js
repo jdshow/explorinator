@@ -12,7 +12,8 @@ var PlaceSchema = new Schema({
     private: {type: Boolean, required: true},
     notes: {type: String},
     category: {type: String},
-    priceRange: {type: String}
+    priceRange: {type: String},
+    userID: {type: String, required: true}
 
 });
 

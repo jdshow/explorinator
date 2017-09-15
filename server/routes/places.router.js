@@ -7,23 +7,24 @@ var User = require('../models/user.js');
 
 
 router.get('/', function (req, res) {
-   // console.log('placesRouter - get / req.username:', req.user.username);
-
-    User.findOne({username: req.user.username}, function (err, data) {
+    // console.log('placesRouter - get / req.username:', req.user.username);
+    console.log('req.user._id', req.user._id)
+    Place.find({ userID: req.user._id }, function (err, data) {
         if (err) {
             console.log('find error: ', err);
             res.sendStatus(500);
         } else {
-            //console.log('found data: ', data);
-            placesToSend = data.places;
-            console.log('data.places to send is', placesToSend)
+            console.log('found data: ', data);
+            placesToSend = data;
+            // console.log('data.places to send is', placesToSend)
             res.send(placesToSend);
         }
     });
 });
 
-router.post('/', function(req, res) {
-    // console.log('new place to store from client: ', req.body);
+router.post('/', function (req, res) {
+    console.log('req.user', req.user)
+    
     var placeToAdd = {
         lat: req.body.geometry.location.lat,
         long: req.body.geometry.location.lng,
@@ -33,29 +34,33 @@ router.post('/', function(req, res) {
         private: req.body.private,
         notes: req.body.notes,
         category: req.body.category,
-        priceRange: req.body.priceRange
+        priceRange: req.body.priceRange,
+        userID: req.user._id
+
     }
 
     console.log('placeToAdd object', placeToAdd)
     console.log('req.user', req.user)
-    var userId = req.user._id;
     var placeToSaveToTheCollection = new Place(placeToAdd)
 
-    User.findByIdAndUpdate(
-        userId,
-        {$push: {"places": placeToSaveToTheCollection}},
-        {safe: true, upsert: true, new: true},
-        function(err, data) {
-            if (err) {
-                console.log('update error: ', err);
+    // insert into our collection
+    placeToSaveToTheCollection.save(function (err, data) {
+        console.log('saved to the collection: ', data);
+        if (err) {
+            console.log('save error: ', err);
 
-                res.sendStatus(500);
-            } else {
-                res.sendStatus(200);
-            }
+            res.sendStatus(500);
+        } else {
+            res.sendStatus(201);
         }
-    );
+
+    });
 
 });
+
+
+
+
+
 
 module.exports = router;

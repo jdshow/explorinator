@@ -6,20 +6,42 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
     self.getPlaces = function () {
         $http.get('/places').then(function (response) {
+            console.log('response.data', response.data)
             self.placesArray.list = response.data
-            console.log('places returned:', self.placesArray.list)
+            console.log('Place Service - self.placesArray.list:', self.placesArray.list)
         }).then(function () {
             console.log('in .then function of getPlaces, placesArray.list is', self.placesArray.list)
             self.buildMarkers(self.placesArray.list)
         })
     }
 
+    self.addPlace = function (newPlace) {
+        console.log('adding place', newPlace)
+        $http.post('/places', newPlace).then(function (response) {
+            console.log('service post response: ', response);
+            self.getPlaces();
+
+        });
+    };
+
+    self.updatePlace = function(placesArray) { //changes place to explore to favorite place
+        console.log('in service, type change requested for', place);
+        //update self.placesArray - call function to loop through self.placesArray to find and update , then send array through PUT to overwrite
+        $http.put('places/fave', place).then(function(response) {
+            console.log('service update response:', response);
+            self.getPlaces();            
+        });
+    }
+
+    //full put route goes here
+
+
+    //delete route goes here
+
     self.buildMarkers = function (array) {
         //builds an array of lat/long pairs and place name to create markers
-        // console.log('passed array', array)
         for (i = 0; i < array.length; i++) {
             marker = {
-                // map: map,
                 lat: array[i].lat,
                 lng: array[i].long,
                 title: array[i].name,
@@ -31,7 +53,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
                 priceRange: array[i].priceRange,
                 type: array[i].type
             }
-            //if type = set icon
+            //set icon based on place type
             if (array[i].placeType == "favorite") {
                 marker.icon = "{ url:'/assets/FavePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
                 marker.typeName= "Favorite Place"
@@ -40,22 +62,13 @@ myApp.service('PlacesService', ['$http', function ($http) {
                 marker.typeName = "Place to Explore"
                 marker.explore = true;
             }
-            //marker.addListener('click', toggleBounce)
             self.markerArray.push(marker)
         }
-        // console.log('markerArray:', markerArray)
     }
 
 
 
-    self.addPlace = function (newPlace) {
-        console.log('adding place', newPlace)
-        $http.post('/places', newPlace).then(function (response) {
-            console.log('service post response: ', response);
-            self.getPlaces();
 
-        });
-    };
 
 
 }]);
