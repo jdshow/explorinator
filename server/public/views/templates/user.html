@@ -6,7 +6,7 @@
 </div>
 
 <div>
-    <ng-map id="map" zoom="11" center="current" >
+    <ng-map id="map" zoom="11" center="current">
         <!--   <marker position="[40.71, -74.21]" title="hello"></marker>
         <marker position="[40.72, -74.20]" title="marker" animation="Animation.DROP"></marker>
         <marker position="[40.73, -74.19]" title="drag me" draggable="true"></marker>
@@ -16,9 +16,9 @@
         <marker position="[40.77, -74.15]" title="from"></marker>
         <marker position="[40.78, -74.14]" title="allen"></marker> -->
         <marker ng-repeat="place in uc.markerArray" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
-            title="{{place.title}}" animation="Animation.DROP" on-click="uc.showDetail(place)"></marker>
-
-
+            title="{{place.title}}" animation="Animation.DROP" on-click="uc.showAlert($event)"></marker>
+        <marker icon="{{place.icon}}" position="current"
+            title="current location" </marker>
         <info-window id="infoWindow">
             <div ng-non-bindable="">
                 info window placeholder!!! {{uc.currentPlace}}
@@ -30,21 +30,21 @@
 
     <div id="detailsPane" ng-show="uc.infowindow">
         <button ng-click="uc.hideDetail()">close</button>
-        <h3>{{uc.place.typeName}}:</h3>       
-        <h2>{{uc.place.title}}</h2>       
+        <h3>{{uc.place.typeName}}:</h3>
+        <h2>{{uc.place.title}}</h2>
         <p><span class="detailsTitle">Address:</span> {{uc.place.address}}</p>
         <p><span class="detailsTitle">Notes:</span> {{uc.place.notes}} </p>
         <p ng-show="uc.place.category"><span class="detailsTitle">Category:</span> {{uc.place.category}}</p>
         <p ng-show="uc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{uc.place.priceRange}}</p>
         <button ng-if="uc.place.explore">Make a Favorite Place</button>
-        
+
     </div>
 </div>
 
 
 
-<!-- 
-<div layout="row" layout-wrap layout-margin layout-align="center" ng-controller="MaterialController as mc">
+
+<!-- <div layout="row" layout-wrap layout-margin layout-align="center" ng-controller="MaterialController as mc">
     <md-button class="md-primary md-raised" ng-click="mc.showAlert($event)">Alert Dialog</md-button>
     <md-button class="md-raised" ng-click="mc.showToast($event)">Show me the Toast!</md-button>
 </div> -->

@@ -1,4 +1,4 @@
-myApp.controller('PlaceController',  ['UserService', 'PlacesService', function (UserService, PlacesService, ngMap, $mdDialog, $mdToast) {
+myApp.controller('PlaceController',  ['UserService', 'PlacesService', function (UserService, PlacesService, ngMap) {
   console.log('InfoController created');
   var self = this;
   self.userService = UserService;
