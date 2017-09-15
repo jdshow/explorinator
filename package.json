@@ -2,7 +2,7 @@
   "name": "express_router_lecture_angular",
   "version": "1.0.0",
   "description": "",
-  "main": "server/server.js",
+  "main": "index.js",
   "scripts": {
     "test": "nodemon server/server.js",
     "start": "node server/server.js"

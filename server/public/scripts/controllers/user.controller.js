@@ -7,7 +7,11 @@ myApp.controller('UserController', ['UserService', 'PlacesService', '$mdDialog',
   self.markerArray = PlacesService.markerArray
   self.infoWindow = false;
  
-
+  self.logout = function () {
+    UserService.logout();
+    PlacesService.markerArray = [];
+    PlacesService.placesArray = { list: [] };
+  }
 
 
   //get data from server

@@ -8,14 +8,14 @@ var User = require('../models/user.js');
 
 router.get('/', function (req, res) {
     // console.log('placesRouter - get / req.username:', req.user.username);
-
-    User.findOne({ username: req.user.username }, function (err, data) {
+    console.log('req.user._id', req.user._id)
+    Place.find({ userID: req.user._id }, function (err, data) {
         if (err) {
             console.log('find error: ', err);
             res.sendStatus(500);
         } else {
-            //console.log('found data: ', data);
-            placesToSend = data.places;
+            console.log('found data: ', data);
+            placesToSend = data;
             // console.log('data.places to send is', placesToSend)
             res.send(placesToSend);
         }
@@ -23,6 +23,8 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res) {
+    console.log('req.user', req.user)
+    
     var placeToAdd = {
         lat: req.body.geometry.location.lat,
         long: req.body.geometry.location.lng,
@@ -33,7 +35,7 @@ router.post('/', function (req, res) {
         notes: req.body.notes,
         category: req.body.category,
         priceRange: req.body.priceRange,
-        userId = req.user._id
+        userID: req.user._id
 
     }
 
@@ -60,43 +62,5 @@ router.post('/', function (req, res) {
 
 
 
-
-
-
-
-
-
-
-
-
-router.put('/fave', function (req, res) {
-    var userId = req.user._id;
-    var placeId = req.body.id;
-    console.log('placeId is', placeId)
-    // User.findOneAndUpdate({ _id: personId, "places.id": placeId }, 
-    //      {"places.$.placeType": "favorite"} ,
-
-    db.products.update(
-        { _id: userId, places._id:  },
-        {
-            $set:
-            {
-                quantity: 500,
-                details: { model: "14Q3", make: "xyz" },
-                tags: ["coats", "outerwear", "clothing"]
-            }
-        },
-
-        function (err, data) {
-            if (err) {
-                console.log('update error: ', err);
-
-                res.sendStatus(500);
-            } else {
-                res.sendStatus(200);
-            }
-        }
-    );
-});
 
 module.exports = router;

@@ -6,6 +6,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
     self.getPlaces = function () {
         $http.get('/places').then(function (response) {
+            console.log('response.data', response.data)
             self.placesArray.list = response.data
             console.log('Place Service - self.placesArray.list:', self.placesArray.list)
         }).then(function () {
