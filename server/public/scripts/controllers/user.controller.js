@@ -1,4 +1,4 @@
-myApp.controller('UserController', ['UserService', 'PlacesService', function (UserService, PlacesService, ngMap) {
+myApp.controller('UserController', ['UserService', 'PlacesService', function (UserService, PlacesService, ngMaterial, $mdDialog, $mdToast, ngMap) {
   // console.log('UserController created');
   var self = this;
   self.userService = UserService;
@@ -25,57 +25,33 @@ myApp.controller('UserController', ['UserService', 'PlacesService', function (Us
   self.showDetail = function (e, place) {
     console.log('marker clicked, place:', place)
     self.place = place;
-    self.infowindow = !self.infowindow;
+    self.infowindow = true;
 
-    //self.map.showInfoWindow('infoWindow', place.id);
   };
 
-  // self.hideDetail = function () {
-  //   self.map.hideInfoWindow('infoWindow');
-  // };
+  self.hideDetail = function () {
+    self.infowindow = false;
 
-//GOOGLE MAPS API - NO NGMAP BELOW 
-//    //initialize map
-//    var mapOptions = {
-//     center: new google.maps.LatLng(44.978031, -93.263501),
-//     zoom: 12,
-//     mapTypeId: google.maps.MapTypeId.ROADMAP
-//   };
+  };
 
-//   //function initMap() {
-//     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-//  // }
+  self.showAlert = function(ev) {
+    $mdDialog.show(
+        $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .title('This is an alert')
+        .textContent('You can specify some description text here')
+        .ariaLabel('Alert Dialog Demo')
+        .ok('Got it!')
+        .targetEvent(ev)
+    );
+};
 
-//   //initMap();
-
-//   //build markers from array
-//   self.buildMarkers = function () {
-//     markerDrop = self.markerArray;
-//     console.log('in buildMarkers function, markerDrop:', markerDrop.length)
-//     for (i = 0; i < self.markerArray.length; i++) {
-      
-//       var latLng = new google.maps.LatLng(markerDrop.lat,markerDrop.lng)
-//       var marker = new google.maps.Marker({
-//         position:latLng,
-//         title: markerDrop.title
-//       });
-//       console.log('marker', marker);
-//       // To add the marker to the map, call setMap();
-//       marker.setMap(map);
-//     }
-//   }
-
-//   self.buildMarkers();
-
-//   var latLng = new google.maps.LatLng(44.956321, -93.147685)
-//   var marker = new google.maps.Marker({
-//     position:latLng,
-//     title: "Hoa Bien"
-//     }); 
-
-//     marker.setMap(map);
-
-
+self.showToast = function (ev) {
+    $mdToast.show(
+        $mdToast.simple()
+        .textContent('Hello!')
+    );
+}
 }]);
 
 
