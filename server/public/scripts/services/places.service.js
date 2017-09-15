@@ -38,6 +38,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
             } else {
                 marker.icon = "{ url:'/assets/ExplorePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
                 marker.typeName = "Place to Explore"
+                marker.explore = true;
             }
             //marker.addListener('click', toggleBounce)
             self.markerArray.push(marker)
