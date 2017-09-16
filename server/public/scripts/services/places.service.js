@@ -2,13 +2,14 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
     var self = this;
     self.placesArray = { list: [] };
-    self.markerArray = [];
+    self.markerArray = [];  
 
     self.getPlaces = function () {
         $http.get('/places').then(function (response) {
             self.placesArray.list = response.data
         }).then(function () {
-            self.buildMarkers(self.placesArray.list)
+            self.buildMarkers(self.placesArray.list);
+            
         })
     }
 
@@ -20,17 +21,19 @@ myApp.service('PlacesService', ['$http', function ($http) {
     };
 
     self.makeFave = function(place) { //changes place to explore to favorite place
-        $http.put('places/fave', place).then(function(response) {
+        $http.put('/places/fave', place).then(function(response) {
             self.getPlaces();            
         });
     }
 
     //full put route goes here
-    self.udpatePlace = function(place) { //changes place to explore to favorite place
-        $http.put('places', place).then(function(response) {
+    self.updatePlace = function(place) { //changes place to explore to favorite place
+        console.log('place in service is ', place)
+        $http.put('/places', place).then(function(response) {
             self.getPlaces();            
         });
     }
+
 
     //delete route goes here
     self.deletePlace = function(place) {
@@ -43,6 +46,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
     self.buildMarkers = function (array) {
         //builds an array of lat/long pairs and place name to create markers
+        console.log(array)
         for (i = 0; i < array.length; i++) {
             marker = {
                 lat: array[i].lat,
@@ -54,7 +58,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
                 private: array[i].private,
                 category: array[i].category,
                 priceRange: array[i].priceRange,
-                type: array[i].type
+                type: array[i].placeType
             }
             //set icon based on place type
             if (array[i].placeType == "favorite") {

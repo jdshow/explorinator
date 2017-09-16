@@ -15,7 +15,7 @@ myApp.config(function($routeProvider, $locationProvider) {
     })
     .when('/user', {
       templateUrl: '/views/templates/user.html',
-      controller: 'UserController as uc',
+      controller: 'PlaceController as pc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();
@@ -24,6 +24,15 @@ myApp.config(function($routeProvider, $locationProvider) {
     })
     .when('/add', {
       templateUrl: '/views/templates/add.html',
+      controller: 'PlaceController as pc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/edit', {
+      templateUrl: '/views/templates/edit.html',
       controller: 'PlaceController as pc',
       resolve: {
         getuser : function(UserService){
