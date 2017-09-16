@@ -58,7 +58,23 @@ router.post('/', function (req, res) {
 
 });
 
+router.put('/fave', function (req, res){
+    console.log('server received Fave request for ', req.body)
+    placeId = req.body.id;
+    Place.findByIdAndUpdate(
+        { _id: placeId },
+        { $set: { placeType: "favorite" } },
+        function(err, data) {
+            if (err) {
+                console.log('update error: ', err);
 
+                res.sendStatus(500);
+            } else {
+                res.sendStatus(200);
+            }
+        }
+    )
+})
 
 
 

@@ -24,7 +24,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
         });
     };
 
-    self.updatePlace = function(placesArray) { //changes place to explore to favorite place
+    self.makeFave = function(place) { //changes place to explore to favorite place
         console.log('in service, type change requested for', place);
         //update self.placesArray - call function to loop through self.placesArray to find and update , then send array through PUT to overwrite
         $http.put('places/fave', place).then(function(response) {

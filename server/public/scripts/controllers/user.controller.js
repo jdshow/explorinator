@@ -29,7 +29,7 @@ myApp.controller('UserController', ['UserService', 'PlacesService', '$mdDialog',
 
   self.makeFave = function(place) {
     //call service method to PUT type change
-    // console.log('type change requested for', place);
+    console.log('controller gets type change requested for', place);
     PlacesService.makeFave(place);
   }
   self.showDetail = function (e, place) {
