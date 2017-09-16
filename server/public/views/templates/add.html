@@ -5,22 +5,16 @@
   </h2>
 </div>
 
-<!-- Auto Complete Type:
-<select ng-model="pc.types">
-  <option value="['geocode']">Geodode</option>
-  <option value="['establishment']">Establishment</option>
-  <option value="['address']">Address</option>
-</select><br/> -->
 
 <form>
   Enter an address: <br/>
   <input places-auto-complete size=80 ng-model="pc.address" component-restrictions="{country:'us'}" on-place-changed="pc.placeChanged()"
   /> <button type="submit" ng-click="pc.showInputs()">Next</button><br/>
-   <div>
-    <div ng-show="pc.place">
-    Address = {{pc.place.formatted_address}} <br/> Location: {{pc.place.geometry.location}}<br/>
-  </div>
-  address : {{pc.address}} 
+
+    <!-- <div ng-show="pc.place">
+      Address = {{pc.place.formatted_address}} <br/> Location: {{pc.place.geometry.location}}<br/>
+    </div>
+    address : {{pc.address}} -->
 </form>
 
 
@@ -32,19 +26,19 @@
 </div>
 
 
-{{pc.place}}
+<!-- {{pc.place}} -->
 
 <div ng-show="pc.partTwo">
-    <h2>
-        Step 2: Info
-      </h2>
+  <h2>
+    Step 2: Info
+  </h2>
   <form>
     <h3>Basic Info (required)</h3>
     <label for="type">Place to Explore or Favorite Place</label>
     <select ng-model="pc.placeToAdd.type">
         <option value="explore">Place to Explore</option>
         <option value="favorite">Favorite Place</option>
-    </select> 
+    </select>
     <label for="name">Name:</label>
     <input type="text" ng-model="pc.placeToAdd.name">
     <label for="private">Display on your public map?</label>
@@ -80,6 +74,3 @@
 
   </form>
 </div>
-
-
-

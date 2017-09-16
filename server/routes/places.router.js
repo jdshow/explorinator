@@ -30,7 +30,7 @@ router.post('/', function (req, res) {
         long: req.body.geometry.location.lng,
         address: req.body.formatted_address,
         placeType: req.body.type,
-        title: req.body.name,
+        name: req.body.name,
         private: req.body.private,
         notes: req.body.notes,
         category: req.body.category,
@@ -41,6 +41,7 @@ router.post('/', function (req, res) {
 
     console.log('placeToAdd object', placeToAdd)
     console.log('req.user', req.user)
+    console.log('new place req.body', req.body)
     var placeToSaveToTheCollection = new Place(placeToAdd)
 
     // insert into our collection
@@ -69,7 +70,7 @@ router.put('/', function (req, res) {
                 long: req.body.lng,
                 address: req.body.address,
                 placeType: req.body.type,
-                title: req.body.name,
+                name: req.body.name,
                 private: req.body.private,
                 notes: req.body.notes,
                 category: req.body.category,

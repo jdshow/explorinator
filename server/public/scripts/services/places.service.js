@@ -14,6 +14,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
     }
 
     self.addPlace = function (newPlace) {
+        console.log('place to add in service: ', newPlace )
         $http.post('/places', newPlace).then(function (response) {
             self.getPlaces();
 
@@ -26,7 +27,6 @@ myApp.service('PlacesService', ['$http', function ($http) {
         });
     }
 
-    //full put route goes here
     self.updatePlace = function(place) { //changes place to explore to favorite place
         console.log('place in service is ', place)
         $http.put('/places', place).then(function(response) {
@@ -35,7 +35,6 @@ myApp.service('PlacesService', ['$http', function ($http) {
     }
 
 
-    //delete route goes here
     self.deletePlace = function(place) {
         placeId = place.id;
         $http.delete('/places/' + placeId).then(function (response) {
