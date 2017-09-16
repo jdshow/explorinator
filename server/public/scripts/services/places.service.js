@@ -2,44 +2,50 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
     var self = this;
     self.placesArray = { list: [] };
-    self.markerArray = [];
+    self.markerArray = [];  
 
     self.getPlaces = function () {
         $http.get('/places').then(function (response) {
-            console.log('response.data', response.data)
             self.placesArray.list = response.data
-            console.log('Place Service - self.placesArray.list:', self.placesArray.list)
         }).then(function () {
-            console.log('in .then function of getPlaces, placesArray.list is', self.placesArray.list)
-            self.buildMarkers(self.placesArray.list)
+            self.buildMarkers(self.placesArray.list);
+            
         })
     }
 
     self.addPlace = function (newPlace) {
-        console.log('adding place', newPlace)
+        console.log('place to add in service: ', newPlace )
         $http.post('/places', newPlace).then(function (response) {
-            console.log('service post response: ', response);
             self.getPlaces();
 
         });
     };
 
-    self.updatePlace = function(placesArray) { //changes place to explore to favorite place
-        console.log('in service, type change requested for', place);
-        //update self.placesArray - call function to loop through self.placesArray to find and update , then send array through PUT to overwrite
-        $http.put('places/fave', place).then(function(response) {
-            console.log('service update response:', response);
+    self.makeFave = function(place) { //changes place to explore to favorite place
+        $http.put('/places/fave', place).then(function(response) {
             self.getPlaces();            
         });
     }
 
-    //full put route goes here
+    self.updatePlace = function(place) { //changes place to explore to favorite place
+        console.log('place in service is ', place)
+        $http.put('/places', place).then(function(response) {
+            self.getPlaces();            
+        });
+    }
 
 
-    //delete route goes here
+    self.deletePlace = function(place) {
+        placeId = place.id;
+        $http.delete('/places/' + placeId).then(function (response) {
+            self.getPlaces();
+        });
+    }
+
 
     self.buildMarkers = function (array) {
         //builds an array of lat/long pairs and place name to create markers
+        console.log(array)
         for (i = 0; i < array.length; i++) {
             marker = {
                 lat: array[i].lat,
@@ -51,7 +57,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
                 private: array[i].private,
                 category: array[i].category,
                 priceRange: array[i].priceRange,
-                type: array[i].type
+                type: array[i].placeType
             }
             //set icon based on place type
             if (array[i].placeType == "favorite") {
