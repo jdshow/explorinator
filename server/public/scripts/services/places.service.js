@@ -26,7 +26,11 @@ myApp.service('PlacesService', ['$http', function ($http) {
     }
 
     //full put route goes here
-
+    self.udpatePlace = function(place) { //changes place to explore to favorite place
+        $http.put('places', place).then(function(response) {
+            self.getPlaces();            
+        });
+    }
 
     //delete route goes here
     self.deletePlace = function(place) {
