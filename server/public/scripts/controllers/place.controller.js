@@ -20,7 +20,6 @@ myApp.controller('PlaceController',  ['UserService', 'PlacesService', function (
   }
 
   self.showInputs = function() {
-    console.log('location in showInputs', self.placeToAdd.lat, self.placeToAdd.lng);
     self.partTwo = true;
   }
 

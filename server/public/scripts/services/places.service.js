@@ -6,29 +6,21 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
     self.getPlaces = function () {
         $http.get('/places').then(function (response) {
-            console.log('response.data', response.data)
             self.placesArray.list = response.data
-            console.log('Place Service - self.placesArray.list:', self.placesArray.list)
         }).then(function () {
-            console.log('in .then function of getPlaces, placesArray.list is', self.placesArray.list)
             self.buildMarkers(self.placesArray.list)
         })
     }
 
     self.addPlace = function (newPlace) {
-        console.log('adding place', newPlace)
         $http.post('/places', newPlace).then(function (response) {
-            console.log('service post response: ', response);
             self.getPlaces();
 
         });
     };
 
     self.makeFave = function(place) { //changes place to explore to favorite place
-        console.log('in service, type change requested for', place);
-        //update self.placesArray - call function to loop through self.placesArray to find and update , then send array through PUT to overwrite
         $http.put('places/fave', place).then(function(response) {
-            console.log('service update response:', response);
             self.getPlaces();            
         });
     }
@@ -37,6 +29,13 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
 
     //delete route goes here
+    self.deletePlace = function(place) {
+        placeId = place.id;
+        $http.delete('/places/' + placeId).then(function (response) {
+            self.getPlaces();
+        });
+    }
+
 
     self.buildMarkers = function (array) {
         //builds an array of lat/long pairs and place name to create markers

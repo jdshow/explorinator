@@ -76,6 +76,21 @@ router.put('/fave', function (req, res){
     )
 })
 
+router.delete('/:id', function(req, res) {
+    console.log('id is ', req.params.id)
+    Place.findByIdAndRemove(
+        { _id: req.params.id },
+        function(err, data) {
+            if (err) {
+                console.log('delete error: ', err);
+
+                res.sendStatus(500);
+            } else {
+                res.sendStatus(200);
+            }
+        }
+    );
+});
 
 
 

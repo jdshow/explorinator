@@ -20,11 +20,12 @@ myApp.controller('UserController', ['UserService', 'PlacesService', '$mdDialog',
   }
 
   self.updatePlaces();
-  //console.log('self.placesArray in controller outside function', self.placesArray)
-  //console.log('self.placesArray.list in controller outside function', self.placesArray.list)
-  // console.log('placesArray', placesArray)
 
-  console.log('marker array in controller', self.markerArray)
+
+  self.deletePlace = function(place) {
+    PlacesService.deletePlace(place);
+    self.hideDetail();
+  }
 
 
   self.makeFave = function(place) {

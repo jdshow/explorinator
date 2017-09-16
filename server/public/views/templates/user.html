@@ -37,6 +37,7 @@
         <p ng-show="uc.place.category"><span class="detailsTitle">Category:</span> {{uc.place.category}}</p>
         <p ng-show="uc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{uc.place.priceRange}}</p>
         <button ng-if="uc.place.explore" ng-click="uc.makeFave(uc.place)">Make a Favorite Place</button>
+        <button ng-click="uc.deletePlace(uc.place)">Delete</button> <!--make icon instead of link and add confirm dialog-->
 
     </div>
 </div>
