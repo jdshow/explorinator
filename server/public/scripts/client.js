@@ -31,15 +31,6 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
-    .when('/edit', {
-      templateUrl: '/views/templates/edit.html',
-      controller: 'PlaceController as pc',
-      resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
-        }
-      }
-    })
     .otherwise({
       redirectTo: 'home'
     });

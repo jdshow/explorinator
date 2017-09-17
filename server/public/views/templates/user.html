@@ -2,9 +2,10 @@
 <div class="container" ng-controller="UserController as uc">
 
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
-   
+
 </div>
 <button class="btn btn-default" ng-click="pc.logout()">Log Out</button>
+
 <div>
     <ng-map id="map" zoom="11" center="current">
         <!--   <marker position="[40.71, -74.21]" title="hello"></marker>
@@ -16,8 +17,10 @@
         <marker position="[40.77, -74.15]" title="from"></marker>
         <marker position="[40.78, -74.14]" title="allen"></marker> -->
         <marker ng-repeat="place in pc.markerArray" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
-            title="{{place.title}}" animation="Animation.DROP" on-click="pc.showDetail(place)"></marker>
-            <!--use on-click="pc.showAlert($event)" -->
+            title="{{place.title}}" on-click="pc.showDetail(place)"></marker>
+        <!-- not currently able to id and display in dialog -->
+        <!--use on-click="pc.showAdvanced($event, place)" -->
+        <!--without angular material use on-click="pc.showDetail(place)"-->
         <marker icon="{{place.icon}}" position="current" title="current location" </marker>
             <info-window id="infoWindow">
                 <div ng-non-bindable="">
@@ -37,14 +40,92 @@
         <p ng-show="pc.place.category"><span class="detailsTitle">Category:</span> {{pc.place.category}}</p>
         <p ng-show="pc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{pc.place.priceRange}}</p>
         <button ng-if="pc.place.explore" ng-click="pc.makeFave(pc.place)">Make a Favorite Place</button>
-        <button ng-click="pc.deletePlace(pc.place)">Delete</button> <!--make icon instead of link and add confirm dialog-->
+        <button ng-click="pc.deletePlace(pc.place)">Delete</button>
+        <!--make icon instead of link and add confirm dialog-->
         <!-- <a href="/#/edit/" >Edit</a> -->
         <button ng-click="pc.editModeActive()">Edit</button>
     </div>
     <div ng-show="pc.editMode" id="editPane">
-        <h2>edit box</h2>
         <form>
-                <h3>Basic Info (required)</h3>
+            <h3>Basic Info (required)</h3>
+
+            <md-input-container aria-label="select place to explore or favorite place" class="md-block" flex-gt-sm>
+                <label>Place to Explore or Favorite Place</label>
+                <md-select ng-model="pc.placeToEdit.type">
+                    <md-option value="explore">Place to Explore</md-option>
+                    <md-option value="favorite">Favorite Place</md-option>
+                </md-select>
+            </md-input-container>
+
+
+            <md-input-container aria-label="input place name" class="md-block" flex-gt-sm>
+                <label for="name">Name:</label>
+                <input type="text" ng-model="pc.placeToEdit.title">
+            </md-input-container>
+
+            <md-input-container aria-label="checkbox for private" class="md-block" flex-gt-sm>
+                <md-checkbox ng-model="pc.placeToEdit.private" aria-label="private?">
+                    Private (do not display on my public maps)
+                </md-checkbox>
+            </md-input-container>
+
+
+            <h3>More Info (optional)</h3>
+
+            <md-input-container aria-label="notes about place" class="md-block">
+                <label>Notes</label>
+                <textarea ng-model="pc.placeToEdit.notes" md-maxlength="200" rows="3" md-select-on-focus></textarea>
+            </md-input-container>
+
+            <md-input-container aria-label="Category input" class="md-block" flex-gt-sm>
+                <label for="category">Category</label>
+                <md-select ng-model="pc.placeToEdit.category">
+                    <md-option value="Food and Drink">Food & Drink</md-option>
+                    <md-option value="Arts">The Arts</md-option>
+                    <md-option value="Nature">Nature</md-option>
+                    <md-option value="Shopping">Shopping</md-option>
+                    <md-option value="Community">Community</md-option>
+                    <md-option value="Point of Interest">Point of Interest</md-option>
+                </md-select>
+            </md-input-container>
+
+            <!-- replace above with dynamic categories 
+                            <md-input-container class="md-block" flex-gt-sm>
+                            <label>Category</label>
+                            <md-select ng-model="pc.placeToEdit.category">
+                              <md-option ng-repeat="category in pc.categories" value="{{category}}">
+                                {{category}}
+                              </md-option>
+                            </md-select>
+                          </md-input-container> -->
+
+            <md-input-container aria-label="price range" class="md-block" flex-gt-sm>
+                <label for="priceRange">Price Range</label>
+                <md-select ng-model="pc.placeToEdit.priceRange">
+                    <md-option value="Free">Free</option>
+                        <md-option value="Under $10">Under $10</md-option>
+                        <md-option value="Under $25">Under $25</md-option>
+                        <md-optionvalue="Under $50">Under $50</md-option>
+                    <md-option value="Over $50">Over $50</md-option>
+                </md-select>
+            </md-input-container>
+
+
+            <!--add photo upload-->
+
+            <md-button aria-label="submit button" type="submit" ng-click="pc.updatePlace(pc.placeToEdit)" class="md-accent md-raised">Update</md-button>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- <h3>Basic Info (required)</h3>
                 <label for="type">Place to Explore or Favorite Place</label>
                 <select ng-model="pc.placeToEdit.type">
                     <option value="explore">Place to Explore</option>
@@ -78,14 +159,12 @@
                     <option value="Over $50">Over $50</option>
                 </select>
             
-            
-            
-                <!--add fields for category, price range, and photo upload-->
-                <button type="submit" ng-click="pc.updatePlace(pc.placeToEdit)">Update</button>
-            
-              </form>
 
-    </div>
+                <button type="submit" ng-click="pc.updatePlace(pc.placeToEdit)">Update</button>
+             -->
+    </form>
+
+</div>
 </div>
 
 

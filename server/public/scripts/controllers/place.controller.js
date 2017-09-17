@@ -8,6 +8,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.infoWindow = false;
   self.editMode = false;
   self.placeToAdd = {}
+  self.placeClickedData = {};
 
 
   //clears data on logout
@@ -21,7 +22,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   //main map controls
 
-  self.updatePlaces = function () { //get data from server
+  self.updateMap = function () { //get data from server
     PlacesService.getPlaces();
   }
 
@@ -30,6 +31,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.place = place;
     self.editPlace = place;
     self.infowindow = true;
+    self.editMode = false;
     console.log('place to edit should be', self.editPlace)
   };
 
@@ -50,16 +52,18 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   self.updatePlace = function (place) { //closes edit inputs, opens updated detail panel, call service method to update data
     self.editMode = false;
-    self.showDetail();
+    self.place  = place;
+  
     console.log('new data for place is ', place)
     PlacesService.updatePlace(place);
+    //self.showDetail();
   }
 
   self.makeFave = function (place) { //call service method to PUT type change
     console.log('controller gets type change requested for', place);
     PlacesService.makeFave(place);
   }
-  
+
 
   //new place controls
   self.showInputs = function () { //shows inputs after location is pulled from Places API
@@ -78,6 +82,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     // self.map.setCenter(self.place.geometry.location);
   }
 
+  //add new place controls
   self.addPlace = function () { //calls service method to POST new place to db, clears place inputs
     console.log('new place!', self.placeToAdd)
     PlacesService.addPlace(self.placeToAdd);
@@ -94,7 +99,40 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   //marker init
-  self.updatePlaces();
+  self.updateMap();
+
+  //material
+  self.showAlert = function (ev, place) {
+    console.log('clicked! place', place)
+    $mdDialog.show(
+      $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .title('This is an alert')
+        .textContent("text", place)
+        .ariaLabel('Alert Dialog Demo')
+        .ok('Got it!')
+        .targetEvent(ev)
+    );
+  };
+
+
+  self.showAdvanced = function (ev) {
+
+    $mdDialog.show({
+      controller: 'PlaceController',
+      controllerAs: 'pc',
+      templateUrl: 'views/templates/details.tmpl.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true,
+      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+    })
+    //   .then(function (answer) {
+    //     self.status = 'You said the information was "' + answer + '".';
+    //   }, function () {
+    //     self.status = 'You cancelled the dialog.';
+    // });
+  };
 
 
 }]);
@@ -103,22 +141,11 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
 
 
-//maybe use later
- // self.showAlert = function (ev) {
-  //   $mdDialog.show(
-  //     $mdDialog.alert()
-  //       .parent(angular.element(document.querySelector('#popupContainer')))
-  //       .title('This is an alert')
-  //       .textContent("text")
-  //       .ariaLabel('Alert Dialog Demo')
-  //       .ok('Got it!')
-  //       .targetEvent(ev)
-  //   );
-  // };
 
 
 
-  
+
+
 
 
 

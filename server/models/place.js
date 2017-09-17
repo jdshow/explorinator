@@ -9,7 +9,7 @@ var PlaceSchema = new Schema({
     address: {type: String},
     placeType: {type: String},
     name: {type: String},
-    private: {type: Boolean, required: true},
+    private: {type: Boolean},
     notes: {type: String},
     category: {type: String},
     priceRange: {type: String},

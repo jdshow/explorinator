@@ -1,76 +1,144 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
-  <h2>
-    Step 1: Find the Place
-  </h2>
-</div>
+<md-content layout-padding>
+  <div>
+    <form name="userForm">
+
+      <div layout-gt-xs="row">
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <h2>Step 1: Find the Place</h2>
+          <input aria-label="address search bar" places-auto-complete size=80 ng-model="pc.address" component-restrictions="{country:'us'}" on-place-changed="pc.placeChanged()">
+          <!-- <div id="newPlaceMap">
+            <ng-map zoom="11" center="current" map-type-id="MapTypeId.ROADMAP"> -->
+              <!-- <marker position="{{pc.place.geometry.location}}" centered="true"></marker> -->
+            <!-- </ng-map> -->
+
+          <!-- </div> -->
+        </md-input-container>
+      </div>
 
 
-<form>
-  Enter an address: <br/>
-  <input places-auto-complete size=80 ng-model="pc.address" component-restrictions="{country:'us'}" on-place-changed="pc.placeChanged()"
-  /> <button type="submit" ng-click="pc.showInputs()">Next</button><br/>
+      <div>
+        <h2>
+          Step 2: Info
+        </h2>
 
-    <!-- <div ng-show="pc.place">
-      Address = {{pc.place.formatted_address}} <br/> Location: {{pc.place.geometry.location}}<br/>
-    </div>
-    address : {{pc.address}} -->
-</form>
+        <h3>Basic Info (required)</h3>
+
+        <md-input-container aria-label="select place to explore or favorite place" class="md-block" flex-gt-sm>
+          <label>Place to Explore or Favorite Place</label>
+          <md-select ng-model="pc.placeToAdd.type">
+            <md-option value="explore">Place to Explore</md-option>
+            <md-option value="favorite">Favorite Place</md-option>
+          </md-select>
+        </md-input-container>
 
 
-<div id="newPlaceMap">
-  <ng-map zoom="11" center="current" map-type-id="MapTypeId.ROADMAP">
-    <!-- <marker position="{{pc.place.geometry.location}}" centered="true"></marker> -->
-  </ng-map>
+        <md-input-container aria-label="input place name" class="md-block" flex-gt-sm>
+          <label for="name">Name:</label>
+          <input type="text" ng-model="pc.placeToAdd.name">
+        </md-input-container>
 
-</div>
+        <md-input-container aria-label="checkbox for private" class="md-block" flex-gt-sm>
+          <md-checkbox ng-model="pc.placeToAdd.private" aria-label="private?">
+            Private (do not display on my public maps)
+          </md-checkbox>
+        </md-input-container>
+
+
+        <h3>More Info (optional)</h3>
+
+        <md-input-container aria-label="notes about place" class="md-block">
+          <label>Notes</label>
+          <textarea ng-model="pc.placeToAdd.notes" md-maxlength="200" rows="3" md-select-on-focus></textarea>
+        </md-input-container>
+
+        <md-input-container aria-label="Category input" class="md-block" flex-gt-sm>
+          <label for="category">Category</label>
+          <md-select ng-model="pc.placeToAdd.category">
+            <md-option value="Food and Drink">Food & Drink</md-option>
+            <md-option value="Arts">The Arts</md-option>
+            <md-option value="Nature">Nature</md-option>
+            <md-option value="Shopping">Shopping</md-option>
+            <md-option value="Community">Community</md-option>
+            <md-option value="Point of Interest">Point of Interest</md-option>
+          </md-select>
+        </md-input-container>
+
+        <!-- replace above with dynamic categories 
+            <md-input-container class="md-block" flex-gt-sm>
+            <label>Category</label>
+            <md-select ng-model="pc.placeToAdd.category">
+              <md-option ng-repeat="category in pc.categories" value="{{category}}">
+                {{category}}
+              </md-option>
+            </md-select>
+          </md-input-container> -->
+
+        <md-input-container aria-label="price range" class="md-block" flex-gt-sm>
+          <label for="priceRange">Price Range</label>
+          <md-select ng-model="pc.placeToAdd.priceRange">
+            <md-option value="Free">Free</option>
+              <md-option value="Under $10">Under $10</md-option>
+              <md-option value="Under $25">Under $25</md-option>
+              <md-optionvalue="Under $50">Under $50</md-option>
+            <md-option value="Over $50">Over $50</md-option>
+          </md-select>
+        </md-input-container>
+
+
+        <!--add photo upload-->
+
+        <md-button aria-label="submit button" type="submit" ng-click="pc.addPlace()" class="md-accent md-raised">Add it!</md-button>
+      </div>
+
+    </form>
+  </div>
+</md-content>
+
+<footer>
+
+</footer>
+
+
+
+
 
 
 <!-- {{pc.place}} -->
 
-<div ng-show="pc.partTwo">
-  <h2>
-    Step 2: Info
-  </h2>
-  <form>
-    <h3>Basic Info (required)</h3>
-    <label for="type">Place to Explore or Favorite Place</label>
-    <select ng-model="pc.placeToAdd.type">
-        <option value="explore">Place to Explore</option>
-        <option value="favorite">Favorite Place</option>
-    </select>
-    <label for="name">Name:</label>
-    <input type="text" ng-model="pc.placeToAdd.name">
-    <label for="private">Display on your public map?</label>
-    <select ng-model="pc.placeToAdd.private">
-        <option value="false">Yes</option>
-        <option value="true">No</option>
-    </select>
-    <h3>More Info (optional)</h3>
-    <label for="notes">Notes:</label>
-    <input type="text" ng-model="pc.placeToAdd.notes">
-    <label for="category">Category</label>
-    <select ng-model="pc.placeToAdd.category">
-        <option value="Food and Drink">Food & Drink</option>
-        <option value="Arts">The Arts</option>
-        <option value="Nature">Nature</option>
-        <option value="Shopping">Shopping</option>
-        <option value="Community">Community</option>
-        <option value="Point of Interest">Point of Interest</option>
-    </select>
-    <label for="priceRange">Price Range</label>
-    <select ng-model="pc.placeToAdd.priceRange">
-        <option value="Free">Free</option>
-        <option value="Under $10">Under $10</option>
-        <option value="Under $25">Under $25</option>
-        <option value="Under $50">Under $50</option>
-        <option value="Over $50">Over $50</option>
-    </select>
+<!-- <md-input-container class="md-block">
+          <label>Address</label>
+          <input ng-model="user.address">
+        </md-input-container>
 
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Category</label>
+          <md-select ng-model="pc.placeToAdd.category">
+            <md-option ng-repeat="category in pc.categories" value="{{category}}">
+              {{category}}
+            </md-option>
+          </md-select>
+        </md-input-container> -->
 
+<!-- <md-input-container class="md-block" flex-gt-sm>
+          <label>Postal Code</label>
+          <input name="postalCode" ng-model="user.postalCode" placeholder="12345" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
 
-    <!--add fields for category, price range, and photo upload-->
-    <button type="submit" ng-click="pc.addPlace()">Add it!</button>
-
-  </form>
-</div>
+          <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+            <div ng-message="required" class="my-message">You must supply a postal code.</div>
+            <div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
+            </div>
+            <div ng-message="md-maxlength" class="my-message">
+              Don't use the long version silly...we don't need to be that specific...
+            </div>
+          </div>
+        </md-input-container>
+      </div> 
+    
+          <div></div>
+      <md-input-container class="md-block">
+        <label>Notes</label>
+        <textarea ng-model="user.biography" md-maxlength="200" rows="3" md-select-on-focus></textarea>
+      </md-input-container>
+-->

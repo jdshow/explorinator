@@ -70,7 +70,7 @@ router.put('/', function (req, res) {
                 long: req.body.lng,
                 address: req.body.address,
                 placeType: req.body.type,
-                name: req.body.name,
+                name: req.body.title,
                 private: req.body.private,
                 notes: req.body.notes,
                 category: req.body.category,
