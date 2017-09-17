@@ -22,7 +22,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   //main map controls
 
-  self.updatePlaces = function () { //get data from server
+  self.updateMap = function () { //get data from server
     PlacesService.getPlaces();
   }
 
@@ -52,9 +52,11 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   self.updatePlace = function (place) { //closes edit inputs, opens updated detail panel, call service method to update data
     self.editMode = false;
-    self.showDetail();
+    self.place  = place;
+  
     console.log('new data for place is ', place)
     PlacesService.updatePlace(place);
+    //self.showDetail();
   }
 
   self.makeFave = function (place) { //call service method to PUT type change
@@ -80,6 +82,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     // self.map.setCenter(self.place.geometry.location);
   }
 
+  //add new place controls
   self.addPlace = function () { //calls service method to POST new place to db, clears place inputs
     console.log('new place!', self.placeToAdd)
     PlacesService.addPlace(self.placeToAdd);
@@ -96,7 +99,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   //marker init
-  self.updatePlaces();
+  self.updateMap();
 
   //material
   self.showAlert = function (ev, place) {
