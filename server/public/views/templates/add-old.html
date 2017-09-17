@@ -1,0 +1,76 @@
+<div ng-include="'views/partials/nav.html'"></div>
+<div class="container">
+  <h2>
+    Step 1: Find the Place
+  </h2>
+</div>
+
+
+<form>
+  Enter an address: <br/>
+  <input places-auto-complete size=80 ng-model="pc.address" component-restrictions="{country:'us'}" on-place-changed="pc.placeChanged()"
+  /> <button type="submit" ng-click="pc.showInputs()">Next</button><br/>
+
+    <!-- <div ng-show="pc.place">
+      Address = {{pc.place.formatted_address}} <br/> Location: {{pc.place.geometry.location}}<br/>
+    </div>
+    address : {{pc.address}} -->
+</form>
+
+
+<div id="newPlaceMap">
+  <ng-map zoom="11" center="current" map-type-id="MapTypeId.ROADMAP">
+    <!-- <marker position="{{pc.place.geometry.location}}" centered="true"></marker> -->
+  </ng-map>
+
+</div>
+
+
+<!-- {{pc.place}} -->
+
+<div ng-show="pc.partTwo">
+  <h2>
+    Step 2: Info
+  </h2>
+  <form>
+    <h3>Basic Info (required)</h3>
+    <label for="type">Place to Explore or Favorite Place</label>
+    <select ng-model="pc.placeToAdd.type">
+        <option value="explore">Place to Explore</option>
+        <option value="favorite">Favorite Place</option>
+    </select>
+    <label for="name">Name:</label>
+    <input type="text" ng-model="pc.placeToAdd.name">
+    <label for="private">Display on your public map?</label>
+    <select ng-model="pc.placeToAdd.private">
+        <option value="false">Yes</option>
+        <option value="true">No</option>
+    </select>
+    <h3>More Info (optional)</h3>
+    <label for="notes">Notes:</label>
+    <input type="text" ng-model="pc.placeToAdd.notes">
+    <label for="category">Category</label>
+    <select ng-model="pc.placeToAdd.category">
+        <option value="Food and Drink">Food & Drink</option>
+        <option value="Arts">The Arts</option>
+        <option value="Nature">Nature</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Community">Community</option>
+        <option value="Point of Interest">Point of Interest</option>
+    </select>
+    <label for="priceRange">Price Range</label>
+    <select ng-model="pc.placeToAdd.priceRange">
+        <option value="Free">Free</option>
+        <option value="Under $10">Under $10</option>
+        <option value="Under $25">Under $25</option>
+        <option value="Under $50">Under $50</option>
+        <option value="Over $50">Over $50</option>
+    </select>
+
+
+
+    <!--add fields for category, price range, and photo upload-->
+    <button type="submit" ng-click="pc.addPlace()">Add it!</button>
+
+  </form>
+</div>

@@ -8,6 +8,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.infoWindow = false;
   self.editMode = false;
   self.placeToAdd = {}
+  self.placeClickedData = {};
 
 
   //clears data on logout
@@ -30,6 +31,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.place = place;
     self.editPlace = place;
     self.infowindow = true;
+    self.editMode = false;
     console.log('place to edit should be', self.editPlace)
   };
 
@@ -59,7 +61,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     console.log('controller gets type change requested for', place);
     PlacesService.makeFave(place);
   }
-  
+
 
   //new place controls
   self.showInputs = function () { //shows inputs after location is pulled from Places API
@@ -96,6 +98,39 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   //marker init
   self.updatePlaces();
 
+  //material
+  self.showAlert = function (ev, place) {
+    console.log('clicked! place', place)
+    $mdDialog.show(
+      $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .title('This is an alert')
+        .textContent("text", place)
+        .ariaLabel('Alert Dialog Demo')
+        .ok('Got it!')
+        .targetEvent(ev)
+    );
+  };
+
+
+  self.showAdvanced = function (ev) {
+
+    $mdDialog.show({
+      controller: 'PlaceController',
+      controllerAs: 'pc',
+      templateUrl: 'views/templates/details.tmpl.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true,
+      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+    })
+    //   .then(function (answer) {
+    //     self.status = 'You said the information was "' + answer + '".';
+    //   }, function () {
+    //     self.status = 'You cancelled the dialog.';
+    // });
+  };
+
 
 }]);
 
@@ -103,22 +138,11 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
 
 
-//maybe use later
- // self.showAlert = function (ev) {
-  //   $mdDialog.show(
-  //     $mdDialog.alert()
-  //       .parent(angular.element(document.querySelector('#popupContainer')))
-  //       .title('This is an alert')
-  //       .textContent("text")
-  //       .ariaLabel('Alert Dialog Demo')
-  //       .ok('Got it!')
-  //       .targetEvent(ev)
-  //   );
-  // };
 
 
 
-  
+
+
 
 
 
