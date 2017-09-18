@@ -1,49 +1,49 @@
 <md-dialog aria-label="Place details">
-<div class="md-padding">
-    <form>
-        <h3>Basic Info (required)</h3>
+    <div class="md-padding">
+        <form>
+            <h3>Basic Info (required)</h3>
 
-        <md-input-container aria-label="select place to explore or favorite place" class="md-block" flex-gt-sm>
-            <label>Place to Explore or Favorite Place</label>
-            <md-select ng-model="pc.placeToEdit.type">
-                <md-option value="explore">Place to Explore</md-option>
-                <md-option value="favorite">Favorite Place</md-option>
-            </md-select>
-        </md-input-container>
-
-
-        <md-input-container aria-label="input place name" class="md-block" flex-gt-sm>
-            <label for="name">Name:</label>
-            <input type="text" ng-model="pc.placeToEdit.title">
-        </md-input-container>
-
-        <md-input-container aria-label="checkbox for private" class="md-block" flex-gt-sm>
-            <md-checkbox ng-model="pc.placeToEdit.private" aria-label="private?">
-                Private (do not display on my public maps)
-            </md-checkbox>
-        </md-input-container>
+            <md-input-container aria-label="select place to explore or favorite place" class="md-block" flex-gt-sm>
+                <label>Place to Explore or Favorite Place</label>
+                <md-select ng-model="pc.placeToEdit.type">
+                    <md-option value="Place to Explore">Place to Explore</md-option>
+                    <md-option value="Favorite Place">Favorite Place</md-option>
+                </md-select>
+            </md-input-container>
 
 
-        <h3>More Info (optional)</h3>
+            <md-input-container aria-label="input place name" class="md-block" flex-gt-sm>
+                <label for="name">Name:</label>
+                <input type="text" ng-model="pc.placeToEdit.title">
+            </md-input-container>
 
-        <md-input-container aria-label="notes about place" class="md-block">
-            <label>Notes</label>
-            <textarea ng-model="pc.placeToEdit.notes" md-maxlength="200" rows="3" md-select-on-focus></textarea>
-        </md-input-container>
+            <md-input-container aria-label="checkbox for private" class="md-block" flex-gt-sm>
+                <md-checkbox ng-model="pc.placeToEdit.private" aria-label="private?">
+                    Private (do not display on my public maps)
+                </md-checkbox>
+            </md-input-container>
 
-        <md-input-container aria-label="Category input" class="md-block" flex-gt-sm>
-            <label for="category">Category</label>
-            <md-select ng-model="pc.placeToEdit.category">
-                <md-option value="Food and Drink">Food & Drink</md-option>
-                <md-option value="Arts">The Arts</md-option>
-                <md-option value="Nature">Nature</md-option>
-                <md-option value="Shopping">Shopping</md-option>
-                <md-option value="Community">Community</md-option>
-                <md-option value="Point of Interest">Point of Interest</md-option>
-            </md-select>
-        </md-input-container>
 
-        <!-- replace above with dynamic categories 
+            <h3>More Info (optional)</h3>
+
+            <md-input-container aria-label="notes about place" class="md-block">
+                <label>Notes</label>
+                <textarea ng-model="pc.placeToEdit.notes" md-maxlength="200" rows="3" md-select-on-focus></textarea>
+            </md-input-container>
+
+            <md-input-container aria-label="Category input" class="md-block" flex-gt-sm>
+                <label for="category">Category</label>
+                <md-select ng-model="pc.placeToEdit.category">
+                    <md-option value="Food and Drink">Food & Drink</md-option>
+                    <md-option value="Arts">The Arts</md-option>
+                    <md-option value="Nature">Nature</md-option>
+                    <md-option value="Shopping">Shopping</md-option>
+                    <md-option value="Community">Community</md-option>
+                    <md-option value="Point of Interest">Point of Interest</md-option>
+                </md-select>
+            </md-input-container>
+
+            <!-- replace above with dynamic categories 
                                             <md-input-container class="md-block" flex-gt-sm>
                                             <label>Category</label>
                                             <md-select ng-model="pc.placeToEdit.category">
@@ -53,21 +53,24 @@
                                             </md-select>
                                           </md-input-container> -->
 
-        <md-input-container aria-label="price range" class="md-block" flex-gt-sm>
-            <label for="priceRange">Price Range</label>
-            <md-select ng-model="pc.placeToEdit.priceRange">
-                <md-option value="Free">Free</option>
-                    <md-option value="Under $10">Under $10</md-option>
-                    <md-option value="Under $25">Under $25</md-option>
-                    <md-optionvalue="Under $50">Under $50</md-option>
-                <md-option value="Over $50">Over $50</md-option>
-            </md-select>
-        </md-input-container>
 
 
-        <!--add photo upload-->
 
-        <md-button aria-label="submit button" type="submit" ng-click="pc.updatePlace(pc.placeToEdit)" class="md-accent md-raised">Update</md-button>
-    </form>
-</div>
+            <md-input-container aria-label="price range" class="md-block" flex-gt-sm>
+                <label for="priceRange">Price Range</label>
+                <md-select ng-model="pc.placeToEdit.priceRange">
+                    <md-option value="Free">Free</option>
+                        <md-option value="Under $10">Under $10</md-option>
+                        <md-option value="Under $25">Under $25</md-option>
+                        <md-optionvalue="Under $50">Under $50</md-option>
+                    <md-option value="Over $50">Over $50</md-option>
+                </md-select>
+            </md-input-container>
+
+
+            <!--add photo upload-->
+
+            <md-button aria-label="submit button" type="submit" ng-click="pc.updatePlace(pc.placeToEdit)" class="md-accent md-raised">Update</md-button>
+        </form>
+    </div>
 </md-dialog>
