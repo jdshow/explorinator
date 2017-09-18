@@ -1,0 +1,28 @@
+<div ng-include="'views/partials/nav.html'"></div>
+
+<h1>{{pc.userMap}}'s public map</h1>
+</div>
+<div>
+        <div>
+                <ng-map id="map" zoom="11" center="current">
+                    <marker ng-repeat="place in pc.markerArray" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
+                        title="{{place.title}}" on-click="pc.showDetail(place)"></marker>
+                    <marker icon="{{place.icon}}" position="current" title="current location" </marker>
+                        <info-window id="infoWindow">
+                            <div ng-non-bindable="">
+                                info window placeholder!!! {{pc.currentPlace}}
+                                <a href="#" ng-click="pc.clicked()">Click Here</a>
+                            </div>
+                        </info-window>
+                </ng-map>
+            
+                <div id="detailsPane" ng-show="pc.infowindow">
+                    <button ng-click="pc.hideDetail()">close</button>
+                    <h3>{{pc.place.typeName}}:</h3>
+                    <h2>{{pc.place.title}}</h2>
+                    <p><span class="detailsTitle">Address:</span> {{pc.place.address}}</p>
+                    <p><span class="detailsTitle">Notes:</span> {{pc.place.notes}} </p>
+                    <p ng-show="pc.place.category"><span class="detailsTitle">Category:</span> {{pc.place.category}}</p>
+                    <p ng-show="pc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{pc.place.priceRange}}</p>
+                </div>
+</div>

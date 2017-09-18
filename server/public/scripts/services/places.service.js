@@ -9,9 +9,18 @@ myApp.service('PlacesService', ['$http', function ($http) {
             self.placesArray.list = response.data
         }).then(function () {
             self.buildMarkers(self.placesArray.list);
-            
         })
     }
+
+    self.getPublicPlaces =  function (userName) {
+        $http.get('/places/public/' + userName).then(function (response) {
+            self.placesArray.list = response.data
+        }).then(function () {
+            self.buildMarkers(self.placesArray.list);
+        })
+    }
+    
+
 
     self.addPlace = function (newPlace) {
         console.log('place to add in service: ', newPlace )
@@ -73,7 +82,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
     }
 
 
-
+    self.getPublicPlaces()
 
 
 
