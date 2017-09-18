@@ -22,16 +22,9 @@
         <marker ng-repeat="place in pc.markerArray" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
             title="{{place.title}}" on-click="pc.showDetail(place)"></marker>
         <!-- not currently able to id and display in dialog -->
-        <!--use on-click="pc.showAdvanced($event, place)" -->
+        <!--use  on-click="pc.showDetails(place)" -->
         <!--without angular material use on-click="pc.showDetail(place)"-->
         <marker icon="{{place.icon}}" position="current" title="current location" </marker>
-            <info-window id="infoWindow">
-                <div ng-non-bindable="">
-                    info window placeholder!!! {{pc.currentPlace}}
-                    <a href="#" ng-click="pc.clicked()">Click Here</a>
-                </div>
-            </info-window>
-
     </ng-map>
 
     <div id="detailsPane" ng-show="pc.infowindow">
@@ -46,7 +39,7 @@
         <button ng-click="pc.deletePlace(pc.place)">Delete</button>
         <!--make icon instead of link and add confirm dialog-->
         <!-- <a href="/#/edit/" >Edit</a> -->
-        <button ng-click="pc.editModeActive()">Edit</button>
+        <button ng-click="pc.showEdit(place)">Edit</button>
     </div>
     <div ng-show="pc.editMode" id="editPane">
         <form>

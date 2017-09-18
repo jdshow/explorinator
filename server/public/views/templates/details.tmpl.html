@@ -1,8 +1,8 @@
-<md-dialog aria-label="Mango (Fruit)">
+<md-dialog aria-label="Place details">
     <form ng-cloak>
       <md-toolbar>
         <div class="md-toolbar-tools">
-          <h2>Place Name</h2>
+          <h2>Dynamic Place Type</h2>
           <span flex></span>
           <md-button class="md-icon-button" ng-click="cancel()">
             <md-icon md-svg-src="assets/ic_cancel_white_24px.svg" aria-label="Close dialog"></md-icon>
@@ -11,28 +11,30 @@
       </md-toolbar>
   
       <md-dialog-content>
-        <div class="md-dialog-content">
-          <h2>Using .md-dialog-content class that sets the padding as the spec</h2>
-          
-          <p>
-            Some place data will hopefully go here! {{pc.placeClickedData}}
-          </p>
-          <p>
-            Dynamic data even!!
-          </p>
-        </div>
+              <h3>{{pc.place.typeName}}:</h3>
+              <h2>{{pc.place.title}}</h2>
+              <p><span class="detailsTitle">Address:</span> {{pc.place.address}}</p>
+              <p><span class="detailsTitle">Notes:</span> {{pc.place.notes}} </p>
+              <p ng-show="pc.place.category"><span class="detailsTitle">Category:</span> {{pc.place.category}}</p>
+              <p ng-show="pc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{pc.place.priceRange}}</p>
+              <button ng-if="pc.place.explore" ng-click="pc.makeFave(pc.place)">Make a Favorite Place</button>
+              <button ng-click="pc.deletePlace(pc.place)">Delete</button>
+              <!--make icon instead of link and add confirm dialog-->
+              <!-- <a href="/#/edit/" >Edit</a> -->
+              <button ng-click="pc.showEdit(place)"    >Edit</button>
+          </div>
       </md-dialog-content>
   
       <md-dialog-actions layout="row">
-        <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
+        <md-button>
           Delete
         </md-button>
         <span flex></span>
-        <md-button ng-click="answer('not useful')">
+        <md-button ng-click="pc.showEdit(place)">
          Edit
         </md-button>
         <md-button ng-click="answer('useful')">
-          Make Favorite
+          Make Favorite (if explore)
         </md-button>
       </md-dialog-actions>
     </form>

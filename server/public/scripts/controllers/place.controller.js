@@ -8,8 +8,8 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.infoWindow = false;
   self.editMode = false;
   self.placeToAdd = {}
-  self.placeClickedData = {};
-
+  self.placeToEdit = PlacesService.placeToEdit;
+  self.placeToShow = PlacesService.placeToShow; 
 
   //clears data on logout
   self.logout = function () {
@@ -39,21 +39,25 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.infowindow = false;
   };
 
+  self.showPlaceData = function (currentPlace) {
+    console.log('current place clicked is ', currentPlace)
+  }
+
 
 
   //edit place controls
 
-  self.editModeActive = function () {   // opens edit inputs and closes detail panel
-    self.editMode = true;
-    self.hideDetail();
-    self.placeToEdit = self.place;
-    console.log('editing', self.placeToEdit)
-  }
+  // self.editModeActive = function () {   // opens edit inputs and closes detail panel
+  //   self.editMode = true;
+  //   self.hideDetail();
+  //   self.placeToEdit = self.place;
+  //   console.log('editing', self.placeToEdit)
+  // }
 
   self.updatePlace = function (place) { //closes edit inputs, opens updated detail panel, call service method to update data
     self.editMode = false;
-    self.place  = place;
-  
+    self.place = place;
+
     console.log('new data for place is ', place)
     PlacesService.updatePlace(place);
     //self.showDetail();
@@ -63,6 +67,21 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     console.log('controller gets type change requested for', place);
     PlacesService.makeFave(place);
   }
+
+  //edit mode in material
+  self.showEdit = function (place) {    
+    PlacesService.editData(self.place);
+        $mdDialog.show({
+          controller: 'PlaceController',
+          controllerAs: 'pc',
+          templateUrl: 'views/templates/edit.tmpl.html',
+          parent: angular.element(document.body),
+          targetEvent: self.place,
+          locals: { place: self.placeToEdit},
+          clickOutsideToClose: true,
+          fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+      };
 
 
   //new place controls
@@ -102,36 +121,23 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.updateMap();
 
   //material
-  self.showAlert = function (ev, place) {
-    console.log('clicked! place', place)
-    $mdDialog.show(
-      $mdDialog.alert()
-        .parent(angular.element(document.querySelector('#popupContainer')))
-        .title('This is an alert')
-        .textContent("text", place)
-        .ariaLabel('Alert Dialog Demo')
-        .ok('Got it!')
-        .targetEvent(ev)
-    );
-  };
 
 
-  self.showAdvanced = function (ev) {
-
+  self.showDetails = function (place) {
+    console.log('place is ', place)
+    console.log('self.place is', self.place)
+    PlacesService.detailsData(self.place);
+    console.log('place clicked', self.placeToShow)
     $mdDialog.show({
       controller: 'PlaceController',
       controllerAs: 'pc',
       templateUrl: 'views/templates/details.tmpl.html',
       parent: angular.element(document.body),
       targetEvent: ev,
+      locals: { place: self.placeToShow },
       clickOutsideToClose: true,
       fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
     })
-    //   .then(function (answer) {
-    //     self.status = 'You said the information was "' + answer + '".';
-    //   }, function () {
-    //     self.status = 'You cancelled the dialog.';
-    // });
   };
 
 
