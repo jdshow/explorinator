@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
             console.log('find error: ', err);
             res.sendStatus(500);
         } else {
-            console.log('found data: ', data);
+           // console.log('found data: ', data);
             placesToSend = data;
             // console.log('data.places to send is', placesToSend)
             res.send(placesToSend);
@@ -24,7 +24,7 @@ router.get('/', function (req, res) {
 
 router.get('/public/:userName', function (req, res) {
     // console.log('placesRouter - get / req.username:', req.user.username);
-    console.log('userName is ', req.params.userName)
+    // console.log('userName is ', req.params.userName)
     var userName = req.params.userName
     var placesToSend = [];
     Place.find({ userName: userName }, function (err, data) {
@@ -41,8 +41,6 @@ router.get('/public/:userName', function (req, res) {
                     placesToSend.push(placesToCheck[i])
                 }
             }
-            console.log('places to check', placesToCheck.length)
-            console.log('places to send', placesToSend.length)
             res.send(placesToSend);
         }
     });
@@ -67,9 +65,9 @@ router.post('/', function (req, res) {
 
     }
 
-    console.log('placeToAdd object', placeToAdd)
-    console.log('req.user', req.user)
-    console.log('new place req.body', req.body)
+    // console.log('placeToAdd object', placeToAdd)
+    // console.log('req.user', req.user)
+    // console.log('new place req.body', req.body)
     var placeToSaveToTheCollection = new Place(placeToAdd)
 
     // insert into our collection
