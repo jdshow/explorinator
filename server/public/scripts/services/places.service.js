@@ -55,10 +55,6 @@ myApp.service('PlacesService', ['$http', function ($http) {
         self.placeToEdit = data;
     }
 
-    self.detailsData = function(data) {
-        self.placeToShow = data;
-    }
-
     self.buildMarkers = function (array) {
         //builds an array of lat/long pairs and place name to create markers
         for (i = 0; i < array.length; i++) {
