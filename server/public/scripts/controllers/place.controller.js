@@ -9,7 +9,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.editMode = false;
   self.placeToAdd = {}
   self.placeToEdit = PlacesService.placeToEdit;
-  self.placeToShow = PlacesService.placeToShow; 
+
 
   //clears data on logout
   self.logout = function () {
@@ -27,21 +27,18 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   self.showDetail = function (e, place) { //opens detail panel
-    console.log('marker clicked, place:', place)
+  //  console.log('marker clicked, place:', place)
     self.place = place;
     self.editPlace = place;
     self.infowindow = true;
     self.editMode = false;
-    console.log('place to edit should be', self.editPlace)
+  //  console.log('place to edit should be', self.editPlace)
   };
 
   self.hideDetail = function () { //closes detail panel
     self.infowindow = false;
   };
 
-  self.showPlaceData = function (currentPlace) {
-    console.log('current place clicked is ', currentPlace)
-  }
 
 
 
@@ -58,13 +55,13 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.editMode = false;
     self.place = place;
 
-    console.log('new data for place is ', place)
+   // console.log('new data for place is ', place)
     PlacesService.updatePlace(place);
     //self.showDetail();
   }
 
   self.makeFave = function (place) { //call service method to PUT type change
-    console.log('controller gets type change requested for', place);
+   // console.log('controller gets type change requested for', place);
     PlacesService.makeFave(place);
   }
 
@@ -103,7 +100,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   //add new place controls
   self.addPlace = function () { //calls service method to POST new place to db, clears place inputs
-    console.log('new place!', self.placeToAdd)
+   // console.log('new place!', self.placeToAdd)
     PlacesService.addPlace(self.placeToAdd);
     self.placeToAdd = {};
     self.place = {};
