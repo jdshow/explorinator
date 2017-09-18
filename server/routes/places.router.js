@@ -22,6 +22,25 @@ router.get('/', function (req, res) {
     });
 });
 
+router.get('/public/:userName', function (req, res) {
+    // console.log('placesRouter - get / req.username:', req.user.username);
+    console.log('userName is ', req.params.userName)
+    var userName = req.params.userName
+    Place.find({ username: userName }, function (err, data) {
+        if (err) {
+            console.log('find error: ', err);
+            res.sendStatus(500);
+        } else {
+            console.log('found data: ', data);
+            //need to add private flag check
+            placesToSend = data;
+            // console.log('data.places to send is', placesToSend)
+            res.send(placesToSend);
+        }
+    });
+});
+
+
 router.post('/', function (req, res) {
     console.log('req.user', req.user)
 
@@ -35,7 +54,8 @@ router.post('/', function (req, res) {
         notes: req.body.notes,
         category: req.body.category,
         priceRange: req.body.priceRange,
-        userID: req.user._id
+        userID: req.user._id,
+        userName: req.user.username
 
     }
 

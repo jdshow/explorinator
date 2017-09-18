@@ -31,6 +31,10 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
+    .when('/public/:userName', {
+      templateUrl: '/views/templates/public.html',
+      controller: 'PublicController as pc'
+    })
     .otherwise({
       redirectTo: 'home'
     });
