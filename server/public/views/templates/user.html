@@ -2,9 +2,9 @@
 <div class="container" ng-controller="UserController as uc">
 
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
-
+    <a ng-href="localhost:5000/#/public/{{uc.userObject.userName}}">link to my public map</a>
 </div>
-<button class="btn btn-default" ng-click="pc.logout()">Log Out</button> //add link to public map
+<button class="btn btn-default" ng-click="pc.logout()">Log Out</button> 
 
 
 <div>

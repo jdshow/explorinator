@@ -3,6 +3,7 @@ var router = express.Router();
 var Users = require('../models/user.js');
 var path = require('path');
 
+var defaultCategories = ["Food and Drink", "The Arts", "Nature", "Shopping", "Community", "Point of Interest" ]
 
 // Handles request for HTML file
 router.get('/', function(req, res, next) {
@@ -20,7 +21,8 @@ router.post('/', function(req, res, next) {
   */
     var userToSave = {
       username : req.body.username,
-      password : req.body.password
+      password : req.body.password,
+      categories: defaultCategories
     };
 
 
