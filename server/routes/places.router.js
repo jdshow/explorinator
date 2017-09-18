@@ -26,15 +26,23 @@ router.get('/public/:userName', function (req, res) {
     // console.log('placesRouter - get / req.username:', req.user.username);
     console.log('userName is ', req.params.userName)
     var userName = req.params.userName
-    Place.find({ username: userName }, function (err, data) {
+    var placesToSend = [];
+    Place.find({ userName: userName }, function (err, data) {
         if (err) {
             console.log('find error: ', err);
             res.sendStatus(500);
         } else {
-            console.log('found data: ', data);
             //need to add private flag check
-            placesToSend = data;
-            // console.log('data.places to send is', placesToSend)
+            placesToCheck = data;
+            for (i=0; i < placesToCheck.length; i++) {
+                if (placesToCheck[i].private == true ) {
+                    console.log('private location')
+                } else {
+                    placesToSend.push(placesToCheck[i])
+                }
+            }
+            console.log('places to check', placesToCheck.length)
+            console.log('places to send', placesToSend.length)
             res.send(placesToSend);
         }
     });
