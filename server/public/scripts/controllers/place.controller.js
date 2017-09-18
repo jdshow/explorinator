@@ -1,4 +1,4 @@
-myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog', '$mdToast', function (UserService, PlacesService, $mdDialog, $mdToast) {
+myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog', '$mdToast', 'NgMap', function (UserService, PlacesService, $mdDialog, $mdToast, NgMap) {
   console.log('InfoController created');
   var self = this;
   self.userService = UserService;
@@ -9,7 +9,11 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.editMode = false;
   self.placeToAdd = {}
   self.placeToEdit = PlacesService.placeToEdit;
+  self.map = {};
 
+  NgMap.getMap('map').then(function (map) {
+    self.map = map;
+  })
 
   //clears data on logout
   self.logout = function () {
@@ -26,18 +30,14 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     PlacesService.getPlaces();
   }
 
-  self.showDetail = function (e, place) { //opens detail panel
-  //  console.log('marker clicked, place:', place)
+
+  self.showInfoWindow = function (e, place) {
     self.place = place;
     self.editPlace = place;
-    self.infowindow = true;
-    self.editMode = false;
-  //  console.log('place to edit should be', self.editPlace)
-  };
+    self.placeToShow = place;
+    self.map.showInfoWindow('infoWindow', this);
 
-  self.hideDetail = function () { //closes detail panel
-    self.infowindow = false;
-  };
+  }
 
 
 
@@ -55,30 +55,30 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.editMode = false;
     self.place = place;
 
-   // console.log('new data for place is ', place)
+    // console.log('new data for place is ', place)
     PlacesService.updatePlace(place);
     //self.showDetail();
   }
 
   self.makeFave = function (place) { //call service method to PUT type change
-   // console.log('controller gets type change requested for', place);
+    // console.log('controller gets type change requested for', place);
     PlacesService.makeFave(place);
   }
 
   //edit mode in material
-  self.showEdit = function (place) {    
+  self.showEdit = function (place) {
     PlacesService.editData(self.place);
-        $mdDialog.show({
-          controller: 'PlaceController',
-          controllerAs: 'pc',
-          templateUrl: 'views/templates/edit.tmpl.html',
-          parent: angular.element(document.body),
-          targetEvent: self.place,
-          locals: { place: self.placeToEdit},
-          clickOutsideToClose: true,
-          fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
-        })
-      };
+    $mdDialog.show({
+      controller: 'PlaceController',
+      controllerAs: 'pc',
+      templateUrl: 'views/templates/edit.tmpl.html',
+      parent: angular.element(document.body),
+      targetEvent: self.place,
+      locals: { place: self.placeToEdit },
+      clickOutsideToClose: true,
+      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+    })
+  };
 
 
   //new place controls
@@ -100,7 +100,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   //add new place controls
   self.addPlace = function () { //calls service method to POST new place to db, clears place inputs
-   // console.log('new place!', self.placeToAdd)
+    // console.log('new place!', self.placeToAdd)
     PlacesService.addPlace(self.placeToAdd);
     self.placeToAdd = {};
     self.place = {};
