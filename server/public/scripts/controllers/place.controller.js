@@ -72,6 +72,22 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     })
   };
 
+  self.updatePlace = function (place) {// call service method to update data
+    //self.editMode = false;
+   // self.place = place;
+
+    // console.log('new data for place is ', place)
+
+    if (self.newCat != "") {
+      console.log(self.newCat)
+      //call function to add category to db (on check??)
+      self.placeToEdit.category = self.newCat;
+    }
+    self.newCat = "";
+    PlacesService.updatePlace(self.PlaceToEdit);
+    //self.showDetail();
+  }
+
 
   //new place controls
   self.showInputs = function () { //shows inputs after location is pulled from Places API
@@ -92,11 +108,11 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   self.addPlace = function () { //calls service method to POST new place to db, clears place inputs
     if (self.newCat != "") {
-  
+
       console.log(self.newCat)
       //call function to add category to db (on check??)
       self.placeToAdd.category = self.newCat;
-      
+
     }
     PlacesService.addPlace(self.placeToAdd);
     self.placeToAdd = {};
@@ -114,11 +130,11 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   //filestack controls
   self.client = filestack.init('A2o83QviQ7GRKGiIDPkUOz');
-  self.showPicker = function() {
-      client.pick({
-      }).then(function(result) {
-          console.log(JSON.stringify(result.filesUploaded))
-      });
+  self.showPicker = function () {
+    client.pick({
+    }).then(function (result) {
+      console.log(JSON.stringify(result.filesUploaded))
+    });
   }
 
   //marker init
