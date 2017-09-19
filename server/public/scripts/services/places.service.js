@@ -30,15 +30,16 @@ myApp.service('PlacesService', ['$http', function ($http) {
         });
     };
 
-    self.makeFave = function(place) { //changes place to explore to favorite place
-        $http.put('/places/fave', place).then(function(response) {
-            self.getPlaces();            
-        });
-    }
 
     self.updatePlace = function(place) { //changes place to explore to favorite place
         console.log('place in service is ', place)
         $http.put('/places', place).then(function(response) {
+            self.getPlaces();            
+        });
+    }
+
+    self.makeFave = function(place) { //changes place to explore to favorite place
+        $http.put('/places/fave', place).then(function(response) {
             self.getPlaces();            
         });
     }

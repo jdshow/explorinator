@@ -2,7 +2,7 @@ myApp.factory('UserService', function ($http, $location) {
   //console.log('UserService Loaded');
   // self.returnedPlaces = { list: [] };
   var userObject = {};
-  var categories = {list: []};
+  var categories = { list: [] };
 
 
   return {
@@ -35,7 +35,16 @@ myApp.factory('UserService', function ($http, $location) {
         console.log('UserService -- logout -- logged out');
         $location.path("/home");
       });
-    }
+    },
+
+    addCat: function (cat) {
+      console.log('cat is ', cat)
+      var category = {category: cat};
+      $http.put('/user/cats', category).then(function (response) {
+        getUser();
+      });
+    },
+
 
 
   };
