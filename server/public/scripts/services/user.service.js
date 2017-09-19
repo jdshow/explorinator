@@ -1,19 +1,23 @@
 myApp.factory('UserService', function ($http, $location) {
   //console.log('UserService Loaded');
- // self.returnedPlaces = { list: [] };
+  // self.returnedPlaces = { list: [] };
   var userObject = {};
+  var categories = { list: [] };
 
 
   return {
-    userObject: userObject, 
+    userObject: userObject,
+    categories: categories,
 
     getuser: function () {
-     // console.log('UserService -- getuser');
+      // console.log('UserService -- getuser');
       $http.get('/user').then(function (response) {
         if (response.data.username) {
           // user has a curret session on the server
           userObject.userName = response.data.username;
-          console.log('UserService -- getuser -- User Data: ', userObject.userName);
+          userObject.categories = response.data.categories;
+          categories.list = response.data.categories;
+          console.log('UserService -- getuser -- User Data: ', userObject);
         } else {
           console.log('UserService -- getuser -- failure');
           // user has no session, bounce them back to the login page
@@ -31,7 +35,16 @@ myApp.factory('UserService', function ($http, $location) {
         console.log('UserService -- logout -- logged out');
         $location.path("/home");
       });
-    }
+    },
+
+    addCat: function (cat) {
+      console.log('cat is ', cat)
+      var category = {category: cat};
+      $http.put('/user/cats', category).then(function (response) {
+        getUser();
+      });
+    },
+
 
 
   };

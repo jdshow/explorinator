@@ -4,13 +4,15 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.userService = UserService;
 
   self.placesArray = PlacesService.placesArray;
-  self.markerArray = PlacesService.markerArray
-  self.infoWindow = false;
-  self.editMode = false;
+  self.markerArray = PlacesService.markerArray;
   self.placeToAdd = {}
   self.placeToEdit = PlacesService.placeToEdit;
   self.map = {};
+  self.categories = UserService.categories;
+  self.newCat = "";
 
+
+  //initialize map
   NgMap.getMap('map').then(function (map) {
     self.map = map;
   })
@@ -22,41 +24,70 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     PlacesService.placesArray = { list: [] };
   }
 
-
-
   //main map controls
 
   self.updateMap = function () { //get data from server
     PlacesService.getPlaces();
+    console.log('categories in PC ', self.categories)
   }
-
 
   self.showInfoWindow = function (e, place) {
     self.place = place;
     self.editPlace = place;
     self.placeToShow = place;
     self.map.showInfoWindow('infoWindow', this);
-
   }
 
-
+  self.showDetails = function (place) {
+    console.log('place is ', place)
+    console.log('self.place is', self.place)
+    PlacesService.detailsData(self.place);
+    console.log('place clicked', self.placeToShow)
+    $mdDialog.show({
+      controller: 'PlaceController',
+      controllerAs: 'pc',
+      templateUrl: 'views/templates/details.tmpl.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      locals: { place: self.placeToShow },
+      clickOutsideToClose: true,
+      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+    })
+  };
 
 
   //edit place controls
 
-  // self.editModeActive = function () {   // opens edit inputs and closes detail panel
-  //   self.editMode = true;
-  //   self.hideDetail();
-  //   self.placeToEdit = self.place;
-  //   console.log('editing', self.placeToEdit)
-  // }
+  self.showEdit = function (place) { //why am i passing place here
+    PlacesService.editData(self.place); //and self.place here?
+    $mdDialog.show({
+      controller: 'PlaceController',
+      controllerAs: 'pc',
+      templateUrl: 'views/templates/edit.tmpl.html',
+      parent: angular.element(document.body),
+      targetEvent: self.place,
+      locals: { place: self.placeToEdit },
+      clickOutsideToClose: true,
+      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+    })
+  };
 
-  self.updatePlace = function (place) { //closes edit inputs, opens updated detail panel, call service method to update data
-    self.editMode = false;
-    self.place = place;
+  self.updatePlace = function (place) { // call service method to update data
+    //was this to control the box on the DOM before material? self.editMode = false;
+    self.place = place; //what is this doing
 
     // console.log('new data for place is ', place)
-    PlacesService.updatePlace(place);
+    // console.log('updatePlace: place is ', place)
+    // console.log('updatePlace: self.place is ', self.place)
+    // console.log('updatePlace, self.placeToEdit is ', self.placeToEdit)
+    if (self.newCat != "") {
+      console.log(self.newCat)
+      UserService.addCat(self.newCat);
+      //call function to add category to db (on check??)
+      self.placeToEdit.category = self.newCat;
+    }
+    self.newCat = "";
+    PlacesService.updatePlace(place); //has to be place or it breaks *shrug*
     //self.showDetail();
   }
 
@@ -80,7 +111,6 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     })
   };
 
-
   //new place controls
   self.showInputs = function () { //shows inputs after location is pulled from Places API
     self.partTwo = true;
@@ -98,13 +128,17 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     // self.map.setCenter(self.place.geometry.location);
   }
 
-  //add new place controls
   self.addPlace = function () { //calls service method to POST new place to db, clears place inputs
-    // console.log('new place!', self.placeToAdd)
+    if (self.newCat != "") {
+      console.log(self.newCat)
+      UserService.addCat(self.newCat);
+      self.placeToAdd.category = self.newCat;
+    }
     PlacesService.addPlace(self.placeToAdd);
     self.placeToAdd = {};
     self.place = {};
     self.address = "";
+    self.newCat = "";
   }
 
 
@@ -114,44 +148,19 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.hideDetail();
   }
 
+  //filestack controls
+  self.client = filestack.init('A2o83QviQ7GRKGiIDPkUOz');
+  self.showPicker = function () {
+    client.pick({
+    }).then(function (result) {
+      console.log(JSON.stringify(result.filesUploaded))
+    });
+  }
+
   //marker init
   self.updateMap();
 
-  //material
-
-
-  self.showDetails = function (place) {
-    console.log('place is ', place)
-    console.log('self.place is', self.place)
-    PlacesService.detailsData(self.place);
-    console.log('place clicked', self.placeToShow)
-    $mdDialog.show({
-      controller: 'PlaceController',
-      controllerAs: 'pc',
-      templateUrl: 'views/templates/details.tmpl.html',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      locals: { place: self.placeToShow },
-      clickOutsideToClose: true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
-    })
-  };
 
 
 }]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

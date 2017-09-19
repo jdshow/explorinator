@@ -2,21 +2,13 @@
 <div class="container" ng-controller="UserController as uc">
 
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
-
+    <a ng-href="localhost:5000/#/public/{{uc.userObject.userName}}">link to my public map</a>
 </div>
-<button class="btn btn-default" ng-click="pc.logout()">Log Out</button> //add link to public map
+<button class="btn btn-default" ng-click="pc.logout()">Log Out</button> 
 
 
 <div>
     <ng-map id="map" zoom="11" center="current">
-        <!--   <marker position="[40.71, -74.21]" title="hello"></marker>
-        <marker position="[40.72, -74.20]" title="marker" animation="Animation.DROP"></marker>
-        <marker position="[40.73, -74.19]" title="drag me" draggable="true"></marker>
-        <marker position="[40.74, -74.18]" title="how" animation="Animation.BOUNCE"></marker>
-        <marker position="[40.75, -74.17]" title="are"></marker>
-        <marker position="[40.76, -74.16]" title="you" icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"></marker>
-        <marker position="[40.77, -74.15]" title="from"></marker>
-        <marker position="[40.78, -74.14]" title="allen"></marker> -->
         <marker ng-repeat="place in pc.markerArray" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
             title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
         <!-- not currently able to id and display in dialog -->
@@ -39,6 +31,9 @@
                 </div>
             </info-window>
     </ng-map>
+
+    <h1>categories</h1>
+    {{pc.categories.list}}
 
 </div>
 
