@@ -30,7 +30,7 @@
                 <label>Notes</label>
                 <textarea ng-model="pc.placeToEdit.notes" md-maxlength="200" rows="3" md-select-on-focus></textarea>
             </md-input-container>
-
+            <!-- 
             <md-input-container aria-label="Category input" class="md-block" flex-gt-sm>
                 <label for="category">Category</label>
                 <md-select ng-model="pc.placeToEdit.category">
@@ -41,17 +41,17 @@
                     <md-option value="Community">Community</md-option>
                     <md-option value="Point of Interest">Point of Interest</md-option>
                 </md-select>
-            </md-input-container>
+            </md-input-container> -->
 
-            <!-- replace above with dynamic categories 
-                                            <md-input-container class="md-block" flex-gt-sm>
-                                            <label>Category</label>
-                                            <md-select ng-model="pc.placeToEdit.category">
-                                              <md-option ng-repeat="category in pc.categories" value="{{category}}">
-                                                {{category}}
-                                              </md-option>
-                                            </md-select>
-                                          </md-input-container> -->
+            replace above with dynamic categories
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Category</label>
+                <md-select ng-model="pc.placeToEdit.category">
+                    <md-option ng-repeat="category in pc.categories.list" value="{{category}}">
+                        {{category}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
 
 
 

@@ -10,6 +10,9 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.placeToAdd = {}
   self.placeToEdit = PlacesService.placeToEdit;
   self.map = {};
+  self.categories = UserService.categories;
+
+
 
   NgMap.getMap('map').then(function (map) {
     self.map = map;
@@ -28,6 +31,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   self.updateMap = function () { //get data from server
     PlacesService.getPlaces();
+    console.log('categories in PC ', self.categories)
   }
 
 
