@@ -41,7 +41,7 @@ myApp.factory('UserService', function ($http, $location) {
       console.log('cat is ', cat)
       var category = {category: cat};
       $http.put('/user/cats', category).then(function (response) {
-        getUser();
+        //getUser();
       });
     },
 

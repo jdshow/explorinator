@@ -11,9 +11,6 @@
     <ng-map id="map" zoom="11" center="current">
         <marker ng-repeat="place in pc.markerArray" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
             title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
-        <!-- not currently able to id and display in dialog -->
-        <!--use  on-click="pc.showDetails(place)" -->
-        <!--without angular material use on-click="pc.showDetail(place)"-->
         <marker icon="{{place.icon}}" position="current" title="current location" </marker>
             <info-window id="infoWindow">
                 <div ng-non-bindable="">
@@ -24,16 +21,11 @@
                     <p ng-show="pc.place.category"><span class="detailsTitle">Category:</span> {{pc.placeToShow.category}}</p>
                     <p ng-show="pc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{pc.placeToShow.priceRange}}</p>
                     <button ng-if="pc.place.explore" ng-click="pc.makeFave(pc.place)">Make a Favorite Place</button>
-                    <button ng-click="pc.deletePlace(pc.place)">Delete</button>
-                    <!--make icon instead of link and add confirm dialog-->
-                    <!-- <a href="/#/edit/" >Edit</a> -->
+                    <button ng-click="pc.deletePlace(pc.place)">Delete</button> <!--make icon instead of link and add confirm dialog-->
                     <button ng-click="pc.showEdit(place)">Edit</button>
                 </div>
             </info-window>
     </ng-map>
-
-    <h1>categories</h1>
-    {{pc.categories.list}}
 
 </div>
 

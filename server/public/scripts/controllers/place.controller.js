@@ -28,6 +28,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   self.updateMap = function () { //get data from server
     PlacesService.getPlaces();
+    console.log('markerArray', self.markerArray)
     console.log('categories in PC ', self.categories)
   }
 
@@ -58,44 +59,6 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   //edit place controls
 
-  self.showEdit = function (place) { //why am i passing place here
-    PlacesService.editData(self.place); //and self.place here?
-    $mdDialog.show({
-      controller: 'PlaceController',
-      controllerAs: 'pc',
-      templateUrl: 'views/templates/edit.tmpl.html',
-      parent: angular.element(document.body),
-      targetEvent: self.place,
-      locals: { place: self.placeToEdit },
-      clickOutsideToClose: true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
-    })
-  };
-
-  self.updatePlace = function (place) { // call service method to update data
-    //was this to control the box on the DOM before material? self.editMode = false;
-    self.place = place; //what is this doing
-
-    // console.log('new data for place is ', place)
-    // console.log('updatePlace: place is ', place)
-    // console.log('updatePlace: self.place is ', self.place)
-    // console.log('updatePlace, self.placeToEdit is ', self.placeToEdit)
-    if (self.newCat != "") {
-      console.log(self.newCat)
-      UserService.addCat(self.newCat);
-      //call function to add category to db (on check??)
-      self.placeToEdit.category = self.newCat;
-    }
-    self.newCat = "";
-    PlacesService.updatePlace(place); //has to be place or it breaks *shrug*
-    //self.showDetail();
-  }
-
-  self.makeFave = function (place) { //call service method to PUT type change
-    // console.log('controller gets type change requested for', place);
-    PlacesService.makeFave(place);
-  }
-
   //edit mode in material
   self.showEdit = function (place) {
     PlacesService.editData(self.place);
@@ -110,6 +73,26 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
       fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
     })
   };
+
+  self.updatePlace = function (place) { // call service method to update data
+    self.place = place; //what is this doing
+    if (self.newCat != "") {
+      console.log(self.newCat)
+      UserService.addCat(self.newCat);
+      //call function to add category to db (on check??)
+      self.placeToEdit.category = self.newCat;
+    }
+    self.newCat = "";
+    PlacesService.updatePlace(place); //has to be place or it breaks *shrug*
+    self.placeToEdit = {};
+  }
+
+  self.makeFave = function (place) { //call service method to PUT type change
+    // console.log('controller gets type change requested for', place);
+    PlacesService.makeFave(place);
+  }
+
+
 
   //new place controls
   self.showInputs = function () { //shows inputs after location is pulled from Places API
@@ -145,7 +128,6 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   //delete place controls
   self.deletePlace = function (place) {
     PlacesService.deletePlace(place);
-    self.hideDetail();
   }
 
   //filestack controls
