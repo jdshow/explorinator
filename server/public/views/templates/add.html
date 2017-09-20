@@ -1,78 +1,80 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<md-content layout-padding>
-  <div>
-    <form name="userForm">
 
-      <div layout-gt-xs="row">
+<div id="newPlaceForm">
+  <md-content layout-padding>
+    <div>
+      <form name="userForm">
 
-        <md-input-container class="md-block" flex-gt-sm>
-          <h2>Step 1: Find the Place</h2>
-          <input aria-label="address search bar" places-auto-complete size=80 ng-model="pc.address" component-restrictions="{country:'us'}"
-            on-place-changed="pc.placeChanged()">
-          <!-- <div>
+        <div layout-gt-xs="row">
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <h2>Step 1: Find the Place</h2>
+            <input aria-label="address search bar" places-auto-complete size=80 ng-model="pc.address" component-restrictions="{country:'us'}"
+              on-place-changed="pc.placeChanged()">
+            <!-- <div>
             <ng-map id="newPlaceMap" zoom="11" center="current" map-type-id="MapTypeId.ROADMAP">
               <marker position="{{pc.place.geometry.location}}" centered="true"></marker>
             </ng-map>
           </div> -->
-        </md-input-container>
-      </div>
+          </md-input-container>
+        </div>
 
 
-      <div>
-        <h2>
-          Step 2: Info
-        </h2>
+        <div>
+          <h2>
+            Step 2: Info
+          </h2>
 
-        <h3>Basic Info (required)</h3>
+          <h3>Basic Info (required)</h3>
 
-        <md-input-container aria-label="select place to explore or favorite place" class="md-block" flex-gt-sm>
-          <label>Place to Explore or Favorite Place</label>
-          <md-select ng-model="pc.placeToAdd.type">
-            <md-option value="Place to Explore">Place to Explore</md-option>
-            <md-option value="Favorite Place">Favorite Place</md-option>
-          </md-select>
-        </md-input-container>
-
-
-        <md-input-container aria-label="input place name" class="md-block" flex-gt-sm>
-          <label for="name">Name:</label>
-          <input type="text" ng-model="pc.placeToAdd.name">
-        </md-input-container>
-
-        <md-input-container aria-label="checkbox for private" class="md-block" flex-gt-sm>
-          <md-checkbox ng-model="pc.placeToAdd.private" aria-label="private?">
-            Private (do not display on my public maps)
-          </md-checkbox>
-        </md-input-container>
+          <md-input-container aria-label="select place to explore or favorite place" class="md-block" flex-gt-sm>
+            <label>Place to Explore or Favorite Place</label>
+            <md-select ng-model="pc.placeToAdd.type">
+              <md-option value="Place to Explore">Place to Explore</md-option>
+              <md-option value="Favorite Place">Favorite Place</md-option>
+            </md-select>
+          </md-input-container>
 
 
-        <h3>More Info (optional)</h3>
+          <md-input-container aria-label="input place name" class="md-block" flex-gt-sm>
+            <label for="name">Name:</label>
+            <input type="text" ng-model="pc.placeToAdd.name">
+          </md-input-container>
 
-        <md-input-container aria-label="input place's website" class="md-block" flex-gt-sm>
-          <label for="website">Website:</label>
-          <input type="text" ng-model="pc.placeToAdd.website">
-        </md-input-container>
-
-        <md-input-container aria-label="notes about place" class="md-block">
-          <label>Notes</label>
-          <textarea ng-model="pc.placeToAdd.notes" md-maxlength="200" rows="3" md-select-on-focus></textarea>
-        </md-input-container>
-
-        <md-input-container aria-label="select a category" class="md-block" flex-gt-sm>
-          <label>Category</label>
-          <md-select name="categorySelector" ng-model="pc.placeToAdd.category">
-            <md-option ng-repeat="category in pc.categories.list" value="{{category}}">
-              {{category}}
-            </md-option>
-            <md-option value="pc.newCat">Other</md-option>
-          </md-select>
-          <md-input-container aria-label="add a new category"><input ng-model="pc.newCat" type="text" name="category" id="category" /></md-input-container>
-        </md-input-container>
-        
-     
+          <md-input-container aria-label="checkbox for private" class="md-block" flex-gt-sm>
+            <md-checkbox ng-model="pc.placeToAdd.private" aria-label="private?">
+              Private (do not display on my public maps)
+            </md-checkbox>
+          </md-input-container>
 
 
-        <!-- 
+          <h3>More Info (optional)</h3>
+
+          <md-input-container aria-label="input place's website" class="md-block" flex-gt-sm>
+            <label for="website">Website:</label>
+            <input type="text" ng-model="pc.placeToAdd.website">
+          </md-input-container>
+
+          <md-input-container aria-label="notes about place" class="md-block">
+            <label>Notes</label>
+            <textarea ng-model="pc.placeToAdd.notes" md-maxlength="200" rows="3" md-select-on-focus></textarea>
+          </md-input-container>
+
+          <md-input-container aria-label="select a category" class="md-block" flex-gt-sm>
+            <label>Category</label>
+            <md-select name="categorySelector" ng-model="pc.placeToAdd.category">
+              <md-option ng-repeat="category in pc.categories.list" value="{{category}}">
+                {{category}}
+              </md-option>
+              <md-option value="pc.newCat">Other</md-option>
+            </md-select>
+            <md-input-container aria-label="add a new category"><input ng-model="pc.newCat" type="text" name="category" id="category" /></md-input-container>
+          </md-input-container>
+
+
+
+
+          <!-- 
         <md-input-container aria-label="price range" class="md-block" flex-gt-sm>
           <label for="priceRange">Price Range</label>
           <md-select ng-model="pc.placeToAdd.priceRange">
@@ -85,12 +87,12 @@
         </md-input-container> -->
 
 
-        <!--add photo upload-->
+          <!--add photo upload-->
+          <md-button aria-label="cancel button" class="md-raised" ng-click="pc.cancelNewPlace()">Cancel</md-button>
+          <md-button aria-label="submit button" type="submit" ng-click="pc.addPlace(); pc.showActionToast()" class="md-primary md-raised">Add it!</md-button>
+        </div>
 
-        <md-button aria-label="submit button" type="submit" ng-click="pc.addPlace(); pc.showActionToast()" class="md-primary md-raised">Add it!</md-button>
-      </div>
-
-    </form>
-  </div>
-</md-content>
-
+      </form>
+    </div>
+  </md-content>
+</div>

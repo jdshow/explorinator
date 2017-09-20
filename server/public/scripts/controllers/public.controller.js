@@ -5,7 +5,6 @@ myApp.controller('PublicController', function (UserService, PlacesService, NgMap
 
   self.placesArray = PlacesService.placesArray;
   self.markerArray = PlacesService.markerArray
-  self.infoWindow = false;
   self.placeClickedData = {};
 
   //initialize map

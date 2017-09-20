@@ -56,6 +56,17 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     })
   };
 
+  self.showFilters = function() {
+    self.filters = true;
+  }
+
+  self.filterMap = function() {
+    console.log('starting location', self.startingLocationFound)
+    console.log('filter options', self.placesToShow)
+    self.filters = false;
+    //run map refresh function with new GET params
+  }
+
 
 
   //edit place controls
@@ -75,6 +86,11 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
       fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
     })
   };
+
+
+  self.cancel = function() {
+    $mdDialog.cancel();
+}
 
   self.updatePlace = function (place) { // call service method to update data
     self.place = place; //what is this doing
@@ -120,6 +136,13 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
       self.placeToAdd.category = self.newCat;
     }
     PlacesService.addPlace(self.placeToAdd);
+    self.placeToAdd = {};
+    self.place = {};
+    self.address = "";
+    self.newCat = "";
+  }
+
+  self.cancelNewPlace = function() {
     self.placeToAdd = {};
     self.place = {};
     self.address = "";
