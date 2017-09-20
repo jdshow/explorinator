@@ -142,6 +142,13 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.newCat = "";
   }
 
+  self.cancelNewPlace = function() {
+    self.placeToAdd = {};
+    self.place = {};
+    self.address = "";
+    self.newCat = "";
+  }
+
   //toast on successuful add
 
   // self.showActionToast = function () {
