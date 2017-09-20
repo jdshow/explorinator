@@ -57,11 +57,13 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   };
 
 
+
   //edit place controls
 
   //edit mode in material
   self.showEdit = function (place) {
     PlacesService.editData(self.place);
+    console.log('place to show is', place)
     $mdDialog.show({
       controller: 'PlaceController',
       controllerAs: 'pc',
@@ -124,6 +126,22 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.newCat = "";
   }
 
+  //toast on successuful add
+
+  // self.showActionToast = function () {
+  //   var toast = $mdToast.simple()
+  //     .textContent('Place added!')
+  //     .action('Go to Map')
+  //     .highlightAction(true)
+  //     .highlightClass('md-accent')// Accent is used by default, this just demonstrates the usage.
+  //     .position("Top Right");
+
+  //   $mdToast.show(toast).then(function (response) {
+  //     if (response == 'ok') {
+  //       alert('you want to go to map!');
+  //     }
+  //   });
+  // };
 
   //delete place controls
   self.deletePlace = function (place) {

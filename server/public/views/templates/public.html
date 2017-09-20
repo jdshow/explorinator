@@ -12,7 +12,8 @@
                     <h3>{{pc.placeToShow.type}}:</h3>
                     <h2>{{pc.placeToShow.title}}</h2>
                     <p><span class="detailsTitle">Address:</span> {{pc.placeToShow.address}}</p>
-                    <p><span class="detailsTitle">Notes:</span> {{pc.placeToShow.notes}} </p>
+                    <p ng-show="pc.place.website"><span class="detailsTitle">Website:</span> <a ng-href="{{pc.placeToShow.website}}" target="_blank">{{pc.placeToShow.website}}</a></p>      
+                    <p><span class="detailsTitle">Notes:</span> {{pc.placeToShow.notes}} </p>                  
                     <p ng-show="pc.place.category"><span class="detailsTitle">Category:</span> {{pc.placeToShow.category}}</p>
                     <p ng-show="pc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{pc.placeToShow.priceRange}}</p>
                 </div>

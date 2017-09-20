@@ -61,7 +61,8 @@ router.post('/', function (req, res) {
         category: req.body.category,
         priceRange: req.body.priceRange,
         userID: req.user._id,
-        userName: req.user.username
+        userName: req.user.username,
+        website: req.body.website
 
     }
 
@@ -100,7 +101,8 @@ router.put('/', function (req, res) {
                 private: req.body.private,
                 notes: req.body.notes,
                 category: req.body.category,
-                priceRange: req.body.priceRange,
+                //priceRange: req.body.priceRange,
+                website: req.body.website
             }
         },
         function (err, data) {

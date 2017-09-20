@@ -69,7 +69,8 @@ myApp.service('PlacesService', ['$http', function ($http) {
                 private: array[i].private,
                 category: array[i].category,
                 priceRange: array[i].priceRange,
-                type: array[i].placeType
+                type: array[i].placeType,
+                website: array[i].website
             }
             //set icon based on place type
             if (array[i].placeType == "Favorite Place") {
