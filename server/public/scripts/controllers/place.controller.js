@@ -13,15 +13,9 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
 
   //initialize map
-
   NgMap.getMap('map').then(function (map) {
     self.map = map;
   })
-
-  //refresh map
-  self.drawMap = function() {
-    
-  }
 
   //clears data on logout
   self.logout = function () {
@@ -92,6 +86,11 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
       fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
     })
   };
+
+
+  self.cancel = function() {
+    $mdDialog.cancel();
+}
 
   self.updatePlace = function (place) { // call service method to update data
     self.place = place; //what is this doing

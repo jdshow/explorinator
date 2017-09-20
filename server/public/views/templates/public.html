@@ -4,7 +4,7 @@
 </div>
 <div>
     <ng-map id="map" zoom="11" center="current">
-        <marker ng-repeat="place in pc.markerArray" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
+        <marker ng-repeat="place in pc.markerArray.list" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
             title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
         <marker icon="{{place.icon}}" position="current" title="current location" </marker>
             <info-window id="infoWindow">

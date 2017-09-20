@@ -14,8 +14,9 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
     self.getPublicPlaces =  function (userName) {
         $http.get('/places/public/' + userName).then(function (response) {
+            self.markerArray.list = [];  
             self.placesArray.list = response.data
-        }).then(function () {
+            console.log('public places', self.placesArray, 'public markers', self.markerArray)
             self.buildMarkers(self.placesArray.list);
         })
     }
