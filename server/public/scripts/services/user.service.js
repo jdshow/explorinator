@@ -8,6 +8,7 @@ myApp.factory('UserService', function ($http, $location) {
   return {
     userObject: userObject,
     categories: categories,
+    
 
     getuser: function () {
       // console.log('UserService -- getuser');
