@@ -68,7 +68,6 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.mapFilter = {};
     PlacesService.markersAfterFilter = [];  
     self.updateMap();
-
   }
 
 

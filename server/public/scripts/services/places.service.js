@@ -137,7 +137,11 @@ myApp.service('PlacesService', ['$http', function ($http) {
                 if (self.markerArray.list[k].category.includes(catFilter)) {
                     console.log('Found both', typeFilter, catFilter)
                     self.markersAfterFilter.push(self.markerArray.list[k])
+                } else {
+                    console.log('not both')
                 }
+            } else {
+                console.log('no match')
             }
         }
     }
