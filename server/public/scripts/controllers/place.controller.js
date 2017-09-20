@@ -13,9 +13,15 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
 
   //initialize map
+
   NgMap.getMap('map').then(function (map) {
     self.map = map;
   })
+
+  //refresh map
+  self.drawMap = function() {
+    
+  }
 
   //clears data on logout
   self.logout = function () {
@@ -55,6 +61,17 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
       fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
     })
   };
+
+  self.showFilters = function() {
+    self.filters = true;
+  }
+
+  self.filterMap = function() {
+    console.log('starting location', self.startingLocationFound)
+    console.log('filter options', self.placesToShow)
+    self.filters = false;
+    //run map refresh function with new GET params
+  }
 
 
 

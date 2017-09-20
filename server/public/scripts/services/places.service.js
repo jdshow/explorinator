@@ -2,12 +2,12 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
     var self = this;
     self.placesArray = { list: [] };
-    self.markerArray = [];  
+    self.markerArray = { list: [] };  
 
     self.getPlaces = function () {
         $http.get('/places').then(function (response) {
-            self.placesArray.list = response.data
-        }).then(function () {
+            self.markerArray.list = [];  
+            self.placesArray.list = response.data 
             self.buildMarkers(self.placesArray.list);
         })
     }
@@ -79,7 +79,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
                 marker.icon = "{ url:'/assets/ExplorePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
                 marker.explore = true;
             }
-            self.markerArray.push(marker)
+            self.markerArray.list.push(marker)
         }
     }
 
