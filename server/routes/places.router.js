@@ -61,7 +61,8 @@ router.post('/', function (req, res) {
         category: req.body.category,
         priceRange: req.body.priceRange,
         userID: req.user._id,
-        userName: req.user.username
+        userName: req.user.username,
+        website: req.body.website
 
     }
 
@@ -100,7 +101,8 @@ router.put('/', function (req, res) {
                 private: req.body.private,
                 notes: req.body.notes,
                 category: req.body.category,
-                priceRange: req.body.priceRange,
+                //priceRange: req.body.priceRange,
+                website: req.body.website
             }
         },
         function (err, data) {
@@ -120,7 +122,7 @@ router.put('/fave', function (req, res) {
     placeId = req.body.id;
     Place.findByIdAndUpdate(
         { _id: placeId },
-        { $set: { placeType: "favorite" } },
+        { $set: { placeType: "Favorite Place" } },
         function (err, data) {
             if (err) {
                 console.log('update error: ', err);

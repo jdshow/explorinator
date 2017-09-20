@@ -28,6 +28,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   self.updateMap = function () { //get data from server
     PlacesService.getPlaces();
+    console.log('markerArray', self.markerArray)
     console.log('categories in PC ', self.categories)
   }
 
@@ -56,10 +57,13 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   };
 
 
+
   //edit place controls
 
-  self.showEdit = function (place) { //why am i passing place here
-    PlacesService.editData(self.place); //and self.place here?
+  //edit mode in material
+  self.showEdit = function (place) {
+    PlacesService.editData(self.place);
+    console.log('place to show is', place)
     $mdDialog.show({
       controller: 'PlaceController',
       controllerAs: 'pc',
@@ -73,13 +77,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   };
 
   self.updatePlace = function (place) { // call service method to update data
-    //was this to control the box on the DOM before material? self.editMode = false;
     self.place = place; //what is this doing
-
-    // console.log('new data for place is ', place)
-    // console.log('updatePlace: place is ', place)
-    // console.log('updatePlace: self.place is ', self.place)
-    // console.log('updatePlace, self.placeToEdit is ', self.placeToEdit)
     if (self.newCat != "") {
       console.log(self.newCat)
       UserService.addCat(self.newCat);
@@ -88,7 +86,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     }
     self.newCat = "";
     PlacesService.updatePlace(place); //has to be place or it breaks *shrug*
-    //self.showDetail();
+    self.placeToEdit = {};
   }
 
   self.makeFave = function (place) { //call service method to PUT type change
@@ -96,20 +94,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     PlacesService.makeFave(place);
   }
 
-  //edit mode in material
-  self.showEdit = function (place) {
-    PlacesService.editData(self.place);
-    $mdDialog.show({
-      controller: 'PlaceController',
-      controllerAs: 'pc',
-      templateUrl: 'views/templates/edit.tmpl.html',
-      parent: angular.element(document.body),
-      targetEvent: self.place,
-      locals: { place: self.placeToEdit },
-      clickOutsideToClose: true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
-    })
-  };
+
 
   //new place controls
   self.showInputs = function () { //shows inputs after location is pulled from Places API
@@ -141,11 +126,26 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.newCat = "";
   }
 
+  //toast on successuful add
+
+  // self.showActionToast = function () {
+  //   var toast = $mdToast.simple()
+  //     .textContent('Place added!')
+  //     .action('Go to Map')
+  //     .highlightAction(true)
+  //     .highlightClass('md-accent')// Accent is used by default, this just demonstrates the usage.
+  //     .position("Top Right");
+
+  //   $mdToast.show(toast).then(function (response) {
+  //     if (response == 'ok') {
+  //       alert('you want to go to map!');
+  //     }
+  //   });
+  // };
 
   //delete place controls
   self.deletePlace = function (place) {
     PlacesService.deletePlace(place);
-    self.hideDetail();
   }
 
   //filestack controls

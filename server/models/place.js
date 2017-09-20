@@ -14,7 +14,8 @@ var PlaceSchema = new Schema({
     category: {type: String},
     priceRange: {type: String},
     userID: {type: String, required: true},
-    userName: {type: String, required: true}
+    userName: {type: String, required: true},
+    website: {type: String}
 
 });
 

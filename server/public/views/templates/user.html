@@ -4,38 +4,29 @@
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <a ng-href="localhost:5000/#/public/{{uc.userObject.userName}}">link to my public map</a>
 </div>
-<button class="btn btn-default" ng-click="pc.logout()">Log Out</button> 
+<button class="btn btn-default" ng-click="pc.logout()">Log Out</button>
 
 
 <div>
     <ng-map id="map" zoom="11" center="current">
         <marker ng-repeat="place in pc.markerArray" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
             title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
-        <!-- not currently able to id and display in dialog -->
-        <!--use  on-click="pc.showDetails(place)" -->
-        <!--without angular material use on-click="pc.showDetail(place)"-->
         <marker icon="{{place.icon}}" position="current" title="current location" </marker>
             <info-window id="infoWindow">
                 <div ng-non-bindable="">
                     <h3>{{pc.placeToShow.type}}:</h3>
                     <h2>{{pc.placeToShow.title}}</h2>
                     <p><span class="detailsTitle">Address:</span> {{pc.placeToShow.address}}</p>
+                    <p ng-show="pc.place.website"><span class="detailsTitle">Website:</span> <a ng-href="{{pc.placeToShow.website}}" target="_blank">{{pc.placeToShow.website}}</a></p>
                     <p><span class="detailsTitle">Notes:</span> {{pc.placeToShow.notes}} </p>
                     <p ng-show="pc.place.category"><span class="detailsTitle">Category:</span> {{pc.placeToShow.category}}</p>
                     <p ng-show="pc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{pc.placeToShow.priceRange}}</p>
-                    <button ng-if="pc.place.explore" ng-click="pc.makeFave(pc.place)">Make a Favorite Place</button>
+                    <md-button ng-if="pc.place.explore" ng-click="pc.makeFave(pc.place)">Make a Favorite Place</md-button>
                     <button ng-click="pc.deletePlace(pc.place)">Delete</button>
                     <!--make icon instead of link and add confirm dialog-->
-                    <!-- <a href="/#/edit/" >Edit</a> -->
                     <button ng-click="pc.showEdit(place)">Edit</button>
                 </div>
             </info-window>
     </ng-map>
 
-    <h1>categories</h1>
-    {{pc.categories.list}}
-
 </div>
-
-
-
