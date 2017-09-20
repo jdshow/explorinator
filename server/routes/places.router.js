@@ -120,7 +120,7 @@ router.put('/fave', function (req, res) {
     placeId = req.body.id;
     Place.findByIdAndUpdate(
         { _id: placeId },
-        { $set: { placeType: "favorite" } },
+        { $set: { placeType: "Favorite Place" } },
         function (err, data) {
             if (err) {
                 console.log('update error: ', err);
