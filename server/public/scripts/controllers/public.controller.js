@@ -10,6 +10,7 @@ myApp.controller('PublicController', function (UserService, PlacesService, NgMap
   self.placeClickedData = {};
   self.bounds = PlacesService.bounds;
   self.noMatchingPlaces = PlacesService.noMatchingPlaces;
+  self.userExists = PlacesService.userExists;
 
   //initialize map
   NgMap.getMap('map').then(function (map) {
@@ -20,6 +21,7 @@ myApp.controller('PublicController', function (UserService, PlacesService, NgMap
   //initialize user categories for public filter
   self.getPublicCats = function () {
     PlacesService.getUserCatsByName(self.userMap)
+    console.log('CONTROLLER self.userExists', self.userExists)
   }
 
   self.getPublicCats();

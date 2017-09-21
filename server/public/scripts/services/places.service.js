@@ -6,7 +6,8 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.markersAfterFilter = [];
     self.publicCategories = { list: [] };
     self.bounds = new google.maps.LatLngBounds();
-    self.noMatchingPlaces ={status: false};
+    self.noMatchingPlaces = {status: false};
+    self.userExists = {status: false};
 
     //map load services
     self.getPlaces = function () {
@@ -30,8 +31,17 @@ myApp.service('PlacesService', ['$http', function ($http) {
         console.log('username is', userName)
         $http.get('/places/public/cats/' + userName).then(function (response) {
             self.public = response.data;
-            self.publicCategories.list = self.public[0].categories
-            console.log('self.publicCategories', self.publicCategories.list)
+            console.log('response.data', response.data)
+            console.log('self.public', self.public)
+    
+            if (response.data.length > 0) {
+                self.publicCategories.list = self.public[0].categories
+                console.log('self.publicCategories', self.publicCategories.list)
+                self.userExists.status = true;
+            } else {
+                self.userExists.status = false;
+            }
+
 
         })
     }

@@ -54,10 +54,10 @@
 
 
 <div id="mainMap">
-    <ng-map id="map" zoom="11" center="current">
+    <ng-map id="map" zoom="11">
         <marker ng-repeat="place in pc.markerArray.list" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
             title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
-        <marker icon="{{place.icon}}" position="current" title="current location" </marker>
+        <marker icon="{{place.icon}}" position="current" title="current location"</marker>
             <info-window id="infoWindow">
                 <div ng-non-bindable="">
                     <h3>{{pc.placeToShow.type}}:</h3>
