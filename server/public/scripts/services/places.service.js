@@ -83,6 +83,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
             }
             self.markerArray.list.push(marker)
         }
+        self.masterMarkers = self.markerArray.list;
     }
 
     self.filterMarkers = function (mapFilter) {
@@ -94,24 +95,30 @@ myApp.service('PlacesService', ['$http', function ($http) {
             filterCount = 1;
         }
 
-        console.log('filter is', mapFilter, 'filterCount', filterCount)
+        console.log('Places Service: filterMarkers - filter is', mapFilter, 'filterCount', filterCount)
+        console.log('self.markerArray.list before loops', self.markerArray.list)
 
         if (filterCount == 1 && mapFilter.type) {
             self.filterByType(mapFilter.type)
+            console.log('calling filterByType')
         } else if (filterCount == 1 && mapFilter.category) {
             self.filterByCat(mapFilter.category)
+            console.log('calling filterByCat')
         } else if (filterCount == 2) {
             self.filterByMany(mapFilter.type, mapFilter.category)
+            console.log('calling filterByMany')
         }
 
 
         self.markerArray.list = self.markersAfterFilter
+        console.log('self.markerArray.list after loops', self.markerArray.list)
+
     }
 
     self.filterByCat = function (catFilter) {
         console.log('in findCat, catFilter is ', catFilter)
         console.log('self.markerArray.list.length', self.markerArray.list.length)
-        for (i = 0; i < self.markerArray.list.length; i++) {
+        for (i = 0; i < self.masterMarkers.length; i++) {
             if (self.markerArray.list[i].category.includes(catFilter)) {
                 console.log('Found', catFilter)
                 self.markersAfterFilter.push(self.markerArray.list[i])
@@ -121,22 +128,22 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
     self.filterByType = function (typeFilter) {
         console.log('typeFilter is ', typeFilter)
-        for (i = 0; i < self.markerArray.list.length; i++) {
-            if (self.markerArray.list[i].type.includes(typeFilter)) {
+        for (i = 0; i < self.masterMarkers.length; i++) {
+            if (self.masterMarkers[i].type.includes(typeFilter)) {
                 console.log('Found', typeFilter)
-                self.markersAfterFilter.push(self.markerArray.list[i])
+                self.markersAfterFilter.push(self.masterMarkers[i])
             }
         }
     }
 
     self.filterByMany = function (typeFilter, catFilter) {
         console.log('in filter by many')
-        for (k = 0; k < self.markerArray.list.length; k++) {
-            if (self.markerArray.list[k].type.includes(typeFilter)){
+        for (i = 0; i < self.masterMarkers.length; i++) {
+            if (self.masterMarkers[i].type.includes(typeFilter)){
                 console.log('found type', typeFilter);
-                if (self.markerArray.list[k].category.includes(catFilter)) {
+                if (self.masterMarkers[i].category.includes(catFilter)) {
                     console.log('Found both', typeFilter, catFilter)
-                    self.markersAfterFilter.push(self.markerArray.list[k])
+                    self.markersAfterFilter.push(self.masterMarkers[i])
                 } else {
                     console.log('not both')
                 }
