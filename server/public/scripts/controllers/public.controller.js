@@ -9,6 +9,7 @@ myApp.controller('PublicController', function (UserService, PlacesService, NgMap
   self.categories = PlacesService.publicCategories;
   self.placeClickedData = {};
   self.bounds = PlacesService.bounds;
+  self.noMatchingPlaces = PlacesService.noMatchingPlaces;
 
   //initialize map
   NgMap.getMap('map').then(function (map) {
@@ -49,8 +50,9 @@ myApp.controller('PublicController', function (UserService, PlacesService, NgMap
 
   self.clearFilter = function () {
     self.mapFilter = {};
-    PlacesService.markersAfterFilter = [];
+    PlacesService.markersAfterFilter = [];  
     self.updateMap();
+    PlacesService.noMatchingPlaces.status = false;
   }
 
   self.showDetails = function (place) {
