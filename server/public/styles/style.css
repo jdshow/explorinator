@@ -116,4 +116,21 @@ li a:hover {
 
 #logout {
   float: right;
+  
+}
+
+#mainMap {
+  margin: auto;
+  padding: 20px;
+  
+}
+
+
+#filterBox {
+    margin: auto;
+    padding-left: 20px;
+}
+
+#infoWindow {
+  height: auto;
 }

@@ -6,6 +6,8 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.markersAfterFilter = [];
     self.publicCategories = { list: [] };
     self.bounds = new google.maps.LatLngBounds();
+    self.noMatchingPlaces = {status: false};
+    self.userExists = {status: true};
 
     //map load services
     self.getPlaces = function () {
@@ -29,8 +31,17 @@ myApp.service('PlacesService', ['$http', function ($http) {
         console.log('username is', userName)
         $http.get('/places/public/cats/' + userName).then(function (response) {
             self.public = response.data;
-            self.publicCategories.list = self.public[0].categories
-            console.log('self.publicCategories', self.publicCategories.list)
+            console.log('response.data', response.data)
+            console.log('self.public', self.public)
+    
+            if (response.data.length > 0) {
+                self.publicCategories.list = self.public[0].categories
+                console.log('self.publicCategories', self.publicCategories.list)
+                self.userExists.status = true;
+            } else {
+                self.userExists.status = false;
+            }
+
 
         })
     }
@@ -80,6 +91,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
         console.log('Places Service: filterMarkers - filter is', mapFilter, 'filterCount', filterCount)
         console.log('self.markerArray.list before loops', self.markerArray.list)
+        console.log('self.masterMarkers', self.masterMarkers)
 
         if (filterCount == 1 && mapFilter.type) {
             self.filterByType(mapFilter.type)
@@ -92,8 +104,13 @@ myApp.service('PlacesService', ['$http', function ($http) {
             console.log('calling filterByMany')
         }
 
-
         self.markerArray.list = self.markersAfterFilter
+        if (self.markersAfterFilter.length == 0) {
+            self.noMatchingPlaces.status = true;
+        } else {
+            self.noMatchingPlaces.status = false;
+        }
+        console.log('no matching places in service', self.noMatchingPlaces.status)
         console.log('self.markerArray.list after loops', self.markerArray.list)
 
     }
@@ -103,9 +120,11 @@ myApp.service('PlacesService', ['$http', function ($http) {
         console.log('in findCat, catFilter is ', catFilter)
         console.log('self.markerArray.list.length', self.markerArray.list.length)
         for (i = 0; i < self.masterMarkers.length; i++) {
-            if (self.markerArray.list[i].category.includes(catFilter)) {
-                console.log('Found', catFilter)
-                self.markersAfterFilter.push(self.markerArray.list[i])
+            if (self.masterMarkers[i].category) {
+                if (self.masterMarkers[i].category.includes(catFilter)) {
+                    console.log('Found', catFilter)
+                    self.markersAfterFilter.push(self.masterMarkers[i])
+                }
             }
         }
     }
@@ -150,7 +169,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
         });
     };
 
-    
+
 
     //edit place services
     self.updatePlace = function (place) { //changes place to explore to favorite place

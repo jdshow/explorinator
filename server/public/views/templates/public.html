@@ -1,37 +1,46 @@
 <div ng-include="'views/partials/nav.html'"></div>
 
-<h1>{{pc.userMap}}'s public map</h1>
+<div ng-if="!pc.userExists.status">
+    <p>No user with that name found - but you can make maps of your own to share!</p>
 </div>
 
-<div>
-    <form>
-        <div>
+
+<div ng-if="pc.userExists.status">
+
+    <h1>{{pc.userMap}}'s public map</h1>
+
+
+    <div>
+        <form>
             <div>
-                <md-input-container aria-label="select place to explore or favorite place" flex-gt-sm>
-                    <label>Place to Explore or Favorite Place</label>
-                    <md-select ng-model="pc.mapFilter.type" ng-change="pc.filterMap()">
-                        <md-option value="Place to Explore">Places to Explore</md-option>
-                        <md-option value="Favorite Place">Favorite Places</md-option>
-                    </md-select>
-                </md-input-container>
+                <div>
+                    <md-input-container aria-label="select place to explore or favorite place" flex-gt-sm>
+                        <label>Place to Explore or Favorite Place</label>
+                        <md-select ng-model="pc.mapFilter.type" ng-change="pc.filterMap()">
+                            <md-option value="Place to Explore">Places to Explore</md-option>
+                            <md-option value="Favorite Place">Favorite Places</md-option>
+                        </md-select>
+                    </md-input-container>
 
-                <md-input-container aria-label="select a category" flex-gt-sm>
-                    <label>Category</label>
-                    <md-select name="categorySelector" ng-model="pc.mapFilter.category" ng-change="pc.filterMap()">
-                        <md-option ng-repeat="category in pc.publicCategories.list" value="{{category}}">
-                            {{category}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <md-button class="md-primary md-raised" ng-click="pc.clearFilter()">Clear Filter </md-button>
-            </div>
+                    <md-input-container aria-label="select a category" flex-gt-sm>
+                        <label>Category</label>
+                        <md-select name="categorySelector" ng-model="pc.mapFilter.category" ng-change="pc.filterMap()">
+                            <md-option ng-repeat="category in pc.publicCategories.list" value="{{category}}">
+                                {{category}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-button class="md-primary md-raised" ng-click="pc.clearFilter()">Clear Filter </md-button>
+                </div>
 
-            <!-- <div>
+                <div ng-show="pc.noMatchingPlaces.status">No places match that filter</div>
+
+                <!-- <div>
                     <md-input-container aria-label="input distance range" flex-gt-sm>
                         <label for="name">Within (mi):</label>
                         <input type="text" ng-model="pc.placesToShow.range">
                         <!-- replace with select options? -->
-            <!-- </md-input-container>
+                <!-- </md-input-container>
     
                     <md-input-container flex-gt-sm>
                         <input aria-label="address search bar" places-auto-complete size=80 ng-model="pc.placesToShow.address" on-place-changed="pc.startingLocation()"
@@ -40,23 +49,25 @@
                 </div>  -->
 
 
-    </form>
+        </form>
+        </div>
+        <div>
+            <ng-map id="map" zoom="11" center="current">
+                <marker ng-repeat="place in pc.markerArray.list" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
+                    title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
+                <marker icon="{{place.icon}}" position="current" title="current location" </marker>
+                    <info-window id="infoWindow">
+                        <div ng-non-bindable="">
+                            <h3>{{pc.placeToShow.type}}:</h3>
+                            <h2>{{pc.placeToShow.title}}</h2>
+                            <p><span class="detailsTitle">Address:</span> {{pc.placeToShow.address}}</p>
+                            <p ng-show="pc.place.website"><span class="detailsTitle">Website:</span> <a ng-href="{{pc.placeToShow.website}}" target="_blank">{{pc.placeToShow.website}}</a></p>
+                            <p><span class="detailsTitle">Notes:</span> {{pc.placeToShow.notes}} </p>
+                            <p ng-show="pc.place.category"><span class="detailsTitle">Category:</span> {{pc.placeToShow.category}}</p>
+                            <p ng-show="pc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{pc.placeToShow.priceRange}}</p>
+                        </div>
+                    </info-window>
+            </ng-map>
+        </div>
     </div>
-    <div>
-        <ng-map id="map" zoom="11" center="current">
-            <marker ng-repeat="place in pc.markerArray.list" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
-                title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
-            <marker icon="{{place.icon}}" position="current" title="current location" </marker>
-                <info-window id="infoWindow">
-                    <div ng-non-bindable="">
-                        <h3>{{pc.placeToShow.type}}:</h3>
-                        <h2>{{pc.placeToShow.title}}</h2>
-                        <p><span class="detailsTitle">Address:</span> {{pc.placeToShow.address}}</p>
-                        <p ng-show="pc.place.website"><span class="detailsTitle">Website:</span> <a ng-href="{{pc.placeToShow.website}}" target="_blank">{{pc.placeToShow.website}}</a></p>
-                        <p><span class="detailsTitle">Notes:</span> {{pc.placeToShow.notes}} </p>
-                        <p ng-show="pc.place.category"><span class="detailsTitle">Category:</span> {{pc.placeToShow.category}}</p>
-                        <p ng-show="pc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{pc.placeToShow.priceRange}}</p>
-                    </div>
-                </info-window>
-        </ng-map>
-    </div>
+</div>
