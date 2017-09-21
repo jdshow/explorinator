@@ -147,6 +147,15 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.place = {};
     self.address = "";
     self.newCat = "";
+    self.showOtherCat = false;
+  }
+
+  self.setCat = function() {
+    console.log('selected cat changed ', self.placeToAdd.category)
+    if (self.placeToAdd.category == "pc.newCat") {
+      console.log('gotta and new, show the thing')
+      self.showOtherCat = true;
+    }
   }
 
   self.cancelNewPlace = function() {

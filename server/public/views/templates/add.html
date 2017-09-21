@@ -8,7 +8,7 @@
         <div layout-gt-xs="row">
 
           <md-input-container class="md-block" flex-gt-sm>
-            <h2>Step 1: Find the Place</h2>
+            <h2>Find the Place</h2>
             <input aria-label="address search bar" places-auto-complete size=80 ng-model="pc.address" component-restrictions="{country:'us'}"
               on-place-changed="pc.placeChanged()">
             <!-- <div>
@@ -21,10 +21,6 @@
 
 
         <div>
-          <h2>
-            Step 2: Info
-          </h2>
-
           <h3>Basic Info (required)</h3>
 
           <md-input-container aria-label="select place to explore or favorite place" class="md-block" flex-gt-sm>
@@ -62,14 +58,15 @@
 
           <md-input-container aria-label="select a category" class="md-block" flex-gt-sm>
             <label>Category</label>
-            <md-select name="categorySelector" ng-model="pc.placeToAdd.category">
+            <md-select name="categorySelector" ng-change="pc.setCat()" ng-model="pc.placeToAdd.category">
               <md-option ng-repeat="category in pc.categories.list" value="{{category}}">
                 {{category}}
               </md-option>
               <md-option value="pc.newCat">Other</md-option>
             </md-select>
-            <md-input-container aria-label="add a new category"><input ng-model="pc.newCat" type="text" name="category" id="category" /></md-input-container>
           </md-input-container>
+          <md-input-container ng-if="pc.showOtherCat" aria-label="add a new category"><input ng-model="pc.newCat" type="text" name="category" id="category" /></md-input-container>
+          
 
 
 
