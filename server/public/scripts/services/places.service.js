@@ -7,7 +7,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.publicCategories = { list: [] };
     self.bounds = new google.maps.LatLngBounds();
     self.noMatchingPlaces = {status: false};
-    self.userExists = {status: false};
+    self.userExists = {status: true};
 
     //map load services
     self.getPlaces = function () {
