@@ -152,7 +152,8 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   self.setCat = function() {
     console.log('selected cat changed ', self.placeToAdd.category)
-    if (self.placeToAdd.category == "pc.newCat") {
+  
+    if (self.placeToAdd.category == "pc.newCat" || self.placeToEdit.category == "pc.newCat") {
       console.log('gotta and new, show the thing')
       self.showOtherCat = true;
     }
