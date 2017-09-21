@@ -3,6 +3,7 @@ body, html {
   padding: 0;
   font-family: sans-serif;
   font-size: 14px;
+  background-image: url("assets/topography.png")   /* Background pattern from Subtle Patterns */
 }
 
 .instructions .container h1 {
@@ -49,7 +50,7 @@ body, html {
 }
 
 .navbar {
-  background-color: #333333;
+  background-color: seagreen;
   width: 100%;
   border-radius: 0px;
 }
@@ -91,24 +92,10 @@ li a:hover {
   max-width: 400px;
 }
 
-.favoritePlace {
-  color: green;
-}
-
-#detailsPane {
-  margin: 20px;
-  padding: 20px;
-  border-radius: 20px;
-  background-color: lightgray;
-}
-
 .detailsTitle {
   font-weight: 800;
 }
 
-#editPane {
-  background-color: lightblue;
-}
 
 #newPlaceForm {
   max-width: 600px;
@@ -116,15 +103,12 @@ li a:hover {
 
 #logout {
   float: right;
-  
 }
 
 #mainMap {
   margin: auto;
   padding: 20px;
-  
 }
-
 
 #filterBox {
     margin: auto;
@@ -133,4 +117,8 @@ li a:hover {
 
 #infoWindow {
   height: auto;
+}
+
+#navbar {
+  color: white;
 }

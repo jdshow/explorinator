@@ -66,9 +66,9 @@ myApp.service('PlacesService', ['$http', function ($http) {
             }
             //set icon based on place type
             if (array[i].placeType == "Favorite Place") {
-                marker.icon = "{ url:'/assets/FavePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
+                marker.icon = "{ url:'styles/assets/FavePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
             } else {
-                marker.icon = "{ url:'/assets/ExplorePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
+                marker.icon = "{ url:'styles/assets/ExplorePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
                 marker.explore = true;
             }
 
