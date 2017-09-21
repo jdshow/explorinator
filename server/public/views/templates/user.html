@@ -63,9 +63,9 @@
                     <h2>{{pc.placeToShow.title}}</h2>
                     <p><span class="detailsTitle">Address:</span> {{pc.placeToShow.address}}</p>
                     <p ng-show="pc.place.website"><span class="detailsTitle">Website:</span> <a ng-href="{{pc.placeToShow.website}}" target="_blank">{{pc.placeToShow.website}}</a></p>
-                    <p><span class="detailsTitle">Notes:</span> {{pc.placeToShow.notes}} </p>
+                    <p ng-show="pc.place.notes"><span class="detailsTitle">Notes:</span> {{pc.placeToShow.notes}} </p>
                     <p ng-show="pc.place.category"><span class="detailsTitle">Category:</span> {{pc.placeToShow.category}}</p>
-                    <p ng-show="pc.place.priceRange"><span class="detailsTitle">Price Range:</span> {{pc.placeToShow.priceRange}}</p>
+                    <p ng-show="pc.place.private"><img src="assets/ic_lock_outline_black_24px.svg"> Location not displayed on public map</p>
                     <md-button ng-if="pc.place.explore" ng-click="pc.makeFave(pc.place)">Make a Favorite Place</md-button>
                     <button ng-click="pc.deletePlace(pc.place)">Delete</button>
                     <!--make icon instead of link and add confirm dialog-->

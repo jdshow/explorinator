@@ -130,3 +130,7 @@ li a:hover {
     margin: auto;
     padding-left: 20px;
 }
+
+#infoWindow {
+  height: auto;
+}
