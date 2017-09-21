@@ -1,4 +1,4 @@
-myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog', '$mdToast', 'NgMap', function (UserService, PlacesService, $mdDialog, $mdToast, NgMap) {
+myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog', '$mdToast', 'NgMap', '$location', function (UserService, PlacesService, $mdDialog, $mdToast, NgMap, $location) {
   console.log('InfoController created');
   var self = this;
   self.userService = UserService;
@@ -158,20 +158,20 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   //toast on successuful add
 
-  // self.showActionToast = function () {
-  //   var toast = $mdToast.simple()
-  //     .textContent('Place added!')
-  //     .action('Go to Map')
-  //     .highlightAction(true)
-  //     .highlightClass('md-accent')// Accent is used by default, this just demonstrates the usage.
-  //     .position("Top Right");
+  self.showActionToast = function () {
+    var toast = $mdToast.simple()
+      .textContent('Place added!')
+      .action('Go to Map')
+      .highlightAction(true)
+      .highlightClass('md-accent')// Accent is used by default, this just demonstrates the usage.
+      .position("bottom right");
 
-  //   $mdToast.show(toast).then(function (response) {
-  //     if (response == 'ok') {
-  //       alert('you want to go to map!');
-  //     }
-  //   });
-  // };
+    $mdToast.show(toast).then(function (response) {
+      if (response == 'ok') {
+        $location.path('/user');
+      }
+    });
+  };
 
   //delete place controls
   self.deletePlace = function (place) {
