@@ -3,7 +3,7 @@
 <div id="newPlaceForm" layout="column">
   <md-content layout-padding>
     <div>
-      <form name="userForm">
+      <form name="userForm" >
 
         <div layout-gt-xs="row">
 
@@ -21,7 +21,7 @@
 
 
         <div>
-          <h3>Basic Info (required)</h3>
+          <h3>Basic Info (required)</h3> <h3 id="missingDataAlert" ng-show="pc.showAlert">CHECK REQUIRED FIELDS</h3>
 
           <md-input-container aria-label="select place to explore or favorite place" class="md-block" flex-gt-sm>
             <label>Place to Explore or Favorite Place</label>
@@ -37,14 +37,15 @@
             <input type="text" ng-model="pc.placeToAdd.name">
           </md-input-container>
 
+
+
+          <h3>More Info (optional)</h3>
+
           <md-input-container aria-label="checkbox for private" class="md-block" flex-gt-sm>
             <md-checkbox ng-model="pc.placeToAdd.private" aria-label="private?">
               Private (do not display on my public maps)
             </md-checkbox>
           </md-input-container>
-
-
-          <h3>More Info (optional)</h3>
 
           <md-input-container aria-label="input place's website" class="md-block" flex-gt-sm>
             <label for="website">Website:</label>
@@ -86,7 +87,7 @@
 
           <!--add photo upload-->
           <md-button aria-label="cancel button" class="md-raised" ng-click="pc.cancelNewPlace()">Cancel</md-button>
-          <md-button aria-label="submit button" type="submit" ng-click="pc.addPlace(); pc.showActionToast()" class="md-primary md-raised">Add it!</md-button>
+          <md-button aria-label="submit button" type="submit" class="md-primary md-raised" ng-click="pc.addPlace()">Add it!</md-button>
         </div>
 
       </form>

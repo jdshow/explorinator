@@ -137,19 +137,29 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   self.addPlace = function () { //calls service method to POST new place to db, clears place inputs
-    if (self.newCat != "") {
-    //  console.log(self.newCat)
-      UserService.addCat(self.newCat);
-      // UserService.getUser();  -- need to be able to refresh categories
-      self.placeToAdd.category = self.newCat;
-     // UserService.getuser();
+    if (self.placeToAdd.name  &&  self.placeToAdd.type) {
+      if (self.newCat != "") {
+        //  console.log(self.newCat)
+          UserService.addCat(self.newCat);
+          // UserService.getUser();  -- need to be able to refresh categories
+          self.placeToAdd.category = self.newCat;
+         // UserService.getuser();
+        }
+        PlacesService.addPlace(self.placeToAdd);
+        self.showActionToast(self.placeToAdd)
+        self.placeToAdd = {};
+        self.place = {};
+        self.address = "";
+        self.newCat = "";
+        self.showOtherCat = false;
+        self.showAlert = false;
+    
+    } else {
+      self.showAlert = true;
     }
-    PlacesService.addPlace(self.placeToAdd);
-    self.placeToAdd = {};
-    self.place = {};
-    self.address = "";
-    self.newCat = "";
-    self.showOtherCat = false;
+    
+   
+
   }
 
   self.setCat = function() {
@@ -170,9 +180,9 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   //toast on successuful add
 
-  self.showActionToast = function () {
+  self.showActionToast = function (newPlace) {
     var toast = $mdToast.simple()
-      .textContent('Place added!')
+      .textContent(newPlace.name, 'added!')
       .action('Go to Map')
       .highlightAction(true)
       .highlightClass('md-accent')// Accent is used by default, this just demonstrates the usage.
