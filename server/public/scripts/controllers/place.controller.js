@@ -12,6 +12,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.categories = UserService.categories;
   self.newCat = "";
   self.bounds = PlacesService.bounds;
+  self.noMatchingPlaces = PlacesService.noMatchingPlaces;
 
 
   //initialize map
@@ -65,12 +66,14 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     //run map refresh function with new GET params
     PlacesService.filterMarkers(self.mapFilter);
     //self.updateMap();
+    console.log('no matching places in controller', self.noMatchingPlaces)
   }
 
   self.clearFilter = function() {
     self.mapFilter = {};
     PlacesService.markersAfterFilter = [];  
     self.updateMap();
+    PlacesService.noMatchingPlaces.status = false;
   }
 
 

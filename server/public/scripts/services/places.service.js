@@ -6,6 +6,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.markersAfterFilter = [];
     self.publicCategories = { list: [] };
     self.bounds = new google.maps.LatLngBounds();
+    self.noMatchingPlaces ={status: false};
 
     //map load services
     self.getPlaces = function () {
@@ -84,28 +85,34 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
         if (filterCount == 1 && mapFilter.type) {
             self.filterByType(mapFilter.type)
-            console.log('calling filterByType')
+           // console.log('calling filterByType')
         } else if (filterCount == 1 && mapFilter.category) {
             self.filterByCat(mapFilter.category)
-            console.log('calling filterByCat')
+          //  console.log('calling filterByCat')
         } else if (filterCount == 2) {
             self.filterByMany(mapFilter.type, mapFilter.category)
-            console.log('calling filterByMany')
+           // console.log('calling filterByMany')
         }
 
         self.markerArray.list = self.markersAfterFilter
-        console.log('self.markerArray.list after loops', self.markerArray.list)
+        if (self.markersAfterFilter.length == 0) {
+            self.noMatchingPlaces.status = true;
+        } else {
+            self.noMatchingPlaces.status = false;
+        }
+        console.log('no matching places in service', self.noMatchingPlaces.status)
+    //    console.log('self.markerArray.list after loops', self.markerArray.list)
 
     }
 
 
     self.filterByCat = function (catFilter) {
-        console.log('in findCat, catFilter is ', catFilter)
-        console.log('self.markerArray.list.length', self.markerArray.list.length)
+      //  console.log('in findCat, catFilter is ', catFilter)
+      //  console.log('self.markerArray.list.length', self.markerArray.list.length)
         for (i = 0; i < self.masterMarkers.length; i++) {
             if (self.masterMarkers[i].category) {
                 if (self.masterMarkers[i].category.includes(catFilter)) {
-                    console.log('Found', catFilter)
+                  //  console.log('Found', catFilter)
                     self.markersAfterFilter.push(self.masterMarkers[i])
                 }
             }
@@ -116,7 +123,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
         console.log('typeFilter is ', typeFilter)
         for (i = 0; i < self.masterMarkers.length; i++) {
             if (self.masterMarkers[i].type.includes(typeFilter)) {
-                console.log('Found', typeFilter)
+               // console.log('Found', typeFilter)
                 self.markersAfterFilter.push(self.masterMarkers[i])
             }
         }
@@ -126,15 +133,15 @@ myApp.service('PlacesService', ['$http', function ($http) {
         console.log('in filter by many')
         for (i = 0; i < self.masterMarkers.length; i++) {
             if (self.masterMarkers[i].type.includes(typeFilter)) {
-                console.log('found type', typeFilter);
+               // console.log('found type', typeFilter);
                 if (self.masterMarkers[i].category.includes(catFilter)) {
-                    console.log('Found both', typeFilter, catFilter)
+                   // console.log('Found both', typeFilter, catFilter)
                     self.markersAfterFilter.push(self.masterMarkers[i])
                 } else {
-                    console.log('not both')
+                    //console.log('not both')
                 }
             } else {
-                console.log('no match')
+                //console.log('no match')
             }
         }
     }
