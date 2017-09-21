@@ -10,6 +10,7 @@ myApp.factory('UserService', function ($http, $location) {
     categories: categories,
     
 
+
     getuser: function () {
       // console.log('UserService -- getuser');
       $http.get('/user').then(function (response) {
@@ -40,12 +41,11 @@ myApp.factory('UserService', function ($http, $location) {
 
     addCat: function (cat) {
       console.log('cat is ', cat)
-      var category = {category: cat};
+      var category = { category: cat };
       $http.put('/user/cats', category).then(function (response) {
         //getUser();
       });
     },
-
 
 
   };

@@ -13,6 +13,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.newCat = "";
 
 
+
   //initialize map
   NgMap.getMap('map').then(function (map) {
     self.map = map;
@@ -57,6 +58,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     })
   };
 
+  //filter controls
   self.filterMap = function() {
     console.log('filter options', self.mapFilter)
     //run map refresh function with new GET params
@@ -176,13 +178,13 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   //filestack controls
-  self.client = filestack.init('A2o83QviQ7GRKGiIDPkUOz');
-  self.showPicker = function () {
-    client.pick({
-    }).then(function (result) {
-      console.log(JSON.stringify(result.filesUploaded))
-    });
-  }
+  // self.client = filestack.init('A2o83QviQ7GRKGiIDPkUOz');
+  // self.showPicker = function () {
+  //   client.pick({
+  //   }).then(function (result) {
+  //     console.log(JSON.stringify(result.filesUploaded))
+  //   });
+  // }
 
   //marker init
   self.updateMap();

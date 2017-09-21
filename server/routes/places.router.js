@@ -46,6 +46,21 @@ router.get('/public/:userName', function (req, res) {
     });
 });
 
+router.get('/public/cats/:userName', function (req, res) {
+    // console.log('placesRouter - get / req.username:', req.user.username);
+    // console.log('userName is ', req.params.userName)
+    var userName = req.params.userName
+    User.find({ username: userName }, {categories: 1}, function (err, data) {
+
+        if (err) {
+            console.log('find error: ', err);
+            res.sendStatus(500);
+        } else {
+            res.send(data);
+        }
+    });
+});
+
 
 router.post('/', function (req, res) {
     console.log('req.user', req.user)

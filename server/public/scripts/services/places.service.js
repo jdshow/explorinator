@@ -4,6 +4,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.placesArray = { list: [] };
     self.markerArray = { list: [] };
     self.markersAfterFilter = [];
+    self.publicCategories = { list: [] };
 
     self.getPlaces = function () {
         $http.get('/places').then(function (response) {
@@ -87,7 +88,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
     }
 
     self.filterMarkers = function (mapFilter) {
-        self.markersAfterFilter = [];  
+        self.markersAfterFilter = [];
 
         if (mapFilter.type && mapFilter.category) {
             filterCount = 2;
@@ -139,7 +140,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.filterByMany = function (typeFilter, catFilter) {
         console.log('in filter by many')
         for (i = 0; i < self.masterMarkers.length; i++) {
-            if (self.masterMarkers[i].type.includes(typeFilter)){
+            if (self.masterMarkers[i].type.includes(typeFilter)) {
                 console.log('found type', typeFilter);
                 if (self.masterMarkers[i].category.includes(catFilter)) {
                     console.log('Found both', typeFilter, catFilter)
@@ -151,6 +152,19 @@ myApp.service('PlacesService', ['$http', function ($http) {
                 console.log('no match')
             }
         }
+    }
+
+
+
+
+    self.getUserCatsByName = function (userName) {
+        console.log('username is', userName)
+        $http.get('/places/public/cats/' + userName).then(function (response) {
+            self.public = response.data;
+            self.publicCategories.list = self.public[0].categories
+            console.log('self.publicCategories', self.publicCategories.list)
+
+        })
     }
 
 
