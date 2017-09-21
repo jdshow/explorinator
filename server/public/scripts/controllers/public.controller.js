@@ -16,13 +16,13 @@ myApp.controller('PublicController', function (UserService, PlacesService, NgMap
     self.map.fitBounds(self.bounds);
   })
 
-  //initialize categories for filter
-  self.getPublicCats = function(){
+  //initialize user categories for public filter
+  self.getPublicCats = function () {
     PlacesService.getUserCatsByName(self.userMap)
   }
 
   self.getPublicCats();
-  
+
   //main map controls
 
   self.updateMap = function () { //get data from server
@@ -39,19 +39,19 @@ myApp.controller('PublicController', function (UserService, PlacesService, NgMap
     self.map.showInfoWindow('infoWindow', this);
   }
 
-    //filter controls
-    self.filterMap = function() {
-      console.log('filter options', self.mapFilter)
-      //run map refresh function with new GET params
-      PlacesService.filterMarkers(self.mapFilter);
-      //self.updateMap();
-    }
-  
-    self.clearFilter = function() {
-      self.mapFilter = {};
-      PlacesService.markersAfterFilter = [];  
-      self.updateMap();
-    }
+  //filter controls
+  self.filterMap = function () {
+    console.log('filter options', self.mapFilter)
+    //run map refresh function with new GET params
+    PlacesService.filterMarkers(self.mapFilter);
+    //self.updateMap();
+  }
+
+  self.clearFilter = function () {
+    self.mapFilter = {};
+    PlacesService.markersAfterFilter = [];
+    self.updateMap();
+  }
 
   self.showDetails = function (place) {
     console.log('place is ', place)

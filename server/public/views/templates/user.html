@@ -9,7 +9,7 @@
 
 
 
-<div>
+<div id="filterBox">
     <form>
         <div>
             <md-input-container aria-label="select place to explore or favorite place" flex-gt-sm>
@@ -52,7 +52,7 @@
 
 
 
-<div>
+<div id="mainMap">
     <ng-map id="map" zoom="11" center="current">
         <marker ng-repeat="place in pc.markerArray.list" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
             title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>

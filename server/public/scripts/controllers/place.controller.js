@@ -31,7 +31,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   self.updateMap = function () { //get data from server
     PlacesService.getPlaces();
-    console.log('markerArray', self.markerArray)
+   // console.log('markerArray', self.markerArray)
     console.log('categories in PC ', self.categories)
   }
 
@@ -43,10 +43,10 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   self.showDetails = function (place) {
-    console.log('place is ', place)
-    console.log('self.place is', self.place)
+   // console.log('place is ', place)
+    //console.log('self.place is', self.place)
     PlacesService.detailsData(self.place);
-    console.log('place clicked', self.placeToShow)
+   // console.log('place clicked', self.placeToShow)
     $mdDialog.show({
       controller: 'PlaceController',
       controllerAs: 'pc',
@@ -61,7 +61,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   //filter controls
   self.filterMap = function() {
-    console.log('filter options', self.mapFilter)
+   // console.log('filter options', self.mapFilter)
     //run map refresh function with new GET params
     PlacesService.filterMarkers(self.mapFilter);
     //self.updateMap();
@@ -80,7 +80,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   //edit mode in material
   self.showEdit = function (place) {
     PlacesService.editData(self.place);
-    console.log('place to show is', place)
+  //  console.log('place to show is', place)
     $mdDialog.show({
       controller: 'PlaceController',
       controllerAs: 'pc',
@@ -101,10 +101,11 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.updatePlace = function (place) { // call service method to update data
     self.place = place; //what is this doing
     if (self.newCat != "") {
-      console.log(self.newCat)
+    //  console.log(self.newCat)
       UserService.addCat(self.newCat);
       //call function to add category to db (on check??)
       self.placeToEdit.category = self.newCat;
+      UserService.getuser();
     }
     self.newCat = "";
     PlacesService.updatePlace(place); //has to be place or it breaks *shrug*
@@ -126,9 +127,9 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.placeChanged = function () {
     self.place = this.getPlace();
     self.placeToAdd = this.getPlace();
-    console.log('self.place', self.place)
+   // console.log('self.place', self.place)
 
-    console.log(self.place.geometry.location.lat(), self.place.geometry.location.lng());
+  //  console.log(self.place.geometry.location.lat(), self.place.geometry.location.lng());
     self.placeToAdd.lat = self.place.geometry.location.lat();
     self.placeToAdd.lng = self.place.geometry.location.lng();
     //console.log('location', self.place.geometry.location);
@@ -137,10 +138,11 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
 
   self.addPlace = function () { //calls service method to POST new place to db, clears place inputs
     if (self.newCat != "") {
-      console.log(self.newCat)
+    //  console.log(self.newCat)
       UserService.addCat(self.newCat);
       // UserService.getUser();  -- need to be able to refresh categories
       self.placeToAdd.category = self.newCat;
+     // UserService.getuser();
     }
     PlacesService.addPlace(self.placeToAdd);
     self.placeToAdd = {};
@@ -151,10 +153,10 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   self.setCat = function() {
-    console.log('selected cat changed ', self.placeToAdd.category)
+    //console.log('selected cat changed ', self.placeToAdd.category)
   
     if (self.placeToAdd.category == "pc.newCat" || self.placeToEdit.category == "pc.newCat") {
-      console.log('gotta and new, show the thing')
+      //console.log('gotta add new, show the thing')
       self.showOtherCat = true;
     }
   }
