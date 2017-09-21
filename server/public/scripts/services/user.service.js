@@ -8,6 +8,8 @@ myApp.factory('UserService', function ($http, $location) {
   return {
     userObject: userObject,
     categories: categories,
+    
+
 
     getuser: function () {
       // console.log('UserService -- getuser');
@@ -39,12 +41,11 @@ myApp.factory('UserService', function ($http, $location) {
 
     addCat: function (cat) {
       console.log('cat is ', cat)
-      var category = {category: cat};
+      var category = { category: cat };
       $http.put('/user/cats', category).then(function (response) {
         //getUser();
       });
     },
-
 
 
   };

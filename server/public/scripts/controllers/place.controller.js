@@ -8,8 +8,10 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.placeToAdd = {}
   self.placeToEdit = PlacesService.placeToEdit;
   self.map = {};
+  self.mapFilter = {};
   self.categories = UserService.categories;
   self.newCat = "";
+
 
 
   //initialize map
@@ -56,15 +58,18 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     })
   };
 
-  self.showFilters = function() {
-    self.filters = true;
+  //filter controls
+  self.filterMap = function() {
+    console.log('filter options', self.mapFilter)
+    //run map refresh function with new GET params
+    PlacesService.filterMarkers(self.mapFilter);
+    //self.updateMap();
   }
 
-  self.filterMap = function() {
-    console.log('starting location', self.startingLocationFound)
-    console.log('filter options', self.placesToShow)
-    self.filters = false;
-    //run map refresh function with new GET params
+  self.clearFilter = function() {
+    self.mapFilter = {};
+    PlacesService.markersAfterFilter = [];  
+    self.updateMap();
   }
 
 
@@ -133,6 +138,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     if (self.newCat != "") {
       console.log(self.newCat)
       UserService.addCat(self.newCat);
+      // UserService.getUser();  -- need to be able to refresh categories
       self.placeToAdd.category = self.newCat;
     }
     PlacesService.addPlace(self.placeToAdd);
@@ -172,13 +178,13 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   //filestack controls
-  self.client = filestack.init('A2o83QviQ7GRKGiIDPkUOz');
-  self.showPicker = function () {
-    client.pick({
-    }).then(function (result) {
-      console.log(JSON.stringify(result.filesUploaded))
-    });
-  }
+  // self.client = filestack.init('A2o83QviQ7GRKGiIDPkUOz');
+  // self.showPicker = function () {
+  //   client.pick({
+  //   }).then(function (result) {
+  //     console.log(JSON.stringify(result.filesUploaded))
+  //   });
+  // }
 
   //marker init
   self.updateMap();
