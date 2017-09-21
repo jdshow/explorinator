@@ -80,6 +80,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
         console.log('Places Service: filterMarkers - filter is', mapFilter, 'filterCount', filterCount)
         console.log('self.markerArray.list before loops', self.markerArray.list)
+        console.log('self.masterMarkers', self.masterMarkers)
 
         if (filterCount == 1 && mapFilter.type) {
             self.filterByType(mapFilter.type)
@@ -92,7 +93,6 @@ myApp.service('PlacesService', ['$http', function ($http) {
             console.log('calling filterByMany')
         }
 
-
         self.markerArray.list = self.markersAfterFilter
         console.log('self.markerArray.list after loops', self.markerArray.list)
 
@@ -103,9 +103,11 @@ myApp.service('PlacesService', ['$http', function ($http) {
         console.log('in findCat, catFilter is ', catFilter)
         console.log('self.markerArray.list.length', self.markerArray.list.length)
         for (i = 0; i < self.masterMarkers.length; i++) {
-            if (self.markerArray.list[i].category.includes(catFilter)) {
-                console.log('Found', catFilter)
-                self.markersAfterFilter.push(self.markerArray.list[i])
+            if (self.masterMarkers[i].category) {
+                if (self.masterMarkers[i].category.includes(catFilter)) {
+                    console.log('Found', catFilter)
+                    self.markersAfterFilter.push(self.masterMarkers[i])
+                }
             }
         }
     }
@@ -150,7 +152,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
         });
     };
 
-    
+
 
     //edit place services
     self.updatePlace = function (place) { //changes place to explore to favorite place
