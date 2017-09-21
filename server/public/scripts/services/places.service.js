@@ -5,7 +5,9 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.markerArray = { list: [] };
     self.markersAfterFilter = [];
     self.publicCategories = { list: [] };
+    self.bounds = new google.maps.LatLngBounds();
 
+    //map load services
     self.getPlaces = function () {
         $http.get('/places').then(function (response) {
             self.markerArray.list = [];
@@ -13,7 +15,6 @@ myApp.service('PlacesService', ['$http', function ($http) {
             self.buildMarkers(self.placesArray.list);
         })
     }
-
 
     self.getPublicPlaces = function (userName) {
         $http.get('/places/public/' + userName).then(function (response) {
@@ -24,43 +25,20 @@ myApp.service('PlacesService', ['$http', function ($http) {
         })
     }
 
+    self.getUserCatsByName = function (userName) {
+        console.log('username is', userName)
+        $http.get('/places/public/cats/' + userName).then(function (response) {
+            self.public = response.data;
+            self.publicCategories.list = self.public[0].categories
+            console.log('self.publicCategories', self.publicCategories.list)
 
-
-    self.addPlace = function (newPlace) {
-        console.log('place to add in service: ', newPlace)
-        $http.post('/places', newPlace).then(function (response) {
-            self.getPlaces();
-        });
-    };
-
-
-    self.updatePlace = function (place) { //changes place to explore to favorite place
-        console.log('place in service is ', place)
-        $http.put('/places', place).then(function (response) {
-            self.getPlaces();
-        });
+        })
     }
 
-    self.makeFave = function (place) { //changes place to explore to favorite place
-        $http.put('/places/fave', place).then(function (response) {
-            self.getPlaces();
-        });
-    }
-
-
-    self.deletePlace = function (place) {
-        placeId = place.id;
-        $http.delete('/places/' + placeId).then(function (response) {
-            self.getPlaces();
-        });
-    }
-
-    self.editData = function (data) {
-        self.placeToEdit = data;
-    }
 
     self.buildMarkers = function (array) {
         //builds an array of lat/long pairs and place name to create markers
+
         for (i = 0; i < array.length; i++) {
             marker = {
                 lat: array[i].lat,
@@ -82,11 +60,15 @@ myApp.service('PlacesService', ['$http', function ($http) {
                 marker.icon = "{ url:'/assets/ExplorePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
                 marker.explore = true;
             }
+
             self.markerArray.list.push(marker)
+            var latlng = new google.maps.LatLng(array[i].lat, array[i].long)
+            self.bounds.extend(latlng)
         }
         self.masterMarkers = self.markerArray.list;
     }
 
+    //map filter services
     self.filterMarkers = function (mapFilter) {
         self.markersAfterFilter = [];
 
@@ -115,6 +97,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
         console.log('self.markerArray.list after loops', self.markerArray.list)
 
     }
+
 
     self.filterByCat = function (catFilter) {
         console.log('in findCat, catFilter is ', catFilter)
@@ -157,15 +140,49 @@ myApp.service('PlacesService', ['$http', function ($http) {
 
 
 
-    self.getUserCatsByName = function (userName) {
-        console.log('username is', userName)
-        $http.get('/places/public/cats/' + userName).then(function (response) {
-            self.public = response.data;
-            self.publicCategories.list = self.public[0].categories
-            console.log('self.publicCategories', self.publicCategories.list)
 
-        })
+
+    //new place service
+    self.addPlace = function (newPlace) {
+        console.log('place to add in service: ', newPlace)
+        $http.post('/places', newPlace).then(function (response) {
+            self.getPlaces();
+        });
+    };
+
+    
+
+    //edit place services
+    self.updatePlace = function (place) { //changes place to explore to favorite place
+        console.log('place in service is ', place)
+        $http.put('/places', place).then(function (response) {
+            self.getPlaces();
+        });
     }
+
+    self.editData = function (data) {
+        self.placeToEdit = data;
+    }
+
+
+    self.makeFave = function (place) { //changes place to explore to favorite place
+        $http.put('/places/fave', place).then(function (response) {
+            self.getPlaces();
+        });
+    }
+
+
+    //delete place service
+    self.deletePlace = function (place) {
+        placeId = place.id;
+        $http.delete('/places/' + placeId).then(function (response) {
+            self.getPlaces();
+        });
+    }
+
+
+
+
 
 
 

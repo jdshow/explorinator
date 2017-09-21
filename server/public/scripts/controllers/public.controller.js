@@ -8,10 +8,12 @@ myApp.controller('PublicController', function (UserService, PlacesService, NgMap
   self.markerArray = PlacesService.markerArray;
   self.categories = PlacesService.publicCategories;
   self.placeClickedData = {};
+  self.bounds = PlacesService.bounds;
 
   //initialize map
   NgMap.getMap('map').then(function (map) {
     self.map = map;
+    self.map.fitBounds(self.bounds);
   })
 
   //initialize categories for filter
