@@ -26,6 +26,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     UserService.logout();
     PlacesService.markerArray = [];
     PlacesService.placesArray = { list: [] };
+    PlacesService.bounds = new google.maps.LatLngBounds();
   }
 
   //main map controls
