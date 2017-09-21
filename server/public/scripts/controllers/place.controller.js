@@ -11,12 +11,13 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.mapFilter = {};
   self.categories = UserService.categories;
   self.newCat = "";
-
+  self.bounds = PlacesService.bounds;
 
 
   //initialize map
   NgMap.getMap('map').then(function (map) {
     self.map = map;
+    self.map.fitBounds(self.bounds);
   })
 
   //clears data on logout
