@@ -208,7 +208,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
       .action('Go to Map')
       .highlightAction(true)
       .highlightClass('md-accent')// Accent is used by default, this just demonstrates the usage.
-      .position("bottom right");
+      .position("bottom left");
 
     $mdToast.show(toast).then(function (response) {
       if (response == 'ok') {

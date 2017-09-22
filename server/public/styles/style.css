@@ -148,7 +148,7 @@ h1 {
   margin: 15px;
 }
 
-p {
+p, label {
   font-family: 'Source Sans Pro';
   font-size: 1.2em;
 }
@@ -175,4 +175,13 @@ p {
 
 .icons {
   color: lightcoral;
+}
+
+svg {
+  color: green;
+}
+
+#homeLinks {
+  float: right;
+  padding-right: 20px;
 }
