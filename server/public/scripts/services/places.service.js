@@ -8,13 +8,15 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.bounds = new google.maps.LatLngBounds();
     self.noMatchingPlaces = {status: false};
     self.userExists = {status: true};
-
+    self.placeToEdit = {};
+    
     //map load services
     self.getPlaces = function () {
         $http.get('/places').then(function (response) {
             self.markerArray.list = [];
             self.placesArray.list = response.data
             self.buildMarkers(self.placesArray.list);
+            console.log('marker array in service is', self.markerArray.list)
         })
     }
 
@@ -66,9 +68,9 @@ myApp.service('PlacesService', ['$http', function ($http) {
             }
             //set icon based on place type
             if (array[i].placeType == "Favorite Place") {
-                marker.icon = "{ url:'/assets/FavePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
+                marker.icon = "{ url:'/styles/assets/if_heart_1055045.svg', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
             } else {
-                marker.icon = "{ url:'/assets/ExplorePin.png', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
+                marker.icon = "{ url:'/styles/assets/if_compass_1055086.svg', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
                 marker.explore = true;
             }
 

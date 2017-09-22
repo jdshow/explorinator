@@ -1,15 +1,12 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container" ng-controller="UserController as uc">
-    <button id="logout" class="btn btn-default" ng-click="pc.logout()">Log Out</button>
-    <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
+<div class="container userMap" ng-controller="UserController as uc">
+    <!-- <button id="logout" class="btn btn-default" ng-click="pc.logout()">Log Out</button> -->
+    <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}! Check out your places:</h1>
 
-    <a ng-href="localhost:5000/#/public/{{uc.userObject.userName}}">link to my public map</a>
+
 </div>
-
-
-
-
 <div id="filterBox">
+
     <form>
         <div>
             <md-input-container aria-label="select place to explore or favorite place" flex-gt-sm>
@@ -28,51 +25,72 @@
                     </md-option>
                 </md-select>
             </md-input-container>
-            <md-button class="md-primary md-raised" ng-click="pc.clearFilter()">Clear Filter </md-button>
+            <md-button class="md-raised" ng-click="pc.clearFilter()">Clear Filter </md-button>
         </div>
 
         <div ng-show="pc.noMatchingPlaces.status">No places match that filter</div>
         <!-- <div>
-                <md-input-container aria-label="input distance range" flex-gt-sm>
-                    <label for="name">Within (mi):</label>
-                    <input type="text" ng-model="pc.placesToShow.range">
-                    <!-- replace with select options? -->
+                                <md-input-container aria-label="input distance range" flex-gt-sm>
+                                    <label for="name">Within (mi):</label>
+                                    <input type="text" ng-model="pc.placesToShow.range">
+                                    <!-- replace with select options? -->
         <!-- </md-input-container>
-
-                <md-input-container flex-gt-sm>
-                    <input aria-label="address search bar" places-auto-complete size=80 ng-model="pc.placesToShow.address" on-place-changed="pc.startingLocation()"
-                        component-restrictions="{country:'us'}">
-                </md-input-container>
-            </div>  -->
+                
+                                <md-input-container flex-gt-sm>
+                                    <input aria-label="address search bar" places-auto-complete size=80 ng-model="pc.placesToShow.address" on-place-changed="pc.startingLocation()"
+                                        component-restrictions="{country:'us'}">
+                                </md-input-container>
+                            </div>  -->
 
 
     </form>
+    <div id="mainMap">
+        <ng-map id="map" zoom="11">
+            <marker ng-repeat="place in pc.markerArray.list" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
+                title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
+            <marker position="current" icon="{ url:'styles/assets/ic_person_pin_black_24px.svg', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
+                title="current location" </marker>
+
+
+                <info-window id="infoWindow">
+                    <div ng-non-bindable="">
+                        <div class="row">
+                            <p><span class="detailsType">{{pc.placeToShow.type}}: </span><span class="detailsName">{{pc.placeToShow.title}}</span></p>
+                        </div>
+
+                        <p><span class="detailsTitle">Address:</span> {{pc.placeToShow.address}}</p>
+                        <p ng-show="pc.place.website"><span class="detailsTitle">Website:</span> <a ng-href="{{pc.placeToShow.website}}" target="_blank">{{pc.placeToShow.website}}</a></p>
+                        <p ng-show="pc.place.notes"><span class="detailsTitle">Notes:</span> {{pc.placeToShow.notes}} </p>
+                        <p ng-show="pc.place.category"><span class="detailsTitle">Category:</span> {{pc.placeToShow.category}}</p>
+                        <md-button ng-if="pc.place.explore" ng-click="pc.makeFave(pc.place)">Make a Favorite Place</md-button>
+
+
+                        <md-button ng-click="pc.showConfirm($event)" class="md-icon-button md-primary" aria-label="Delete">
+                            <md-icon md-svg-icon="styles/assets/ic_delete_black_24px.svg"></md-icon>
+                        </md-button>
+
+                        <md-button ng-click="pc.showEdit(place)" class="md-icon-button md-primary" aria-label="Edit">
+                            <md-icon md-svg-icon="styles/assets/ic_edit_black_24px.svg"></md-icon>
+                        </md-button>
+
+                        <p ng-show="pc.place.private"><img src="styles/assets/ic_lock_outline_black_24px.svg"> Location not displayed on public map</p>
+                        <!-- <button ng-click="pc.showEdit(place)">Edit</button> -->
+
+
+                    </div>
+                </info-window>
+        </ng-map>
+    </div>
+
+
 </div>
 
+<div>
 
 
 
+</div>
 
-<div id="mainMap">
-    <ng-map id="map" zoom="11">
-        <marker ng-repeat="place in pc.markerArray.list" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
-            title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
-        <marker icon="{{place.icon}}" position="current" title="current location"</marker>
-            <info-window id="infoWindow">
-                <div ng-non-bindable="">
-                    <h3>{{pc.placeToShow.type}}:</h3>
-                    <h2>{{pc.placeToShow.title}}</h2>
-                    <p><span class="detailsTitle">Address:</span> {{pc.placeToShow.address}}</p>
-                    <p ng-show="pc.place.website"><span class="detailsTitle">Website:</span> <a ng-href="{{pc.placeToShow.website}}" target="_blank">{{pc.placeToShow.website}}</a></p>
-                    <p ng-show="pc.place.notes"><span class="detailsTitle">Notes:</span> {{pc.placeToShow.notes}} </p>
-                    <p ng-show="pc.place.category"><span class="detailsTitle">Category:</span> {{pc.placeToShow.category}}</p>
-                    <p ng-show="pc.place.private"><img src="assets/ic_lock_outline_black_24px.svg"> Location not displayed on public map</p>
-                    <md-button ng-if="pc.place.explore" ng-click="pc.makeFave(pc.place)">Make a Favorite Place</md-button>
-                    <button ng-click="pc.deletePlace(pc.place)">Delete</button>
-                    <!--make icon instead of link and add confirm dialog-->
-                    <button ng-click="pc.showEdit(place)">Edit</button>
-                </div>
-            </info-window>
-    </ng-map>
-
+<div id="publicLink">
+    <p>Link for sharing: <a ng-href="localhost:5000/#/public/{{uc.userObject.userName}}">my public map</a></p>
 </div>

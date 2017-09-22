@@ -1,4 +1,4 @@
-myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog', '$mdToast', 'NgMap', '$location', function (UserService, PlacesService, $mdDialog, $mdToast, NgMap, $location) {
+myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog', '$mdToast', 'NgMap', '$location',  function (UserService, PlacesService, $mdDialog, $mdToast, NgMap, $location) {
   console.log('InfoController created');
   var self = this;
   self.userService = UserService;
@@ -7,12 +7,14 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.markerArray = PlacesService.markerArray;
   self.placeToAdd = {}
   self.placeToEdit = PlacesService.placeToEdit;
+  self.placeToDelete = {};
   self.map = {};
   self.mapFilter = {};
   self.categories = UserService.categories;
   self.newCat = "";
   self.bounds = PlacesService.bounds;
   self.noMatchingPlaces = PlacesService.noMatchingPlaces;
+
 
 
   //clears data on logout
@@ -35,6 +37,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.place = place;
     self.editPlace = place;
     self.placeToShow = place;
+    self.placeToDelete = place;
     self.map.showInfoWindow('infoWindow', this);
   }
 
@@ -53,6 +56,26 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
       clickOutsideToClose: true,
       fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
     })
+  };
+
+  self.showConfirm = function(ev) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    console.log('deleting', self.placeToDelete)
+    var confirm = $mdDialog.confirm()
+          .title('Would you like to delete this place?')
+          .textContent('You cannot undo this.')
+          .ariaLabel('confirm delete')
+          .targetEvent(ev)
+          .ok('Yes')
+          .cancel('Nope');
+
+    $mdDialog.show(confirm).then(function() {
+      self.status = 'You decided to delete the place.';
+      console.log(self.status, self.placeToDelete)
+      self.deletePlace(self.placeToDelete)
+    }, function() {
+      self.status = 'You decided to keep the place.';
+    });
   };
 
   //filter controls
@@ -135,6 +158,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   self.addPlace = function () { //calls service method to POST new place to db, clears place inputs
+    console.log('place to add is ', self.placeToAdd)
     if (self.placeToAdd.name && self.placeToAdd.type) {
       if (self.newCat != "") {
         //  console.log(self.newCat)
@@ -161,7 +185,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   self.setCat = function () {
-    //console.log('selected cat changed ', self.placeToAdd.category)
+    console.log('selected cat changed ', self.placeToAdd.category)
 
     if (self.placeToAdd.category == "pc.newCat" || self.placeToEdit.category == "pc.newCat") {
       //console.log('gotta add new, show the thing')
@@ -184,7 +208,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
       .action('Go to Map')
       .highlightAction(true)
       .highlightClass('md-accent')// Accent is used by default, this just demonstrates the usage.
-      .position("bottom right");
+      .position("bottom left");
 
     $mdToast.show(toast).then(function (response) {
       if (response == 'ok') {
@@ -196,6 +220,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   //delete place controls
   self.deletePlace = function (place) {
     PlacesService.deletePlace(place);
+    self.deletePlace = {};
   }
 
   //filestack controls
