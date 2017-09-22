@@ -51,10 +51,11 @@
         </div>
 
         <div>
-            <ng-map id="map" zoom="11" center="current">
+            <ng-map id="map" zoom="11">
                 <marker ng-repeat="place in pc.markerArray.list" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
                     title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
-                <marker icon="{{place.icon}}" position="current" title="current location" </marker>
+                    <marker position="current" icon="{ url:'styles/assets/ic_person_pin_black_24px.svg', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"></marker>
+                    
                     <info-window id="infoWindow">
                         <div ng-non-bindable="">
                             <p><span class="detailsType">{{pc.placeToShow.type}}: </span><span class="detailsName">{{pc.placeToShow.title}}</span></p>
