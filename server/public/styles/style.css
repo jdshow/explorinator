@@ -7,14 +7,17 @@ body, html {
 }
 
 .instructions .container h1 {
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 4em;
+  font-family: 'Cabin Sketch', cursive;
+  max-height:46px;
+  margin-top: 2px;
+  font-weight: 800;
 }
 
 .instructions {
-  background-color: #333333;
-  color: #DDDDDD;
-  padding: 15px;
+  background-color: #2D87C3;
+  color: white;
+  padding: 5px;
 }
 
 #entryForm {
@@ -50,9 +53,11 @@ body, html {
 }
 
 .navbar {
-  background-color: seagreen;
+  background-color: #2D87C3;
+  /* background-color: yellow; */
   width: 100%;
   border-radius: 0px;
+  color: white;
 }
 
 ul {
@@ -84,21 +89,22 @@ li a:hover {
 
 #map{
   height: 400px;
-  width: 600px;
+  /* width: 600px; */
+  max-width: 100%;
 }
 
-#newPlaceMap {
-  max-height: 300px;
-  max-width: 400px;
-}
 
 .detailsTitle {
+  font-family: 'Source Sans Pro';
   font-weight: 800;
 }
 
 
 #newPlaceForm {
   max-width: 600px;
+  margin: auto;
+  padding: 10px;
+  background-color: #C7BEB9;
 }
 
 #logout {
@@ -107,18 +113,62 @@ li a:hover {
 
 #mainMap {
   margin: auto;
-  padding: 20px;
+  /* max-width: 600px; */
+  max-width: 100%;
 }
 
 #filterBox {
     margin: auto;
-    padding-left: 20px;
+    /* padding-left: 20px; */
+    background-color: #C7BEB9;
+    /* max-width: 600px; */
+    max-width: 75%;
+    border-radius: 5px;
 }
 
 #infoWindow {
   height: auto;
 }
 
-#navbar {
+.md-nav-item {
   color: white;
+}
+
+.headerPartial {
+  background-color: #05668D;
+}
+
+h2, h3 {
+  font-family: 'Comfortaa', cursive;
+}
+
+h1 {
+  font-family: 'Amatic SC', cursive;
+  font-size: 48px;
+  margin: 15px;
+}
+
+p {
+  font-family: 'Source Sans Pro';
+  font-size: 1.2em;
+}
+
+
+.detailsType {
+  font-weight: 800;
+  font-size: 1.5em;
+}
+
+.detailsName {
+  font-weight: heavy;
+  font-size: 1.5em;
+}
+
+#publicLink {
+  margin: auto;
+  max-width: 25%
+}
+
+#filters {
+  margin: auto;
 }

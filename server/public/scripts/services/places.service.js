@@ -8,13 +8,15 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.bounds = new google.maps.LatLngBounds();
     self.noMatchingPlaces = {status: false};
     self.userExists = {status: true};
-
+    self.placeToEdit = {};
+    
     //map load services
     self.getPlaces = function () {
         $http.get('/places').then(function (response) {
             self.markerArray.list = [];
             self.placesArray.list = response.data
             self.buildMarkers(self.placesArray.list);
+            console.log('marker array in service is', self.markerArray.list)
         })
     }
 

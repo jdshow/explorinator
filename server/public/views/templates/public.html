@@ -1,7 +1,5 @@
-<div ng-include="'views/partials/nav.html'"></div>
-
 <div ng-if="!pc.userExists.status">
-    <p>No user with that name found - but you can make maps of your own to share!</p>
+    <p>Oops! It doesn't look like there is a user with that name - but you can make maps of your own to share! <a href="/#/register">Register here!</a></p>
 </div>
 
 
@@ -10,9 +8,9 @@
     <h1>{{pc.userMap}}'s public map</h1>
 
 
-    <div>
-        <form>
-            <div>
+    <div id="filterBox">
+        <div>
+            <form>
                 <div>
                     <md-input-container aria-label="select place to explore or favorite place" flex-gt-sm>
                         <label>Place to Explore or Favorite Place</label>
@@ -30,7 +28,7 @@
                             </md-option>
                         </md-select>
                     </md-input-container>
-                    <md-button class="md-primary md-raised" ng-click="pc.clearFilter()">Clear Filter </md-button>
+                    <md-button ng-click="pc.clearFilter()">Clear Filter </md-button>
                 </div>
 
                 <div ng-show="pc.noMatchingPlaces.status">No places match that filter</div>
@@ -49,8 +47,9 @@
                 </div>  -->
 
 
-        </form>
+            </form>
         </div>
+
         <div>
             <ng-map id="map" zoom="11" center="current">
                 <marker ng-repeat="place in pc.markerArray.list" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
@@ -58,8 +57,8 @@
                 <marker icon="{{place.icon}}" position="current" title="current location" </marker>
                     <info-window id="infoWindow">
                         <div ng-non-bindable="">
-                            <h3>{{pc.placeToShow.type}}:</h3>
-                            <h2>{{pc.placeToShow.title}}</h2>
+                            <p><span class="detailsType">{{pc.placeToShow.type}}: </span><span class="detailsName">{{pc.placeToShow.title}}</span></p>
+
                             <p><span class="detailsTitle">Address:</span> {{pc.placeToShow.address}}</p>
                             <p ng-show="pc.place.website"><span class="detailsTitle">Website:</span> <a ng-href="{{pc.placeToShow.website}}" target="_blank">{{pc.placeToShow.website}}</a></p>
                             <p><span class="detailsTitle">Notes:</span> {{pc.placeToShow.notes}} </p>

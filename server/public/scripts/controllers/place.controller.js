@@ -1,4 +1,4 @@
-myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog', '$mdToast', 'NgMap', '$location', function (UserService, PlacesService, $mdDialog, $mdToast, NgMap, $location) {
+myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog', '$mdToast', 'NgMap', '$location',  function (UserService, PlacesService, $mdDialog, $mdToast, NgMap, $location) {
   console.log('InfoController created');
   var self = this;
   self.userService = UserService;
@@ -14,6 +14,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.newCat = "";
   self.bounds = PlacesService.bounds;
   self.noMatchingPlaces = PlacesService.noMatchingPlaces;
+
 
 
   //clears data on logout
@@ -157,6 +158,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   self.addPlace = function () { //calls service method to POST new place to db, clears place inputs
+    console.log('place to add is ', self.placeToAdd)
     if (self.placeToAdd.name && self.placeToAdd.type) {
       if (self.newCat != "") {
         //  console.log(self.newCat)
@@ -183,7 +185,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   }
 
   self.setCat = function () {
-    //console.log('selected cat changed ', self.placeToAdd.category)
+    console.log('selected cat changed ', self.placeToAdd.category)
 
     if (self.placeToAdd.category == "pc.newCat" || self.placeToEdit.category == "pc.newCat") {
       //console.log('gotta add new, show the thing')
