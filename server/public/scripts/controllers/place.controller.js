@@ -1,4 +1,4 @@
-myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog', '$mdToast', 'NgMap', '$location',  function (UserService, PlacesService, $mdDialog, $mdToast, NgMap, $location) {
+myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog', '$mdToast', 'NgMap', '$location', function (UserService, PlacesService, $mdDialog, $mdToast, NgMap, $location) {
   console.log('InfoController created');
   var self = this;
   self.userService = UserService;
@@ -14,23 +14,16 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.newCat = "";
   self.bounds = PlacesService.bounds;
   self.noMatchingPlaces = PlacesService.noMatchingPlaces;
+  PlacesService.publicFlag.status = false;
 
-
-
-  //clears data on logout
-  self.logout = function () {
-    UserService.logout();
-    PlacesService.markerArray = [];
-    PlacesService.placesArray = { list: [] };
-    PlacesService.bounds = new google.maps.LatLngBounds();
-  }
 
   //main map controls
 
   self.updateMap = function () { //get data from server
+    console.log('places controller, self.updateMap()')
     PlacesService.getPlaces();
     // console.log('markerArray', self.markerArray)
-    console.log('categories in PC ', self.categories)
+    //console.log('categories in PC ', self.categories)
   }
 
   self.showInfoWindow = function (e, place) {
@@ -58,22 +51,22 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     })
   };
 
-  self.showConfirm = function(ev) {
+  self.showConfirm = function (ev) {
     // Appending dialog to document.body to cover sidenav in docs app
     console.log('deleting', self.placeToDelete)
     var confirm = $mdDialog.confirm()
-          .title('Would you like to delete this place?')
-          .textContent('You cannot undo this.')
-          .ariaLabel('confirm delete')
-          .targetEvent(ev)
-          .ok('Yes')
-          .cancel('Nope');
+      .title('Would you like to delete this place?')
+      .textContent('You cannot undo this.')
+      .ariaLabel('confirm delete')
+      .targetEvent(ev)
+      .ok('Yes')
+      .cancel('Nope');
 
-    $mdDialog.show(confirm).then(function() {
+    $mdDialog.show(confirm).then(function () {
       self.status = 'You decided to delete the place.';
       console.log(self.status, self.placeToDelete)
       self.deletePlace(self.placeToDelete)
-    }, function() {
+    }, function () {
       self.status = 'You decided to keep the place.';
     });
   };
@@ -208,7 +201,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
       .action('Go to Map')
       .highlightAction(true)
       .highlightClass('md-accent')// Accent is used by default, this just demonstrates the usage.
-      .position("bottom left");
+      .position("bottom right");
 
     $mdToast.show(toast).then(function (response) {
       if (response == 'ok') {
@@ -233,15 +226,25 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   // }
 
 
+
+
+  //clears data on logout
+  self.logout = function () {
+    UserService.logout();
+    PlacesService.markerArray = [];
+    PlacesService.placesArray = { list: [] };
+    PlacesService.bounds = new google.maps.LatLngBounds();
+  }
+
   //marker init
   self.updateMap();
 
   //initialize map
   NgMap.getMap('map').then(function (map) {
+    console.log('map initialized in controller')
     self.map = map;
     self.map.fitBounds(self.bounds);
   })
-
 
 }]);
 
