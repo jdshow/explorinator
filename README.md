@@ -4,6 +4,8 @@ There are too many cool places to be able to remember all of them. Often we forg
 
 Explorinator is an app that lets users save and share the places that they love and places that they want to explore to their own map. Users can add notes and custom categories, and decide which places they want to display on their public map for friends to see.
 
+[https://explorinator.herokuapp.com/](https://explorinator.herokuapp.com/)
+
 ## Built With
 
 Technologies used: JavaScript, MEAN Stack (mongoDB, Express, AngularJS, Node.js), Google Maps API, Google Places API, AngularJS Material, Passport
