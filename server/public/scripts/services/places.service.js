@@ -77,6 +77,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
             self.markerArray.list.push(marker)
             var latlng = new google.maps.LatLng(array[i].lat, array[i].long)
             self.bounds.extend(latlng)
+            console.log('self.bounds in places service', self.bounds)
         }
         self.masterMarkers = self.markerArray.list;
     }

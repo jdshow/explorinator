@@ -1,4 +1,4 @@
-myApp.controller('LoginController', function($http, $location, UserService) {
+myApp.controller('LoginController', function($http, $location, UserService, PlacesService) {
     console.log('LoginController created');
     var vm = this;
     vm.user = {
@@ -6,6 +6,7 @@ myApp.controller('LoginController', function($http, $location, UserService) {
       password: ''
     };
     vm.message = '';
+    PlacesService.bounds = new google.maps.LatLngBounds();
 
     vm.login = function() {
       console.log('LoginController -- login');
