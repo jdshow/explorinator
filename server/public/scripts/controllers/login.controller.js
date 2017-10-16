@@ -1,4 +1,4 @@
-myApp.controller('LoginController', function($http, $location, UserService) {
+myApp.controller('LoginController', function($http, $location, UserService, PlacesService) {
     console.log('LoginController created');
     var vm = this;
     vm.user = {
@@ -6,6 +6,7 @@ myApp.controller('LoginController', function($http, $location, UserService) {
       password: ''
     };
     vm.message = '';
+    PlacesService.bounds = new google.maps.LatLngBounds();
 
     vm.login = function() {
       console.log('LoginController -- login');
@@ -20,11 +21,11 @@ myApp.controller('LoginController', function($http, $location, UserService) {
             $location.path('/user'); // http://localhost:5000/#/user
           } else {
             console.log('LoginController -- login -- failure: ', response);
-            vm.message = "Wrong!!";
+            vm.message = "Please try again!";
           }
         }).catch(function(response){
           console.log('LoginController -- registerUser -- failure: ', response);
-          vm.message = "Wrong!!";
+          vm.message = "Please try again!";
         });
       }
     };
@@ -37,6 +38,7 @@ myApp.controller('LoginController', function($http, $location, UserService) {
         console.log('LoginController -- registerUser -- sending to server...', vm.user);
         $http.post('/register', vm.user).then(function(response) {
           console.log('LoginController -- registerUser -- success');
+          PlacesService.firstLogin = true;
           $location.path('/home');
         }).catch(function(response) {
           console.log('LoginController -- registerUser -- error');

@@ -14,6 +14,18 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.newCat = "";
   self.bounds = PlacesService.bounds;
   self.noMatchingPlaces = PlacesService.noMatchingPlaces;
+  self.firstLogin = PlacesService.firstLogin
+
+
+  //clears data on logout
+  self.logout = function () {
+    UserService.logout();
+    PlacesService.markerArray = [];
+    PlacesService.placesArray = { list: [] };
+    PlacesService.bounds = new google.maps.LatLngBounds();
+    PlacesService.firstLogin = false;
+  }
+
   PlacesService.publicFlag.status = false;
 
 
@@ -243,7 +255,9 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   NgMap.getMap('map').then(function (map) {
     console.log('map initialized in controller')
     self.map = map;
-    self.map.fitBounds(self.bounds);
+ //   if (PlacesService.emptyMap == false) {
+      self.map.fitBounds(self.bounds);
+ //   } 
   })
 
 }]);

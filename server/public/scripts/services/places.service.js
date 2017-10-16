@@ -8,10 +8,9 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.bounds = new google.maps.LatLngBounds();
     self.noMatchingPlaces = { status: false };
     self.userExists = { status: true };
-    self.publicFlag = { status: false };
-
-
     self.placeToEdit = {};
+    self.firstLogin = false;
+    self.publicFlag = { status: false };
 
     //map load services
     self.getPlaces = function () {
@@ -22,6 +21,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
             self.buildMarkers(self.placesArray.list, self.publicFlag);
             console.log('marker array in service is', self.markerArray.list)
         })
+
     }
 
     self.getPlaces();
@@ -56,6 +56,9 @@ myApp.service('PlacesService', ['$http', function ($http) {
     }
 
 
+    // self.buildMarkers = function (array) {
+    //     //builds an array of lat/long pairs and place name to create markers    
+    //     console.log('places service, build markers: array.length:', array.length)
     self.buildMarkers = function (array, publicFlag) {
         console.log('places service - buildMarkers()')
         //builds an array of lat/long pairs and place name to create markers
@@ -170,10 +173,6 @@ myApp.service('PlacesService', ['$http', function ($http) {
     }
 
 
-
-
-
-
     //new place service
     self.addPlace = function (newPlace) {
         console.log('place to add in service: ', newPlace)
@@ -181,7 +180,6 @@ myApp.service('PlacesService', ['$http', function ($http) {
             self.getPlaces();
         });
     };
-
 
 
     //edit place services
@@ -213,13 +211,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
     }
 
 
-
-
-
-
-
     self.getPublicPlaces()
-
-
+   // self.getPlaces();
 
 }]);

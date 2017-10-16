@@ -185,3 +185,20 @@ svg {
   float: right;
   padding-right: 20px;
 }
+
+.loginContainer {
+  margin-left: 10px;
+}
+
+#headerLink {
+  text-decoration: none;
+  color: white;
+}
+#firstLogin {
+  margin: auto;
+  max-width: 600px;
+  background-color: white;
+  color: #05668D;
+}
+
+
