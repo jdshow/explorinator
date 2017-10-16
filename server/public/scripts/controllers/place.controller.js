@@ -15,17 +15,6 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.bounds = PlacesService.bounds;
   self.noMatchingPlaces = PlacesService.noMatchingPlaces;
   self.firstLogin = PlacesService.firstLogin
-
-
-  //clears data on logout
-  self.logout = function () {
-    UserService.logout();
-    PlacesService.markerArray = [];
-    PlacesService.placesArray = { list: [] };
-    PlacesService.bounds = new google.maps.LatLngBounds();
-    PlacesService.firstLogin = false;
-  }
-
   PlacesService.publicFlag.status = false;
 
 
@@ -227,17 +216,6 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     PlacesService.deletePlace(place);
     self.deletePlace = {};
   }
-
-  //filestack controls
-  // self.client = filestack.init('A2o83QviQ7GRKGiIDPkUOz');
-  // self.showPicker = function () {
-  //   client.pick({
-  //   }).then(function (result) {
-  //     console.log(JSON.stringify(result.filesUploaded))
-  //   });
-  // }
-
-
 
 
   //clears data on logout

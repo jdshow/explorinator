@@ -18,20 +18,19 @@ myApp.service('PlacesService', ['$http', function ($http) {
         $http.get('/places').then(function (response) {
             self.markerArray.list = [];
             self.placesArray.list = response.data
-            self.buildMarkers(self.placesArray.list, self.publicFlag);
+            self.buildMarkers(self.placesArray.list);
             console.log('marker array in service is', self.markerArray.list)
         })
-
     }
 
-    self.getPlaces();
+   // self.getPlaces();
 
     self.getPublicPlaces = function (userName) {
         $http.get('/places/public/' + userName).then(function (response) {
             self.markerArray.list = [];
             self.placesArray.list = response.data
             console.log('public places', self.placesArray, 'public markers', self.markerArray)
-            self.buildMarkers(self.placesArray.list, self.publicFlag);
+            self.buildMarkers(self.placesArray.list);
         })
     }
 
@@ -59,7 +58,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
     // self.buildMarkers = function (array) {
     //     //builds an array of lat/long pairs and place name to create markers    
     //     console.log('places service, build markers: array.length:', array.length)
-    self.buildMarkers = function (array, publicFlag) {
+    self.buildMarkers = function (array) {
         console.log('places service - buildMarkers()')
         //builds an array of lat/long pairs and place name to create markers
        // console.log('public flag is', self.publicFlag.status)

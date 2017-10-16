@@ -9,6 +9,9 @@
 
     <h1>{{pc.userMap}}'s public map</h1>
 
+    <div id="firstLogin" ng-show="pc.markerArray.list == 0">
+        <p>It looks like there aren't any saved places for this user - but you can make maps of your own to share! <a href="/#/register">Register here!</a></p>
+    </div>
 
     <div id="filterBox">
         <div>
