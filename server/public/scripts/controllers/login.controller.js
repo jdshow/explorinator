@@ -38,6 +38,7 @@ myApp.controller('LoginController', function($http, $location, UserService, Plac
         console.log('LoginController -- registerUser -- sending to server...', vm.user);
         $http.post('/register', vm.user).then(function(response) {
           console.log('LoginController -- registerUser -- success');
+          PlacesService.firstLogin = true;
           $location.path('/home');
         }).catch(function(response) {
           console.log('LoginController -- registerUser -- error');

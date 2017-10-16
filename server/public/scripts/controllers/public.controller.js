@@ -74,11 +74,6 @@ myApp.controller('PublicController', function (UserService, PlacesService, NgMap
     })
   };
 
-  document.onunload = function(){
-    console.log('left public map')
-    PlacesService.bounds = new google.maps.LatLngBounds()
-  };
-  
 
 });
 

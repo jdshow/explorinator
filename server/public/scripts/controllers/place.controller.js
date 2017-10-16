@@ -14,15 +14,18 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.newCat = "";
   self.bounds = PlacesService.bounds;
   self.noMatchingPlaces = PlacesService.noMatchingPlaces;
+  self.firstLogin = PlacesService.firstLogin
+  self.emptyMap = PlacesService.emptyMap
 
 
-
+  console.log('first login?', self.firstLogin)
   //clears data on logout
   self.logout = function () {
     UserService.logout();
     PlacesService.markerArray = [];
     PlacesService.placesArray = { list: [] };
     PlacesService.bounds = new google.maps.LatLngBounds();
+    PlacesService.firstLogin = false;
   }
 
   //main map controls
@@ -31,6 +34,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     PlacesService.getPlaces();
     // console.log('markerArray', self.markerArray)
     console.log('categories in PC ', self.categories)
+    console.log('in controller, self.emptyMap = ', self.emptyMap)
   }
 
   self.showInfoWindow = function (e, place) {
@@ -239,7 +243,9 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   //initialize map
   NgMap.getMap('map').then(function (map) {
     self.map = map;
-    self.map.fitBounds(self.bounds);
+    if (PlacesService.emptyMap == false) {
+      self.map.fitBounds(self.bounds);
+    } 
   })
 
 
