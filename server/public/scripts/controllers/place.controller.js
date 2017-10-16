@@ -16,6 +16,9 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.noMatchingPlaces = PlacesService.noMatchingPlaces;
   self.firstLogin = PlacesService.firstLogin
   PlacesService.publicFlag.status = false;
+  self.currentLat = 0;
+  self.currentLng = 0;
+  self.setCenter = "";
 
 
   //main map controls
@@ -235,8 +238,20 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.map = map;
  //   if (PlacesService.emptyMap == false) {
       self.map.fitBounds(self.bounds);
+      if (self.markerArray.list.length == 0) {
+        console.log('empty map, set center to current')
+       // navigator.geolocation.getCurrentPosition(self.setCenter);
+       // self.map.setCenter(new google.maps.LatLng(self.currentLat, self.currentLng));
+       self.setCenter = "current-location"
+      } else {
+        self.map.setCenter(self.bounds.getCenter());
+      }
+     
  //   } 
   })
+
+
+
 
 }]);
 

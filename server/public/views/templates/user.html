@@ -28,7 +28,7 @@
             <md-button class="md-raised" ng-click="pc.clearFilter()">Clear Filter </md-button>
         </div>
 
-        <div ng-show="pc.noMatchingPlaces.status">No places match that filter</div>
+        <div ng-show="pc.noMatchingPlaces.status"><p>Sorry - No saved places match that filter</p></div>
         <!-- <div>
                                 <md-input-container aria-label="input distance range" flex-gt-sm>
                                     <label for="name">Within (mi):</label>
@@ -45,7 +45,7 @@
 
     </form>
     <div id="mainMap">
-        <ng-map id="map" zoom="11" center="current-location">
+        <ng-map id="map" zoom="8" center="pc.setCenter">
             <marker ng-repeat="place in pc.markerArray.list" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
                 title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
             <marker position="current" icon="{ url:'styles/assets/ic_person_pin_black_24px.svg', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
