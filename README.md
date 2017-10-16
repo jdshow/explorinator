@@ -1,10 +1,15 @@
-# Name of Project
+# Explorinator
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+There are too many cool places to be able to remember all of them. Often we forget places that people suggest to us, or we forget places that we love when we are asked for recommendations.
+
+Explorinator is an app that lets users save and share the places that they love and places that they want to explore to their own map. Users can add notes and custom categories, and decide which places they want to display on their public map for friends to see.
+
+[https://explorinator.herokuapp.com/](https://explorinator.herokuapp.com/)
 
 ## Built With
 
-List technologies and frameworks here
+Technologies used: JavaScript, MEAN Stack (mongoDB, Express, AngularJS, Node.js), Google Maps API, Google Places API, AngularJS Material, Passport
+
 
 ## Getting Started
 
@@ -12,46 +17,35 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Link to software that is required to install the app (e.g. node).
-
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
+- Other dependencies as listed in package.json
 
 
 ### Installing
 
-Steps to get the development environment running.
-
-## Screen Shot
-
-Include one or two screen shots of your project here (optional). Remove if unused.
-
-## Documentation
-
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
+Download code, npm install dependencies
 
 ### Completed Features
 
 High level list of items completed.
 
-- [x] Feature a
-- [x] Feature b
+- [x] Users can add places to their map via google places search
+- [x] Users can edit places on their map
+- [x] Users can easily change Place to Explore to Favorite Place
+- [x] Users can add custom categories
+- [x] Non-users can view user's places on the user's public map
 
 ### Next Steps
 
 Features that you would like to add at some point in the future.
 
-- [ ] Feature c
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+- [ ] Users can become friends with other users, friends can add places to each other's maps
+- [ ] Users can add places using current location or marker drop
+- [ ] Increased search/filtering function for map
+- [ ] Alerts when user is near a marked Place to Explore
 
 ## Authors
 
-* Name of author(s)
+Jen Show
 
 
-## Acknowledgments
-
-* Hat tip to anyone who's code was used

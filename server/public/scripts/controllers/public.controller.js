@@ -11,6 +11,7 @@ myApp.controller('PublicController', function (UserService, PlacesService, NgMap
   self.bounds = PlacesService.bounds;
   self.noMatchingPlaces = PlacesService.noMatchingPlaces;
   self.userExists = PlacesService.userExists;
+  PlacesService.publicFlag.status = true;
 
   //initialize map
   NgMap.getMap('map').then(function (map) {
