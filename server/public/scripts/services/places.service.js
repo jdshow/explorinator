@@ -6,20 +6,21 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.markersAfterFilter = [];
     self.publicCategories = { list: [] };
     self.bounds = new google.maps.LatLngBounds();
-    self.noMatchingPlaces = {status: false};
-    self.userExists = {status: true};
+    self.noMatchingPlaces = { status: false };
+    self.userExists = { status: true };
     self.placeToEdit = {};
     self.firstLogin = false;
-    self.emptyMap = true;
-    
+
     //map load services
     self.getPlaces = function () {
         $http.get('/places').then(function (response) {
             self.markerArray.list = [];
             self.placesArray.list = response.data
-            self.buildMarkers(self.placesArray.list);
+            console.log('service - self.placesArray.list.length', self.placesArray.list.length)
+            self.buildMarkers(self.placesArray.list);    
             console.log('marker array in service is', self.markerArray.list)
         })
+
     }
 
     self.getPublicPlaces = function (userName) {
@@ -37,7 +38,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
             self.public = response.data;
             console.log('response.data', response.data)
             console.log('self.public', self.public)
-    
+
             if (response.data.length > 0) {
                 self.publicCategories.list = self.public[0].categories
                 console.log('self.publicCategories', self.publicCategories.list)
@@ -54,42 +55,33 @@ myApp.service('PlacesService', ['$http', function ($http) {
     self.buildMarkers = function (array) {
         //builds an array of lat/long pairs and place name to create markers    
         console.log('places service, build markers: array.length:', array.length)
-        if (array.length == 0) {
-            console.log('you have no places!')
-            self.emptyMap = true;
-        } else {
-            self.emptyMap = false;
-            for (i = 0; i < array.length; i++) {
-                marker = {
-                    lat: array[i].lat,
-                    lng: array[i].long,
-                    title: array[i].name,
-                    notes: array[i].notes,
-                    id: array[i]._id,
-                    address: array[i].address,
-                    private: array[i].private,
-                    category: array[i].category,
-                    priceRange: array[i].priceRange,
-                    type: array[i].placeType,
-                    website: array[i].website
-                }
-                //set icon based on place type
-                if (array[i].placeType == "Favorite Place") {
-                    marker.icon = "{ url:'/styles/assets/if_heart_1055045.svg', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
-                } else {
-                    marker.icon = "{ url:'/styles/assets/if_compass_1055086.svg', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
-                    marker.explore = true;
-                }
-    
-                self.markerArray.list.push(marker)
-                var latlng = new google.maps.LatLng(array[i].lat, array[i].long)
-                self.bounds.extend(latlng)
-               // console.log('self.bounds in places service', self.bounds)
+        for (i = 0; i < array.length; i++) {
+            marker = {
+                lat: array[i].lat,
+                lng: array[i].long,
+                title: array[i].name,
+                notes: array[i].notes,
+                id: array[i]._id,
+                address: array[i].address,
+                private: array[i].private,
+                category: array[i].category,
+                priceRange: array[i].priceRange,
+                type: array[i].placeType,
+                website: array[i].website
             }
+            //set icon based on place type
+            if (array[i].placeType == "Favorite Place") {
+                marker.icon = "{ url:'/styles/assets/if_heart_1055045.svg', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
+            } else {
+                marker.icon = "{ url:'/styles/assets/if_compass_1055086.svg', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
+                marker.explore = true;
+            }
+
+            self.markerArray.list.push(marker)
+            var latlng = new google.maps.LatLng(array[i].lat, array[i].long)
+            self.bounds.extend(latlng)
+            // console.log('self.bounds in places service', self.bounds)
         }
-
-
-       
         self.masterMarkers = self.markerArray.list;
     }
 
@@ -171,10 +163,6 @@ myApp.service('PlacesService', ['$http', function ($http) {
     }
 
 
-
-
-
-
     //new place service
     self.addPlace = function (newPlace) {
         console.log('place to add in service: ', newPlace)
@@ -182,7 +170,6 @@ myApp.service('PlacesService', ['$http', function ($http) {
             self.getPlaces();
         });
     };
-
 
 
     //edit place services
@@ -214,13 +201,7 @@ myApp.service('PlacesService', ['$http', function ($http) {
     }
 
 
-
-
-
-
-
     self.getPublicPlaces()
-
-
+   // self.getPlaces();
 
 }]);

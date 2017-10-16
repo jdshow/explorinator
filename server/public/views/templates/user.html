@@ -1,19 +1,12 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container userMap" ng-controller="UserController as uc">
     <!-- <button id="logout" class="btn btn-default" ng-click="pc.logout()">Log Out</button> -->
-    <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}! Check out your places:</h1>
-  
-
+    <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}! Check out your places:</h1> 
 </div>
-<div ng-if="pc.firstLogin">
-    <p>first login!!</p>
+<div id="firstLogin" ng-show="pc.markerArray.list == 0">
+    <p>It looks like you don't have any saved places. Why don't you try <a href="#add">adding a place</a>?</p>
 </div>
-
-<div ng-if="pc.emptyMap">
-    <p>You have none places! Maybe you would like to <a href="#add">add a place</a>?</p>
-</div>
-<div id="filterBox">
-
+{{pc.emptyMap.status}}
     <form>
         <div>
             <md-input-container aria-label="select place to explore or favorite place" flex-gt-sm>
