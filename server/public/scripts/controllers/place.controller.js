@@ -16,9 +16,6 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   self.noMatchingPlaces = PlacesService.noMatchingPlaces;
   self.firstLogin = PlacesService.firstLogin
   PlacesService.publicFlag.status = false;
-  self.currentLat = 0;
-  self.currentLng = 0;
-  self.setCenter = "";
 
 
   //main map controls
@@ -54,6 +51,13 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
       fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
     })
   };
+
+  //delete place controls
+  self.deletePlace = function (place) {
+    console.log('in self.deletePlace, place is ', place)
+    PlacesService.deletePlace(place);
+    self.deletePlace = {};
+  }
 
   self.showConfirm = function (ev) {
     // Appending dialog to document.body to cover sidenav in docs app
@@ -177,8 +181,6 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
       self.showAlert = true;
     }
 
-
-
   }
 
   self.setCat = function () {
@@ -214,11 +216,7 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     });
   };
 
-  //delete place controls
-  self.deletePlace = function (place) {
-    PlacesService.deletePlace(place);
-    self.deletePlace = {};
-  }
+
 
 
   //clears data on logout
@@ -236,21 +234,11 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
   NgMap.getMap('map').then(function (map) {
     console.log('map initialized in controller')
     self.map = map;
- //   if (PlacesService.emptyMap == false) {
+    if (self.markerArray.list.length > 1) {
       self.map.fitBounds(self.bounds);
-      if (self.markerArray.list.length == 0) {
-        console.log('empty map, set center to current')
-       // navigator.geolocation.getCurrentPosition(self.setCenter);
-       // self.map.setCenter(new google.maps.LatLng(self.currentLat, self.currentLng));
-       self.setCenter = "current-location"
-      } else {
-        self.map.setCenter(self.bounds.getCenter());
-      }
-     
- //   } 
+    }
+    // self.map.setCenter(self.bounds.getCenter());
   })
-
-
 
 
 }]);

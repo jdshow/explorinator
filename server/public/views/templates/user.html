@@ -3,7 +3,7 @@
     <!-- <button id="logout" class="btn btn-default" ng-click="pc.logout()">Log Out</button> -->
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}! Check out your places:</h1> 
 </div>
-<div id="firstLogin" ng-show="pc.markerArray.list == 0">
+<div id="firstLogin" ng-if="pc.markerArray.list == 0">
     <p>It looks like you don't have any saved places. Why don't you try <a href="#add">adding a place</a>?</p>
 </div>
 
@@ -45,7 +45,7 @@
 
     </form>
     <div id="mainMap">
-        <ng-map id="map" zoom="8" center="pc.setCenter">
+        <ng-map id="map" zoom="8" center="current-location">
             <marker ng-repeat="place in pc.markerArray.list" id="{{place.id}}" icon="{{place.icon}}" position="[{{place.lat}}, {{place.lng}}]"
                 title="{{place.title}}" on-click="pc.showInfoWindow(place)"></marker>
             <marker position="current" icon="{ url:'styles/assets/ic_person_pin_black_24px.svg', scaledSize:[40,40], origin: [0,0], anchor: [16,40] }"
