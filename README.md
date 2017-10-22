@@ -6,6 +6,26 @@ Explorinator is an app that lets users save and share the places that they love 
 
 [https://explorinator.herokuapp.com/](https://explorinator.herokuapp.com/)
 
+
+
+**Main map view**
+
+![Main map view](screencaps/main-map.png "Main Map")
+
+**View details about your places**
+
+![View details about your places](screencaps/place-details.png "View Details")
+
+**Add places with Google Places Autocomplete**
+
+![Add places with Google Places Autocomplet](screencaps/add-place.png "Add Places")
+
+**Create custom categories** 
+
+![Create custom categories](screencaps/custom-cats.png "Create Custom Categories")
+
+
+
 ## Built With
 
 Technologies used: JavaScript, MEAN Stack (mongoDB, Express, AngularJS, Node.js), Google Maps API, Google Places API, AngularJS Material, Passport

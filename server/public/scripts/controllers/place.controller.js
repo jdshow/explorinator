@@ -35,22 +35,22 @@ myApp.controller('PlaceController', ['UserService', 'PlacesService', '$mdDialog'
     self.map.showInfoWindow('infoWindow', this);
   }
 
-  self.showDetails = function (place) {
-    // console.log('place is ', place)
-    //console.log('self.place is', self.place)
-    PlacesService.detailsData(self.place);
-    // console.log('place clicked', self.placeToShow)
-    $mdDialog.show({
-      controller: 'PlaceController',
-      controllerAs: 'pc',
-      templateUrl: 'views/templates/details.tmpl.html',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      locals: { place: self.placeToShow },
-      clickOutsideToClose: true,
-      fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
-    })
-  };
+  // self.showDetails = function (place) {
+  //   // console.log('place is ', place)
+  //   //console.log('self.place is', self.place)
+  //   PlacesService.detailsData(self.place);
+  //   // console.log('place clicked', self.placeToShow)
+  //   $mdDialog.show({
+  //     controller: 'PlaceController',
+  //     controllerAs: 'pc',
+  //     templateUrl: 'views/templates/details.tmpl.html',
+  //     parent: angular.element(document.body),
+  //     targetEvent: ev,
+  //     locals: { place: self.placeToShow },
+  //     clickOutsideToClose: true,
+  //     fullscreen: self.customFullscreen // Only for -xs, -sm breakpoints.
+  //   })
+  // };
 
   //delete place controls
   self.deletePlace = function (place) {
